@@ -1,0 +1,137 @@
+rules_version = '2';
+
+// Navigátor péče — bezpečnostní pravidla
+//
+// Psaná od prvního commitu, ne dodatečně. Vychází z stejné logiky jako
+// appka Střídavě: appka nikdy nevěří sama sobě, věří jen tomu, co si
+// server (tato pravidla + Cloud Functions) sám ověří.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // --- Pomocné funkce -----------------------------------------------
+    // Proč funkce, ne opakovaný zápis: stejná podmínka se používá na
+    // desítkách míst níž. Jedna oprava logiky na jednom místě, ne na
+    // desítkách míst zvlášť s rizikem, že se na jedno zapomene.
+
+    function jePrihlasen() {
+      return request.auth != null;
+    }
+
+    function jeClenemRodiny(rodinaId) {
+      return jePrihlasen() &&
+        exists(/databases/$(database)/documents/families/$(rodinaId)/members/$(request.auth.uid));
+    }
+
+    function roleVRodine(rodinaId) {
+      return get(/databases/$(database)/documents/families/$(rodinaId)/members/$(request.auth.uid)).data.role;
+    }
+
+    function maPlnyPristup(rodinaId) {
+      // Proč: "host" (vzdálenější příbuzný, občasná výpomoc) vidí úkoly
+      // a kontakty, ale ne zdravotní záznamy a dokumenty — nemá roli
+      // v citlivé části péče, jen v koordinaci běžného dne.
+      return jeClenemRodiny(rodinaId) && roleVRodine(rodinaId) in ['pecovatel', 'clen'];
+    }
+
+    function jePecovatel(rodinaId) {
+      // Proč: správu členů (pozvat, odebrat) smí dělat jen hlavní
+      // pečovatel, ne kdokoli s plným přístupem k datům.
+      return jeClenemRodiny(rodinaId) && roleVRodine(rodinaId) == 'pecovatel';
+    }
+
+    // --- users/{uid} -----------------------------------------------------
+    // Vlastní profil. Nic o rodině tu není — to je záměr, viz datový model.
+
+    match /users/{uid} {
+      allow read, write: if jePrihlasen() && request.auth.uid == uid;
+    }
+
+    // --- families/{rodinaId} ---------------------------------------------
+
+    match /families/{rodinaId} {
+      allow read: if jeClenemRodiny(rodinaId);
+      allow create: if jePrihlasen();
+      allow update: if jePecovatel(rodinaId);
+      // Proč se rodina nemaže: historie péče má hodnotu i po jejím konci
+      // (třeba pro budoucí přiznání dávky). Archivace, ne mazání.
+      allow delete: if false;
+
+      match /members/{memberUid} {
+        allow read: if jeClenemRodiny(rodinaId);
+        // Proč nikdy write z appky: kdyby klient směl zapisovat členství,
+        // kdokoli se znalostí rodinaId by si mohl přidat sám sebe.
+        // Jediná cesta dovnitř je Cloud Function acceptInvite (Blok 2).
+        allow write: if false;
+      }
+
+      match /carePersons/{personId} {
+        // Proč čtou i host: biografie (jméno, zvyky, co uklidní) je součástí
+        // dokumentu carePersons a i příležitostný pečovatel ji musí vidět,
+        // aby uměl s člověkem mluvit. Psát ji smí jen ten, kdo má plný přístup.
+        allow read: if jeClenemRodiny(rodinaId);
+        allow write: if maPlnyPristup(rodinaId);
+
+        match /health/{zaznamId} {
+          // Proč přísnější než rodičovská data u carePersons: zdravotní
+          // údaje jsou zvláštní kategorie osobních údajů (GDPR čl. 9).
+          // I host, co jinak vidí většinu rodinných dat, sem nesmí.
+          allow read, write: if maPlnyPristup(rodinaId);
+        }
+
+        match /krizovyPlan/{planId} {
+          // Proč čte i host, na rozdíl od health: v krizové situaci (člověk
+          // se ztratil, odmítá jíst) může být doma zrovna ten, kdo má
+          // omezenou roli, a nesmí mu chybět přístup k postupu, co dělat.
+          // Píše ho jen ten, kdo situaci dlouhodobě zná — maPlnyPristup.
+          allow read: if jeClenemRodiny(rodinaId);
+          allow write: if maPlnyPristup(rodinaId);
+        }
+      }
+
+      match /tasks/{taskId} {
+        allow read, write: if jeClenemRodiny(rodinaId);
+      }
+
+      match /notes/{noteId} {
+        // Proč jedno pravidlo pro celý dokument, i když appka zapisuje jen
+        // text a čas: pole aiKategorie doplňuje Cloud Function s admin právy,
+        // která pravidla obchází podle návrhu — klient ho nikdy nezapisuje,
+        // ale pravidlo to nemusí řešit zvlášť, protože klient se o pole
+        // aiKategorie v appce vůbec nepokusí.
+        allow read, write: if maPlnyPristup(rodinaId);
+      }
+
+      match /documents/{documentId} {
+        allow read, write: if maPlnyPristup(rodinaId);
+      }
+
+      match /contacts/{contactId} {
+        allow read, write: if jeClenemRodiny(rodinaId);
+      }
+
+      match /invites/{inviteId} {
+        allow read: if jePecovatel(rodinaId);
+        allow create: if jePecovatel(rodinaId);
+        // Proč update/delete false: přijetí pozvánky (tj. změna jejího
+        // stavu) dělá výhradně Cloud Function, nikdy klient přímo.
+        allow update, delete: if false;
+      }
+
+      match /exports/{exportId} {
+        // Proč jen read: export je jednorázový snímek, který generuje
+        // a zapisuje výhradně Cloud Function. Appka jen čte hotový
+        // výsledek a odkaz na PDF v Cloud Storage.
+        allow read: if maPlnyPristup(rodinaId);
+        allow write: if false;
+      }
+
+      match /auditLog/{entryId} {
+        allow read: if jePecovatel(rodinaId);
+        // Proč jen server: log ztrácí smysl, pokud by si ho mohl klient
+        // sám upravit. Píšou ho jen Cloud Functions.
+        allow write: if false;
+      }
+    }
+  }
+}

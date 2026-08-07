@@ -1,0 +1,16 @@
+rules_version = '2';
+
+// Navigátor péče — Cloud Storage pravidla
+//
+// Zatím uzavřeno pro všechny. Nahrávání dokumentů a generování PDF
+// exportů přijde ve vlastním bloku (dokumenty + export), pravidla se
+// doplní přesně pro strukturu složek, která se tehdy zavede — ne
+// dopředu naslepo.
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}
