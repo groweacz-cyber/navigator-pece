@@ -1,4 +1,6 @@
-# Navigátor péče — datový model
+# Opatruj — datový model
+
+> Dříve pracovní název „V klidu“ / „Navigátor péče“. Technické identifikátory (Firebase projekt, repo, kolekce) zůstávají `navigator-pece`.
 
 Blok 1 z technického postupu (stejný vzorec jako u appky Střídavě). Tento dokument popisuje strukturu Firestore databáze a proč je navržená tak, jak je navržená — ne jak se s ní pracuje z appky, to přijde v Bloku 2 a 3.
 

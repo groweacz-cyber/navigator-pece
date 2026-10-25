@@ -1,6 +1,6 @@
 {
   "version": "0.0.1",
   "configurations": [
-    { "name": "vklidu-emul", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev:emul"], "port": 5180 }
+    { "name": "opatruj-emul", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev:emul"], "port": 5180 }
   ]
 }
