@@ -46,7 +46,7 @@ Formát: datum, rozhodnutí, důvod. Otevřené body jsou označené `OTEVŘENO`
 ## Přejmenování na Opatruj (2026-10-25, rozhodl Radek)
 - Název produktu **Opatruj** (dříve pracovní „V klidu“ / „Navigátor péče“). Doména **opatruj.cz** (kupuje Radek, do té doby se s ní nepočítá). Dvojí smysl názvu: postarej se o blízkého i „opatruj se“. Tagline (návrh ke schválení): „Opatruj své blízké. A sebe taky.“ Google Play: „Opatruj – péče o blízké“.
 - **Nemění se:** Firebase projekt `navigator-pece`, repo, `authDomain`, názvy kolekcí, názvy funkcí, `package.json` `name`.
-- **appId (Android) změněn z `cz.growea.navigatorpece` na `cz.growea.opatruj`**, protože appka není publikovaná a po vydání na Google Play by to nešlo. Složka `android/` zatím neexistuje, proto se mění jen `capacitor.config.json`. Při vytvoření Firebase Android aplikace použít nový appId. Změna je ve vlastním commitu.
+- **appId (Android) změněn z `cz.growea.navigatorpece` na `cz.growea.opatruj`**, protože appka není publikovaná a po vydání na Google Play by to nešlo. Složka `android/` zatím neexistuje, proto se mění jen `capacitor.config.json`. Při vytvoření Firebase Android aplikace použít nový appId. Změna je ve vlastním commitu. **Potvrdil Radek 2026-10-25.**
 - Změněno: UI (hlavička, přihlášení, registrace), `<title>`, meta a Open Graph, PWA `manifest.webmanifest` (bez ikon, čekají na logo), PDF (značka v hlavičce a zápatí; název souboru `opatruj-priprava-na-setreni-YYYY-MM-DD.pdf`), klíče localStorage (`opatruj.*`), dokumentace.
 - Pozicování se nemění (koordinace péče a podklady pro úřady, ne zdravotnický prostředek).
 - Nasazený web na navigator-pece.web.app zatím ukazuje starý název. Nasazení přejmenovaného klienta čeká na souhlas.
