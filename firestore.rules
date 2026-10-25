@@ -117,11 +117,19 @@ service cloud.firestore {
           request.resource.data.keys().hasAll(['osobaId', 'text', 'autorUid', 'vytvoreno']) &&
           request.resource.data.autorUid == request.auth.uid &&
           request.resource.data.vytvoreno == request.time;
-        // Proč jen text a jen autor: zpětná změna autora nebo kategorií
-        // by zkreslila historii, ze které se dělá PDF pro úřad.
-        allow update: if maPlnyPristup(rodinaId) &&
-          resource.data.autorUid == request.auth.uid &&
-          request.resource.data.diff(resource.data).affectedKeys().hasOnly(['text']);
+        // Proč dvě cesty: text smí měnit jen autor. Ruční opravu hodnocení
+        // (rucniHodnoceni) smí zapsat každý s plným přístupem, protože AI se
+        // může mýlit a rodina ji opravuje společně. AI pole (aiKategorie,
+        // aiHodnoceni) zůstávají jen serveru, oprava jde do vlastního pole
+        // a přebíjí je při výpočtu. Autora ani čas změnit nejde.
+        allow update: if maPlnyPristup(rodinaId) && (
+          (resource.data.autorUid == request.auth.uid &&
+            request.resource.data.diff(resource.data).affectedKeys().hasOnly(['text'])) ||
+          (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['rucniHodnoceni']) &&
+            request.resource.data.rucniHodnoceni is map &&
+            request.resource.data.rucniHodnoceni.keys().hasOnly(['mobilita', 'orientace', 'komunikace', 'stravovani', 'oblekani', 'hygiena', 'vylucovani', 'pece_o_zdravi', 'osobni_aktivity', 'domacnost']) &&
+            request.resource.data.rucniHodnoceni.values().hasOnly(['zvlada', 's_pomoci', 'nezvlada', 'nelze_urcit']))
+        );
         allow delete: if jePecovatel(rodinaId) ||
           (maPlnyPristup(rodinaId) && resource.data.autorUid == request.auth.uid);
       }

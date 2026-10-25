@@ -10,6 +10,7 @@ import { FieldValue, Timestamp } from 'firebase-admin/firestore'
 import { vytvoritPripravuPdf } from './pdf.js'
 
 const ROLE_POZVANKY = ['clen', 'host']
+const VSECHNY_ROLE = ['pecovatel', 'clen', 'host']
 const PLATNOST_POZVANKY_DNI = 7
 const MAX_ZAZNAMU_V_EXPORTU = 1000
 const KOD_POZVANKY = /^[A-Za-z0-9]{20}\.[A-Za-z0-9]{20}$/
@@ -123,7 +124,9 @@ export async function generovatPripravuNaSetreni(db, bucket, uid, data) {
     .get()
   const zaznamy = snimek.docs.map((d) => {
     const z = d.data()
-    return { text: z.text ?? '', vytvoreno: z.vytvoreno.toDate(), aiHodnoceni: z.aiHodnoceni ?? null }
+    // Proč rucniHodnoceni první: rodina opravila, co AI vyhodnotila špatně, a oprava
+    // má při výpočtu i v PDF přednost.
+    return { text: z.text ?? '', vytvoreno: z.vytvoreno.toDate(), aiHodnoceni: z.rucniHodnoceni ?? z.aiHodnoceni ?? null }
   })
 
   const pdf = await vytvoritPripravuPdf({ osoba: osobaDoc.data(), zaznamy })
@@ -145,4 +148,63 @@ export async function generovatPripravuNaSetreni(db, bucket, uid, data) {
   zapsatAudit(batch, db, rodinaId, uid, 'export_vytvoren', { exportId: exportRef.id, osobaId })
   await batch.commit()
   return { exportId: exportRef.id, cesta }
+}
+
+// Proč v transakci: počet pečovatelů se kontroluje ve stejném okamžiku jako zápis,
+// aby dva souběžné požadavky nemohly rodinu nechat bez správce.
+async function posledniPecovatel(tx, db, rodinaId, cilUid) {
+  const pecovatele = await tx.get(db.collection(`families/${rodinaId}/members`).where('role', '==', 'pecovatel'))
+  return pecovatele.size === 1 && pecovatele.docs[0].id === cilUid
+}
+
+export async function zmenitRoli(db, uid, data) {
+  vyzadovatPrihlaseni(uid)
+  const { rodinaId, cilUid, role } = data ?? {}
+  if (typeof rodinaId !== 'string' || typeof cilUid !== 'string' || !rodinaId || !cilUid) {
+    throw new HttpsError('invalid-argument', 'Chybí rodina nebo člen.')
+  }
+  if (!VSECHNY_ROLE.includes(role)) throw new HttpsError('invalid-argument', 'Neznámá role.')
+  if ((await nacistRoli(db, rodinaId, uid)) !== 'pecovatel') {
+    throw new HttpsError('permission-denied', 'Role mění jen hlavní pečovatel.')
+  }
+
+  return db.runTransaction(async (tx) => {
+    const cilRef = db.doc(`families/${rodinaId}/members/${cilUid}`)
+    const cil = await tx.get(cilRef)
+    if (!cil.exists) throw new HttpsError('not-found', 'Tenhle člen v rodině není.')
+    if (cil.data().role === role) return { role }
+    if (role !== 'pecovatel' && (await posledniPecovatel(tx, db, rodinaId, cilUid))) {
+      throw new HttpsError('failed-precondition', 'Rodina musí mít aspoň jednoho hlavního pečovatele. Nejdřív povyš někoho dalšího.')
+    }
+    tx.update(cilRef, { role })
+    zapsatAudit(tx, db, rodinaId, uid, 'role_zmenena', { cilUid, puvodni: cil.data().role, nova: role })
+    return { role }
+  })
+}
+
+// Odebrat smí pečovatel kohokoli, ostatní jen sami sebe (odchod z rodiny).
+export async function odebratClena(db, uid, data) {
+  vyzadovatPrihlaseni(uid)
+  const { rodinaId, cilUid } = data ?? {}
+  if (typeof rodinaId !== 'string' || typeof cilUid !== 'string' || !rodinaId || !cilUid) {
+    throw new HttpsError('invalid-argument', 'Chybí rodina nebo člen.')
+  }
+  const mojeRole = await nacistRoli(db, rodinaId, uid)
+  if (!mojeRole) throw new HttpsError('permission-denied', 'V téhle rodině nejsi.')
+  if (cilUid !== uid && mojeRole !== 'pecovatel') {
+    throw new HttpsError('permission-denied', 'Členy odebírá jen hlavní pečovatel.')
+  }
+
+  return db.runTransaction(async (tx) => {
+    const cilRef = db.doc(`families/${rodinaId}/members/${cilUid}`)
+    const cil = await tx.get(cilRef)
+    if (!cil.exists) throw new HttpsError('not-found', 'Tenhle člen v rodině není.')
+    if (cil.data().role === 'pecovatel' && (await posledniPecovatel(tx, db, rodinaId, cilUid))) {
+      throw new HttpsError('failed-precondition', 'Jsi poslední hlavní pečovatel. Nejdřív povyš někoho dalšího.')
+    }
+    tx.delete(cilRef)
+    tx.set(db.doc(`users/${cilUid}`), { mojeRodiny: FieldValue.arrayRemove(rodinaId) }, { merge: true })
+    zapsatAudit(tx, db, rodinaId, uid, cilUid === uid ? 'clen_odesel' : 'clen_odebran', { cilUid })
+    return { ok: true }
+  })
 }

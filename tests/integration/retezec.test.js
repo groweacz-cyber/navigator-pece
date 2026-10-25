@@ -6,7 +6,7 @@
 import { describe, expect, test } from 'vitest'
 import { initializeApp } from 'firebase/app'
 import { connectAuthEmulator, createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth'
-import { collection, connectFirestoreEmulator, doc, getDoc, getDocs, getFirestore, serverTimestamp, setDoc, addDoc, query, where } from 'firebase/firestore'
+import { collection, connectFirestoreEmulator, doc, getDoc, getDocs, getFirestore, serverTimestamp, setDoc, addDoc, updateDoc, query, where } from 'firebase/firestore'
 import { connectFunctionsEmulator, getFunctions, httpsCallable } from 'firebase/functions'
 import { connectStorageEmulator, getBytes, getStorage, ref } from 'firebase/storage'
 
@@ -119,5 +119,27 @@ describe('řetěz od registrace po PDF', () => {
     await signOut(auth)
     await signInWithEmailAndPassword(auth, `host${stamp}@test.cz`, 'heslo1234')
     await expect(getBytes(ref(storage, exp.cesta))).rejects.toThrow()
+    // Správa členů: poslední pečovatel se nesmí zbavit role, povýšený host už deník vidí.
+    await signOut(auth)
+    await signInWithEmailAndPassword(auth, `pecovatel${stamp}@test.cz`, 'heslo1234')
+    await expect(volat('zmenitRoli', { rodinaId, cilUid: pecovatelUid, role: 'clen' })).rejects.toMatchObject({ code: 'functions/failed-precondition' })
+    await expect(volat('odebratClena', { rodinaId, cilUid: pecovatelUid })).rejects.toMatchObject({ code: 'functions/failed-precondition' })
+    await expect(volat('zmenitRoli', { rodinaId, cilUid: hostUid, role: 'kral' })).rejects.toMatchObject({ code: 'functions/invalid-argument' })
+    await volat('zmenitRoli', { rodinaId, cilUid: hostUid, role: 'clen' })
+    expect((await getDoc(doc(db, `families/${rodinaId}/members/${hostUid}`))).data().role).toBe('clen')
+
+    await signOut(auth)
+    await signInWithEmailAndPassword(auth, `host${stamp}@test.cz`, 'heslo1234')
+    expect((await getDocs(collection(db, `families/${rodinaId}/notes`))).size).toBe(3)
+    await expect(volat('zmenitRoli', { rodinaId, cilUid: hostUid, role: 'pecovatel' })).rejects.toMatchObject({ code: 'functions/permission-denied' })
+    await expect(volat('odebratClena', { rodinaId, cilUid: pecovatelUid })).rejects.toMatchObject({ code: 'functions/permission-denied' })
+    // Ruční oprava hodnocení přebije AI.
+    await updateDoc(n1, { rucniHodnoceni: { hygiena: 'nezvlada' } })
+    expect((await getDoc(n1)).data().rucniHodnoceni).toEqual({ hygiena: 'nezvlada' })
+    await expect(updateDoc(n1, { aiHodnoceni: {} })).rejects.toThrow()
+    // Odchod z rodiny.
+    await volat('odebratClena', { rodinaId, cilUid: hostUid })
+    await expect(getDocs(collection(db, `families/${rodinaId}/notes`))).rejects.toThrow()
+    expect((await getDoc(doc(db, `users/${hostUid}`))).data().mojeRodiny).toEqual([])
   }, 120000)
 })

@@ -23,6 +23,7 @@ Rozhodnutí patřící Radkovi: krátce možnosti, jedno doporučení, riziko; p
 ## Příkazy
 - `npm run dev` / `npm run build`
 - `npm run emulators` (auth, functions, firestore, storage s mockem klasifikace) a `npm run dev:emul` (klient proti emulátorům)
+- `npm run seed` (při běžících emulátorech) naplní ukázková data: pecovatel@demo.cz / host@demo.cz, heslo demo1234
 - `npm test` = unit testy funkcí + `test:rules` (pravidla) + `test:retezec` (celý řetěz v emulátorech). Potřebuje Javu. Porty 8180/9199/5101/9499/4010, protože 8080 bývá obsazený. Po zrušeném běhu mohou zůstat osiřelé emulátory a blokovat porty.
 - Před PR: build, testy, žádné secrets v diffu.
 

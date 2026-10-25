@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
 import { NAZVY_KATEGORII, NAZVY_UROVNI } from '../services/kategorie.js'
-import { pridatZaznam, sledovatZaznamy, smazatZaznam } from '../services/notes.js'
+import { opravitHodnoceni, pridatZaznam, sledovatZaznamy, smazatZaznam, ucinneHodnoceni } from '../services/notes.js'
 import { Chyba, formatCas, Nacitani, Pole, Prazdno, useOdeslani, useSeznam } from './komponenty.jsx'
 
 function Stitky({ zaznam }) {
-  if (zaznam.aiStav === 'chyba') return <p className="stitky jemne">Zápis se nepodařilo roztřídit.</p>
-  if (!zaznam.aiStav) return <p className="stitky jemne">Třídím…</p>
-  const kategorie = Object.entries(zaznam.aiHodnoceni ?? {})
+  const opraveno = !!zaznam.rucniHodnoceni
+  if (!opraveno && zaznam.aiStav === 'chyba') return <p className="stitky jemne">Zápis se nepodařilo roztřídit. Můžeš ho roztřídit ručně.</p>
+  if (!opraveno && !zaznam.aiStav) return <p className="stitky jemne">Třídím…</p>
+  const kategorie = Object.entries(ucinneHodnoceni(zaznam))
   if (kategorie.length === 0) return <p className="stitky jemne">Žádná z potřeb tu není zmíněná.</p>
   return (
     <p className="stitky">
@@ -15,13 +16,54 @@ function Stitky({ zaznam }) {
           {NAZVY_KATEGORII[klic] ?? klic}: {NAZVY_UROVNI[uroven] ?? uroven}
         </span>
       ))}
+      {opraveno && <span className="stitek opraveno">opraveno rodinou</span>}
     </p>
+  )
+}
+
+// Oprava třídění: u každé potřeby jde nastavit, jak to šlo. "Nezmíněno" potřebu
+// ze zápisu vyřadí. Hodnocení z AI se tím nemaže, jen se přebije.
+function Oprava({ rodina, zaznam, onZavrit }) {
+  const [hodnoceni, setHodnoceni] = useState({ ...ucinneHodnoceni(zaznam) })
+  const { bezi, chyba, spustit } = useOdeslani()
+
+  const nastavit = (klic, uroven) => {
+    const dalsi = { ...hodnoceni }
+    if (uroven) dalsi[klic] = uroven
+    else delete dalsi[klic]
+    setHodnoceni(dalsi)
+  }
+  const ulozit = (e) => {
+    e.preventDefault()
+    spustit(async () => {
+      await opravitHodnoceni(rodina.id, zaznam.id, hodnoceni)
+      onZavrit()
+    })
+  }
+
+  return (
+    <form onSubmit={ulozit} className="oprava">
+      <p className="jemne">Jak to podle tebe v tomhle zápisu šlo? Oprava se použije místo odhadu AI.</p>
+      {Object.entries(NAZVY_KATEGORII).map(([klic, nazev]) => (
+        <label key={klic} className="oprava-radek">
+          <span>{nazev}</span>
+          <select value={hodnoceni[klic] ?? ''} onChange={(e) => nastavit(klic, e.target.value)}>
+            <option value="">nezmíněno</option>
+            {Object.entries(NAZVY_UROVNI).map(([u, popisek]) => <option key={u} value={u}>{popisek}</option>)}
+          </select>
+        </label>
+      ))}
+      <Chyba chyba={chyba} />
+      <button className="tlacitko" disabled={bezi}>Uložit opravu</button>
+      <button type="button" className="odkaz" onClick={onZavrit}>Zrušit</button>
+    </form>
   )
 }
 
 export default function Denik({ rodina, uid, osoby }) {
   const [osobaId, setOsobaId] = useState('')
   const [text, setText] = useState('')
+  const [opravovany, setOpravovany] = useState(null)
   const { bezi, chyba, spustit } = useOdeslani()
 
   // Výchozí osoba: první v seznamu, a pokud vybraná zmizela, znovu první.
@@ -48,7 +90,7 @@ export default function Denik({ rodina, uid, osoby }) {
       <h2>Deník péče</h2>
       <p className="jemne">
         Piš jednoduše, co se dnes dělo. Zápisy se samy roztřídí podle 10 základních životních potřeb. Třídění je
-        orientační a může se mýlit.
+        orientační a může se mýlit, proto ho můžeš opravit.
       </p>
       {osoby.length > 1 && (
         <label className="pole">
@@ -72,11 +114,18 @@ export default function Denik({ rodina, uid, osoby }) {
           <li key={z.id} className="polozka">
             <p className="cas">{formatCas(z.vytvoreno)}</p>
             <p>{z.text}</p>
-            <Stitky zaznam={z} />
-            {z.autorUid === uid && (
-              <button className="odkaz maly" onClick={() => window.confirm('Smazat tenhle zápis?') && smazatZaznam(rodina.id, z.id)}>
-                Smazat
-              </button>
+            {opravovany === z.id ? (
+              <Oprava rodina={rodina} zaznam={z} onZavrit={() => setOpravovany(null)} />
+            ) : (
+              <>
+                <Stitky zaznam={z} />
+                <button className="odkaz maly" onClick={() => setOpravovany(z.id)}>Opravit třídění</button>
+                {z.autorUid === uid && (
+                  <button className="odkaz maly" onClick={() => window.confirm('Smazat tenhle zápis?') && smazatZaznam(rodina.id, z.id)}>
+                    Smazat
+                  </button>
+                )}
+              </>
             )}
           </li>
         ))}

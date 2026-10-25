@@ -181,6 +181,24 @@ describe('notes (deník)', () => {
     await assertSucceeds(updateDoc(doc(jako('clen1'), p('notes/n1')), { text: 'opraveno' }))
   })
 
+  test('ruční oprava hodnocení: člen i pečovatel smí, host ne', async () => {
+    const oprava = { hygiena: 'nezvlada', orientace: 'zvlada' }
+    await assertSucceeds(updateDoc(doc(jako('pecovatel1'), p('notes/n1')), { rucniHodnoceni: oprava }))
+    await assertSucceeds(updateDoc(doc(jako('clen1'), p('notes/n1')), { rucniHodnoceni: {} }))
+    await assertFails(updateDoc(doc(jako('host1'), p('notes/n1')), { rucniHodnoceni: oprava }))
+    await assertFails(updateDoc(doc(jako('cizi1'), p('notes/n1')), { rucniHodnoceni: oprava }))
+  })
+
+  test('ruční oprava přijme jen známé potřeby a úrovně a nic dalšího', async () => {
+    const db = jako('clen1')
+    const n = doc(db, p('notes/n1'))
+    await assertFails(updateDoc(n, { rucniHodnoceni: { vymysleno: 'zvlada' } }))
+    await assertFails(updateDoc(n, { rucniHodnoceni: { hygiena: 'hodne' } }))
+    await assertFails(updateDoc(n, { rucniHodnoceni: 'text' }))
+    await assertFails(updateDoc(n, { rucniHodnoceni: { hygiena: 'zvlada' }, aiHodnoceni: { hygiena: 'zvlada' } }))
+    await assertFails(updateDoc(n, { rucniHodnoceni: { hygiena: 'zvlada' }, text: 'jiný text' }))
+  })
+
   test('smazat smí autor nebo pečovatel, ne jiný člen', async () => {
     await assertFails(deleteDoc(doc(jako('host1'), p('notes/n1'))))
     await assertSucceeds(deleteDoc(doc(jako('clen1'), p('notes/n1'))))

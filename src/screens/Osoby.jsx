@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { pridatOsobu, ulozitBiografii } from '../services/carePersons.js'
+import { pridatZdravotniZaznam, sledovatZdravi, smazatZdravotniZaznam } from '../services/health.js'
 import { pridatPostup, sledovatKrizovyPlan, smazatPostup } from '../services/krizovyPlan.js'
-import { Chyba, Nacitani, Pole, Prazdno, useOdeslani, useSeznam } from './komponenty.jsx'
+import { Chyba, formatCas, Nacitani, Pole, Prazdno, useOdeslani, useSeznam } from './komponenty.jsx'
 
 function Biografie({ rodina, osoba, mozeUpravit }) {
   const b = osoba.biografie ?? {}
@@ -86,6 +87,49 @@ function KrizovyPlan({ rodina, osoba, mozeUpravit }) {
   )
 }
 
+// Zdravotní záznamy: oddělená podkolekce, host ji nevidí (GDPR čl. 9). Nejde o diagnózu,
+// jen o poznámky rodiny, které se hodí lékaři (léky, vyšetření, změny).
+function Zdravi({ rodina, osoba }) {
+  const [nadpis, setNadpis] = useState('')
+  const [poznamka, setPoznamka] = useState('')
+  const { bezi, chyba, spustit } = useOdeslani()
+  const zaznamy = useSeznam((ok, ko) => sledovatZdravi(rodina.id, osoba.id, ok, ko), [rodina.id, osoba.id])
+
+  const pridat = (e) => {
+    e.preventDefault()
+    spustit(async () => {
+      await pridatZdravotniZaznam(rodina.id, osoba.id, { nadpis, poznamka })
+      setNadpis('')
+      setPoznamka('')
+    })
+  }
+
+  return (
+    <div>
+      <h4>Zdravotní poznámky</h4>
+      <p className="jemne">Léky, vyšetření, změny stavu. Vidí je jen pečovatelé a členové, ne hosté.</p>
+      {zaznamy.chyba && <Chyba chyba={zaznamy.chyba} />}
+      {!zaznamy.data && !zaznamy.chyba && <Nacitani />}
+      {zaznamy.data?.length === 0 && <Prazdno>Zatím žádné poznámky.</Prazdno>}
+      <ul className="seznam">
+        {zaznamy.data?.map((z) => (
+          <li key={z.id} className="polozka">
+            <strong>{z.nadpis}</strong> <span className="cas">{formatCas(z.vytvoreno)}</span>
+            {z.poznamka && <p>{z.poznamka}</p>}
+            <button className="odkaz maly" onClick={() => window.confirm('Smazat tuhle poznámku?') && smazatZdravotniZaznam(rodina.id, osoba.id, z.id)}>Smazat</button>
+          </li>
+        ))}
+      </ul>
+      <form onSubmit={pridat} className="karta">
+        <Pole popisek="O čem poznámka je" napoveda="Třeba „Nové léky“ nebo „Návštěva neurologa“." required maxLength={150} value={nadpis} onChange={(e) => setNadpis(e.target.value)} />
+        <Pole popisek="Podrobnosti" rows={3} maxLength={2000} value={poznamka} onChange={(e) => setPoznamka(e.target.value)} />
+        <Chyba chyba={chyba} />
+        <button className="tlacitko" disabled={bezi}>Přidat poznámku</button>
+      </form>
+    </div>
+  )
+}
+
 export default function Osoby({ rodina, osoby, plnyPristup }) {
   const [jmeno, setJmeno] = useState('')
   const [otevrena, setOtevrena] = useState(null)
@@ -122,6 +166,7 @@ export default function Osoby({ rodina, osoby, plnyPristup }) {
               <div className="rozbaleno">
                 <Biografie rodina={rodina} osoba={o} mozeUpravit={plnyPristup} />
                 <KrizovyPlan rodina={rodina} osoba={o} mozeUpravit={plnyPristup} />
+                {plnyPristup && <Zdravi rodina={rodina} osoba={o} />}
               </div>
             )}
           </li>
