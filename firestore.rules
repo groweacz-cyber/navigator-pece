@@ -47,7 +47,7 @@ service cloud.firestore {
       allow read: if jePrihlasen() && request.auth.uid == uid;
       // Proč jen jmeno a email: pole mojeRodiny určuje, do jakých rodin
       // appka uživatele pustí, takže ho píše výhradně server (zalozitRodinu,
-      // acceptInvite). Klient si ho nesmí upravit.
+      // prijmoutPozvanku). Klient si ho nesmí upravit.
       allow create: if jePrihlasen() && request.auth.uid == uid &&
         request.resource.data.keys().hasOnly(['jmeno', 'email']);
       allow update: if jePrihlasen() && request.auth.uid == uid &&
@@ -74,7 +74,7 @@ service cloud.firestore {
         allow read: if jeClenemRodiny(rodinaId);
         // Proč nikdy write z appky: kdyby klient směl zapisovat členství,
         // kdokoli se znalostí rodinaId by si mohl přidat sám sebe.
-        // Jediná cesta dovnitř je Cloud Function acceptInvite (Blok 2).
+        // Jediná cesta dovnitř je Cloud Function prijmoutPozvanku (Blok 2).
         allow write: if false;
       }
 

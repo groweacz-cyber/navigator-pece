@@ -7,7 +7,7 @@ const volat = (jmeno, data) => httpsCallable(functions, jmeno)(data).then((r) =>
 // Proč přes funkci: klient členství ani rodinu zapsat nesmí (pravidla).
 export const zalozitRodinu = (nazev) => volat('zalozitRodinu', { nazev })
 export const vytvoritPozvanku = (rodinaId, role) => volat('vytvoritPozvanku', { rodinaId, role })
-export const prijmoutPozvanku = (kod) => volat('acceptInvite', { kod })
+export const prijmoutPozvanku = (kod) => volat('prijmoutPozvanku', { kod })
 
 // Rodiny, ve kterých uživatel je, s jeho rolí. Seznam rodin drží users/{uid}.mojeRodiny
 // (píše server), název a roli si dočteme z rodiny.

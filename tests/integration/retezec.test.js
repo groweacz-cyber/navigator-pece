@@ -84,8 +84,8 @@ describe('řetěz od registrace po PDF', () => {
 
     await signOut(auth)
     const hostUid = await registrovat(`host${stamp}@test.cz`)
-    await expect(volat('acceptInvite', { kod: 'blbost' })).rejects.toMatchObject({ code: 'functions/invalid-argument' })
-    const prijato = await volat('acceptInvite', { kod: pozvanka.kod })
+    await expect(volat('prijmoutPozvanku', { kod: 'blbost' })).rejects.toMatchObject({ code: 'functions/invalid-argument' })
+    const prijato = await volat('prijmoutPozvanku', { kod: pozvanka.kod })
     expect(prijato).toEqual({ rodinaId, role: 'host' })
     expect((await getDoc(doc(db, `users/${hostUid}`))).data().mojeRodiny).toEqual([rodinaId])
     expect((await getDoc(doc(db, `families/${rodinaId}/members/${hostUid}`))).data().role).toBe('host')
@@ -95,11 +95,11 @@ describe('řetěz od registrace po PDF', () => {
     await expect(volat('vytvoritPozvanku', { rodinaId, role: 'clen' })).rejects.toMatchObject({ code: 'functions/permission-denied' })
     await expect(volat('generovatPripravuNaSetreni', { rodinaId, osobaId: osoba.id })).rejects.toMatchObject({ code: 'functions/permission-denied' })
     // Pozvánka je jednorázová.
-    await expect(volat('acceptInvite', { kod: pozvanka.kod })).rejects.toMatchObject({ code: 'functions/failed-precondition' })
+    await expect(volat('prijmoutPozvanku', { kod: pozvanka.kod })).rejects.toMatchObject({ code: 'functions/failed-precondition' })
 
     await signOut(auth)
     await registrovat(`cizi${stamp}@test.cz`)
-    await expect(volat('acceptInvite', { kod: pozvanka.kod })).rejects.toMatchObject({ code: 'functions/failed-precondition' })
+    await expect(volat('prijmoutPozvanku', { kod: pozvanka.kod })).rejects.toMatchObject({ code: 'functions/failed-precondition' })
     await expect(volat('generovatPripravuNaSetreni', { rodinaId, osobaId: osoba.id })).rejects.toMatchObject({ code: 'functions/permission-denied' })
 
     // Pečovatel vygeneruje PDF a stáhne si ho.

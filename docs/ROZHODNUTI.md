@@ -26,3 +26,4 @@ Formát: datum, rozhodnutí, důvod. Otevřené body jsou označené `OTEVŘENO`
 - **Písmo**: PDF používá Work Sans (licence OFL, `functions/fonts/OFL.txt`), aplikace ho načítá z balíčku `@fontsource/work-sans`, ne z Google Fontů (kvůli IP adresám uživatelů).
 - **Porty emulátorů**: auth 9199, functions 5101, firestore 8180, storage 9499, eventarc 9399, UI 4010.
 - Mazání deníku: autor smí smazat vlastní zápis, pečovatel libovolný. Úprava textu zápisu po klasifikaci zatím nespouští nové třídění (Issue B3).
+- 2026-10-25: Radek schválil nasazení pravidel, indexu a funkcí do produkce (včetně Storage pravidel pro exporty). Staré Cloud Run služby se nemažou. Funkce `acceptInvite` přejmenována na `prijmoutPozvanku`, aby nekolidovala se starou službou `acceptinvite`.

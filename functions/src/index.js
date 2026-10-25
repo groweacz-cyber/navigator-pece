@@ -27,7 +27,7 @@ export const zalozitRodinu = onCall((request) => rodina.zalozitRodinu(db, reques
 
 export const vytvoritPozvanku = onCall((request) => rodina.vytvoritPozvanku(db, request.auth?.uid, request.data))
 
-export const acceptInvite = onCall((request) => rodina.acceptInvite(db, request.auth?.uid, request.data))
+export const prijmoutPozvanku = onCall((request) => rodina.prijmoutPozvanku(db, request.auth?.uid, request.data))
 
 export const generovatPripravuNaSetreni = onCall({ timeoutSeconds: 120, memory: '512MiB' }, (request) =>
   rodina.generovatPripravuNaSetreni(db, getStorage().bucket(), request.auth?.uid, request.data),

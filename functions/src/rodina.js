@@ -73,7 +73,7 @@ export async function vytvoritPozvanku(db, uid, data) {
   return { kod: `${rodinaId}.${ref.id}`, platnostDo: platnostDo.toDate().toISOString() }
 }
 
-export async function acceptInvite(db, uid, data) {
+export async function prijmoutPozvanku(db, uid, data) {
   vyzadovatPrihlaseni(uid)
   const kod = typeof data?.kod === 'string' ? data.kod.trim() : ''
   if (!KOD_POZVANKY.test(kod)) throw new HttpsError('invalid-argument', 'Kód pozvánky nevypadá správně. Zkopíruj ho celý.')

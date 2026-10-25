@@ -83,14 +83,14 @@ Cloud Functions pro mechanismus A (klasifikace, generování PDF přípravy, det
 
 ## invites — proč pozvánky nejde přijmout přímo z appky
 
-Popsáno detailně v `firestore.rules` a bude implementováno jako Cloud Function v Bloku 2 (stejně jako `acceptInvite` u Střídavě). Princip: pravidla zakazují komukoli zapsat do `members`, takže o přidání nového člena rozhoduje výhradně server na základě platného, dosud nepoužitého pozvánkového tokenu — ne appka na základě toho, že někdo zná `familyId`.
+Popsáno detailně v `firestore.rules` a bude implementováno jako Cloud Function v Bloku 2 (stejně jako `prijmoutPozvanku` u Střídavě). Princip: pravidla zakazují komukoli zapsat do `members`, takže o přidání nového člena rozhoduje výhradně server na základě platného, dosud nepoužitého pozvánkového tokenu — ne appka na základě toho, že někdo zná `familyId`.
 
 ## Změny od Bloku 1 (větev stabilizace)
 
 - **Rodinu zakládá server.** `families` má `create: false`. Rodinu, prvního člena (`pecovatel`), `users.mojeRodiny` a záznam do `auditLog` zapíše callable funkce `zalozitRodinu`.
 - **`users/{uid}`**: klient smí zapsat jen `jmeno` a `email`. `mojeRodiny` píše jen server.
 - **`notes`**: klient při vytvoření smí poslat jen `osobaId`, `text`, `autorUid` (= jeho uid) a `vytvoreno` (= čas serveru). `aiKategorie` píše jen server. Upravit smí autor jen `text`.
-- **`invites`**: zakládá je jen server (`vytvoritPozvanku`, platnost 7 dní, role `clen`/`host`), klient je smí jen číst (pečovatel). Přijetí řeší `acceptInvite` v transakci.
+- **`invites`**: zakládá je jen server (`vytvoritPozvanku`, platnost 7 dní, role `clen`/`host`), klient je smí jen číst (pečovatel). Přijetí řeší `prijmoutPozvanku` v transakci.
 - **`members`** nese i `jmeno` (zkopíruje server), aby rodina viděla jména.
 - **`notes`** navíc: `aiHodnoceni` (potřeba → zvlada/s_pomoci/nezvlada/nelze_urcit) a `aiStav`.
 - **`exports`**: `typ`, `osobaId`, `cesta` (PDF ve Storage `families/{id}/exports/`), `pocetZaznamu`, `pocetBezHodnoceni`.
