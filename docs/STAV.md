@@ -1,29 +1,33 @@
 # Stav projektu
 
-Aktualizováno 2026-10-25 (převzetí vývoje).
+Aktualizováno 2026-10-25 (větev `stabilizace`, nic z toho zatím není v `main` ani nasazené v produkci).
 
-## Co je v repu (ověřeno)
-- Kostra z Bloku 1: `src/App.jsx` (dočasná úvodní obrazovka), `src/main.jsx`, `src/firebase/config.js`, Vite, `capacitor.config.json`.
-- `firestore.rules` (publikovaná ručně v konzoli, ve větvi `stabilizace` opravená, zatím nenasazená), `storage.rules` (vše zavřeno).
-- Testy pravidel (`tests/rules`), konfigurace Firebase (`firebase.json`, `.firebaserc`, `firestore.indexes.json`).
+## Hotové a ověřené v emulátorech
+- **Pravidla Firestore** opravená a pokrytá 26 testy (role × kolekce, negativní případy). `npm run test:rules`
+- **Storage pravidla**: čtení PDF exportů jen pro pečovatele a členy, zápis jen server.
+- **Funkce** (`functions/`, Node 22, region europe-west1): `zalozitRodinu`, `vytvoritPozvanku`, `acceptInvite`, `generovatPripravuNaSetreni`, trigger `klasifikovatZaznam`. Unit testy logiky (19) a integrační test celého řetězu v emulátorech (`npm run test:retezec`): registrace → rodina → pozvánka → přijetí → deník → klasifikace → PDF, včetně zamítnutí hosta a cizího uživatele.
+- **Klient**: přihlášení, registrace, založení rodiny, výběr rodiny, přijetí pozvánky (odkaz nebo kód), záložky Deník (s AI štítky), Úkoly, Osoby (biografie, krizový plán), Kontakty, Podklady (PDF), Dokumenty (zatím jen evidence), Rodina (členové, pozvánky). Prošel jsem ho v prohlížeči proti emulátorům.
+- **PDF** s českou diakritikou (Work Sans), upozornění „orientační“ v textu i v zápatí.
+- Služby bez obrazovky: `health.js` (zdravotní záznamy).
 
-## Co v repu chybí, i když to předávací popis uvádí
-- `src/services/*` (auth, family, carePersons, notes, tasks, krizovyPlan, contacts, health, exports)
-- `src/screens/*` (Register, Login, CreateFamily, Dashboard)
-- `functions/` (acceptInvite, generovatPripravuNaSetreni, klasifikovatZaznam)
-- Plnohodnotný `App.jsx`
-
-Na GitHubu nikdy nebyly (historie má 6 commitů, poslední je `config.js`). Funkce běží v cloudu nasazené z webového editoru; jejich zdroj je jen tam.
-
-## Cloud (podle předání, neověřeno)
-Firebase projekt `navigator-pece`, Blaze, Firestore `eur3`, Auth e-mail/heslo, Secret Manager `ANTHROPIC_API_KEY`, tři Cloud Run služby v `europe-west1`. Funkce nikdy nebyly otestované z klienta.
+## Neověřeno / chybí
+- **Skutečné volání Anthropic** nebylo vyzkoušeno (klíč je jen v Secret Manageru, v emulátoru běží mock). Model v kódu je `claude-sonnet-5-5`, před ostrým během ověřit jedním voláním.
+- **Region triggeru** `klasifikovatZaznam`: nasazuje se do `europe-west1`, databáze je v `eur3`. Ověřit při prvním deployi (`firebase functions:list`).
+- Nic není nasazené: produkční pravidla, funkce ani index. Staré Cloud Run služby (`acceptinvite`, `generovatprava`, `klasifikovatzaznam`) zatím existují.
+- Nahrávání dokumentů do Storage, obrazovka pro zdravotní záznamy, ruční oprava AI kategorií, výmaz účtu, App Check.
+- Android (Capacitor), ikona, zásady zpracování.
 
 ## Stav známých chyb (sekce 6 předání)
 | # | Chyba | Stav |
 |---|---|---|
-| 1 | Založení rodiny nejde (pravidla zakazují zápis do `members`) | Potvrzeno v pravidlech. Pravidla opravena (`families` create false). Chybí funkce `zalozitRodinu`. |
-| 2 | Callable funkce vrací 403 / špatné názvy | Neověřeno (kód funkcí není v repu). Řeší se přenasazením přes CLI. |
-| 3 | Node 20 končí 2026-10-30 | Otevřeno, dělá se při psaní `functions/`. |
-| 4 | `notes` dovolují klientovi zapsat `aiKategorie` | **Opraveno + otestováno** ve větvi. |
-| 5 | Chybí index pro `notes` | **Přidán** `firestore.indexes.json`. |
-| 6–11 | Odhad stupně, PDF diakritika, výběr rodiny, UI pozvánky, rozdělení Dashboardu, ochrana dat u Anthropic | Otevřeno, viz `BACKLOG.md`. |
+| 1 | Založení rodiny nejde | **Opraveno** (funkce `zalozitRodinu`, pravidla), čeká na nasazení |
+| 2 | Callable funkce vrací 403 / názvy | **Opraveno v kódu** (firebase-functions v2, veřejný invoker, názvy odpovídají klientovi), čeká na deploy |
+| 3 | Node 20 končí | **Opraveno** (`engines: 22`). Poznámka: na tomhle stroji je Node 24, emulátor běží s ním. |
+| 4 | `aiKategorie` zapisuje klient | **Opraveno + otestováno** |
+| 5 | Chybí index | **Přidán** |
+| 6 | `odhadnoutStupen` hrubý | **Předělán** (zvládá / s pomocí / nezvládá, min. 2 záznamy), metodika čeká na Radka |
+| 7 | PDF bez diakritiky | **Opraveno** |
+| 8 | Jedna rodina na uživatele | **Opraveno** (výběr rodiny) |
+| 9 | UI pozvánky | **Hotovo** (odkaz platný 7 dní, jednorázový) |
+| 10 | Dashboard jako obří obrazovka | **Rozděleno** na obrazovky, `documents` a další služby doplněny |
+| 11 | Ochrana dat při volání Anthropic | Částečně: posílá se jen text záznamu. Smluvní rámec a souhlas čeká na Radka. |

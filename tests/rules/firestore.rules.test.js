@@ -98,6 +98,8 @@ describe('families a members', () => {
     await assertFails(updateDoc(doc(jako('clen1'), `families/${RODINA}`), { nazev: 'X' }))
     await assertFails(updateDoc(doc(jako('host1'), `families/${RODINA}`), { nazev: 'X' }))
     await assertFails(deleteDoc(doc(jako('pecovatel1'), `families/${RODINA}`)))
+    // zakladatelUid a další pole klient měnit nesmí
+    await assertFails(updateDoc(doc(jako('pecovatel1'), `families/${RODINA}`), { zakladatelUid: 'pecovatel1' }))
   })
 })
 
@@ -210,27 +212,18 @@ describe('documents', () => {
 })
 
 describe('invites', () => {
-  const pozvanka = (extra = {}) => ({
-    role: 'clen', pouzita: false, vytvoril: 'pecovatel1', vytvoreno: serverTimestamp(), ...extra,
-  })
-
-  test('pozvánky vytváří a čte jen pečovatel', async () => {
-    await assertSucceeds(setDoc(doc(jako('pecovatel1'), p('invites/i2')), pozvanka()))
+  // Proč klient pozvánky nezakládá: platnost a roli určuje funkce vytvoritPozvanku.
+  test('pozvánky čte jen pečovatel', async () => {
     await assertSucceeds(getDoc(doc(jako('pecovatel1'), p('invites/i1'))))
-    await assertFails(setDoc(doc(jako('clen1'), p('invites/i3')), pozvanka({ vytvoril: 'clen1' })))
     await assertFails(getDoc(doc(jako('clen1'), p('invites/i1'))))
     await assertFails(getDoc(doc(jako('host1'), p('invites/i1'))))
   })
 
-  test('pozvánka nesmí dát roli pečovatel ani být rovnou použitá', async () => {
-    await assertFails(setDoc(doc(jako('pecovatel1'), p('invites/i2')), pozvanka({ role: 'pecovatel' })))
-    await assertFails(setDoc(doc(jako('pecovatel1'), p('invites/i2')), pozvanka({ pouzita: true })))
-    await assertFails(setDoc(doc(jako('pecovatel1'), p('invites/i2')), pozvanka({ nejakePole: 1 })))
-  })
-
-  test('klient pozvánku nemění ani nemaže', async () => {
-    await assertFails(updateDoc(doc(jako('pecovatel1'), p('invites/i1')), { pouzita: true }))
-    await assertFails(deleteDoc(doc(jako('pecovatel1'), p('invites/i1'))))
+  test('klient pozvánku nevytvoří, nezmění ani nesmaže (ani pečovatel)', async () => {
+    const db = jako('pecovatel1')
+    await assertFails(setDoc(doc(db, p('invites/i2')), { role: 'clen', pouzita: false, vytvoril: 'pecovatel1' }))
+    await assertFails(updateDoc(doc(db, p('invites/i1')), { pouzita: true }))
+    await assertFails(deleteDoc(doc(db, p('invites/i1'))))
   })
 })
 

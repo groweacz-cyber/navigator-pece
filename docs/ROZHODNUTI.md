@@ -15,3 +15,14 @@ Formát: datum, rozhodnutí, důvod. Otevřené body jsou označené `OTEVŘENO`
 4. **Ochrana dat při volání Anthropic** (minimalizace, DPA, souhlas, zásady zpracování).
 5. **Cena a model předplatného.**
 6. **Doména a název webu.**
+
+## Doplněno 2026-10-25 (přepis chybějícího kódu)
+- Chybějící `services`, `screens` a `functions` jsem napsal znovu podle popisu předání, ne podle nasazeného kódu. Rozhodnutí 1 z části OTEVŘENO výše je tím vyřešené. Nasazený kód ve Cloud Run se nepoužil.
+- **Pozvánky zakládá server** (`vytvoritPozvanku`), ne klient. Důvod: platnost (7 dní) a role nejdou podvrhnout. Kód pozvánky je `rodinaId.pozvankaId` (obě části jsou náhodné ID Firestore), předává se odkazem `/?pozvanka=…`. Pozvánka je jednorázová a po použití se zneplatní. Pozvat jako `pecovatel` nejde.
+- **Jméno v `members`**: server při vzniku členství zkopíruje jméno z `users`, protože ostatní členy `users/{uid}` číst nesmí a rodina by jinak viděla anonymní uid.
+- **Klasifikace**: model vrací pro každou zmíněnou potřebu úroveň `zvlada`, `s_pomoci`, `nezvlada` nebo `nelze_urcit`. Ukládá se `aiKategorie` (pole klíčů) i `aiHodnoceni` (klíč → úroveň) a `aiStav` (`hotovo`/`chyba`). Do služby jde jen text záznamu, bez jmen osoby a autora.
+- **Dočasná metodika odhadu stupně** (čeká na schválení, Issue „Rozhodnutí: metodika odhadu stupně“): potřeba se počítá jako nezvládaná, když jsou v deníku aspoň 2 záznamy s úrovní `s_pomoci` nebo `nezvlada`. Počet nezvládaných potřeb se převede na stupeň podle § 8 zákona 108/2006 Sb. (3–4 = I, 5–6 = II, 7–8 = III, 9–10 = IV). Zákon říká, že potřeba je nezvládaná, když člověk nezvládá aspoň jednu aktivitu z přílohy 1 vyhlášky 505/2006 Sb. Odhad je v PDF vždy označen jako orientační.
+- **Emulátorový mock klasifikace** se zapíná jen s `FUNCTIONS_EMULATOR` a `KLASIFIKACE_MOCK=1`. V produkci nejde zapnout.
+- **Písmo**: PDF používá Work Sans (licence OFL, `functions/fonts/OFL.txt`), aplikace ho načítá z balíčku `@fontsource/work-sans`, ne z Google Fontů (kvůli IP adresám uživatelů).
+- **Porty emulátorů**: auth 9199, functions 5101, firestore 8180, storage 9499, eventarc 9399, UI 4010.
+- Mazání deníku: autor smí smazat vlastní zápis, pečovatel libovolný. Úprava textu zápisu po klasifikaci zatím nespouští nové třídění (Issue B3).

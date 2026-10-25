@@ -3,10 +3,10 @@
 Pořadí a štítky viz GitHub Issues (`agent-ready`, `decision-required`).
 
 ## Fáze A: převzetí a stabilizace
-- A1 Ověřit stav repa, doplnit chybějící soubory
+- A1 Ověřit stav repa, doplnit chybějící soubory (hotovo, přepsáno)
 - A2 Dokumentace, štítky (hotovo)
 - A3 Firebase CLI konfigurace, emulátory (hotovo)
-- A4 Opravy 1–5 včetně testů pravidel (pravidla + testy hotovo, funkce `zalozitRodinu` čeká)
+- A4 Opravy 1–5 včetně testů pravidel (hotovo)
 - A5 Přenasadit funkce přes CLI (po schválení), ověřit celý řetěz z klienta
 
 ## Fáze B: použitelné jádro

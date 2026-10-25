@@ -90,6 +90,9 @@ Popsáno detailně v `firestore.rules` a bude implementováno jako Cloud Functio
 - **Rodinu zakládá server.** `families` má `create: false`. Rodinu, prvního člena (`pecovatel`), `users.mojeRodiny` a záznam do `auditLog` zapíše callable funkce `zalozitRodinu`.
 - **`users/{uid}`**: klient smí zapsat jen `jmeno` a `email`. `mojeRodiny` píše jen server.
 - **`notes`**: klient při vytvoření smí poslat jen `osobaId`, `text`, `autorUid` (= jeho uid) a `vytvoreno` (= čas serveru). `aiKategorie` píše jen server. Upravit smí autor jen `text`.
-- **`invites`**: klient (pečovatel) smí založit jen pozvánku s rolí `clen` nebo `host`, `pouzita: false`. Přijetí řeší `acceptInvite`.
+- **`invites`**: zakládá je jen server (`vytvoritPozvanku`, platnost 7 dní, role `clen`/`host`), klient je smí jen číst (pečovatel). Přijetí řeší `acceptInvite` v transakci.
+- **`members`** nese i `jmeno` (zkopíruje server), aby rodina viděla jména.
+- **`notes`** navíc: `aiHodnoceni` (potřeba → zvlada/s_pomoci/nezvlada/nelze_urcit) a `aiStav`.
+- **`exports`**: `typ`, `osobaId`, `cesta` (PDF ve Storage `families/{id}/exports/`), `pocetZaznamu`, `pocetBezHodnoceni`.
 - Do dokumentů `carePersons` přibyla podkolekce `krizovyPlan` (čte i host) a role `host` vidí biografii.
 - Index `notes`: `osobaId` + `vytvoreno` (viz `firestore.indexes.json`).

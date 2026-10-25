@@ -22,7 +22,8 @@ Rozhodnutí patřící Radkovi: krátce možnosti, jedno doporučení, riziko; p
 
 ## Příkazy
 - `npm run dev` / `npm run build`
-- `npm run test:rules`: testy Firestore pravidel v emulátoru (potřebuje Javu; porty 8180/9199/4010, protože 8080 bývá obsazený)
+- `npm run emulators` (auth, functions, firestore, storage s mockem klasifikace) a `npm run dev:emul` (klient proti emulátorům)
+- `npm test` = unit testy funkcí + `test:rules` (pravidla) + `test:retezec` (celý řetěz v emulátorech). Potřebuje Javu. Porty 8180/9199/5101/9499/4010, protože 8080 bývá obsazený. Po zrušeném běhu mohou zůstat osiřelé emulátory a blokovat porty.
 - Před PR: build, testy, žádné secrets v diffu.
 
 ## Další dokumenty

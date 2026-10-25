@@ -63,7 +63,9 @@ service cloud.firestore {
       // callable funkce zalozitRodinu. Klientský zápis rodiny by šel
       // dokončit jen zápisem do members, který je zakázaný.
       allow create: if false;
-      allow update: if jePecovatel(rodinaId);
+      // Proč jen nazev: zakladatelUid a ostatní pole mění jen server.
+      allow update: if jePecovatel(rodinaId) &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['nazev']);
       // Proč se rodina nemaže: historie péče má hodnotu i po jejím konci
       // (třeba pro budoucí přiznání dávky). Archivace, ne mazání.
       allow delete: if false;
@@ -134,13 +136,9 @@ service cloud.firestore {
 
       match /invites/{inviteId} {
         allow read: if jePecovatel(rodinaId);
-        // Proč role clen/host a pouzita == false: pozvánka nesmí zrodit
-        // dalšího pečovatele (správce členů) ani vzniknout už "použitá".
-        allow create: if jePecovatel(rodinaId) &&
-          request.resource.data.role in ['clen', 'host'] &&
-          request.resource.data.pouzita == false &&
-          request.resource.data.keys().hasOnly(['role', 'pouzita', 'vytvoril', 'vytvoreno']) &&
-          request.resource.data.vytvoril == request.auth.uid;
+        // Proč create false: pozvánku vytváří funkce vytvoritPozvanku. Datum
+        // platnosti a role se tak nedají podvrhnout z klienta.
+        allow create: if false;
         // Proč update/delete false: přijetí pozvánky (tj. změna jejího
         // stavu) dělá výhradně Cloud Function, nikdy klient přímo.
         allow update, delete: if false;
