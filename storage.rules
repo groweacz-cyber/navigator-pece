@@ -2,13 +2,22 @@ rules_version = '2';
 
 // Navigátor péče — Cloud Storage pravidla
 //
-// Zatím uzavřeno pro všechny. Nahrávání dokumentů a generování PDF
-// exportů přijde ve vlastním bloku (dokumenty + export), pravidla se
-// doplní přesně pro strukturu složek, která se tehdy zavede — ne
-// dopředu naslepo.
+// Zatím jediná povolená cesta: hotové PDF exporty (jen čtení). Nahrávání
+// dokumentů přijde ve vlastním bloku, pravidla se doplní přesně pro jeho
+// strukturu složek, ne dopředu naslepo.
 
 service firebase.storage {
   match /b/{bucket}/o {
+
+    // Proč čtení přes členství ve Firestore: PDF obsahuje zdravotní údaje,
+    // takže ho smí stáhnout jen pečovatel a člen rodiny, ne host. PDF zapisuje
+    // výhradně Cloud Function (admin práva obchází pravidla).
+    match /families/{rodinaId}/exports/{soubor} {
+      allow read: if request.auth != null &&
+        firestore.get(/databases/(default)/documents/families/$(rodinaId)/members/$(request.auth.uid)).data.role in ['pecovatel', 'clen'];
+      allow write: if false;
+    }
+
     match /{allPaths=**} {
       allow read, write: if false;
     }
