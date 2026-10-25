@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { sledovatClenyRodiny, vytvoritPozvanku } from '../services/family.js'
+import { odebratClena, sledovatClenyRodiny, vytvoritPozvanku, zmenitRoli } from '../services/family.js'
 import { Chyba, Nacitani, useOdeslani, useSeznam } from './komponenty.jsx'
 
 const ROLE = { pecovatel: 'hlavní pečovatel', clen: 'člen', host: 'host' }
@@ -51,20 +51,58 @@ function Pozvanka({ rodina }) {
   )
 }
 
-export default function Clenove({ rodina }) {
+function Clen({ rodina, clen, jsem, onChyba }) {
+  const jePecovatel = rodina.role === 'pecovatel'
+  const { bezi, spustit } = useOdeslani()
+
+  const zmenit = async (role) => {
+    onChyba(null)
+    try {
+      await zmenitRoli(rodina.id, clen.uid, role)
+      // Vlastní role se mění i v hlavičce a v nabídce záložek, nejjednodušší je načíst znovu.
+      if (jsem) window.location.reload()
+    } catch (e) {
+      onChyba(e)
+    }
+  }
+  const odebrat = () => {
+    const otazka = jsem ? 'Opravdu chceš odejít z téhle rodiny?' : `Odebrat ${clen.jmeno || 'tohoto člena'} z rodiny?`
+    if (!window.confirm(otazka)) return
+    onChyba(null)
+    spustit(() => odebratClena(rodina.id, clen.uid)).then(() => jsem && window.location.reload())
+  }
+
+  return (
+    <li className="polozka radek">
+      <div>
+        <strong>{clen.jmeno || 'Člen rodiny'}{jsem ? ' (ty)' : ''}</strong>
+        {!jePecovatel && <p className="jemne">{ROLE[clen.role] ?? clen.role}</p>}
+      </div>
+      <div className="akce-clena">
+        {jePecovatel && (
+          <select aria-label={`Role: ${clen.jmeno || 'člen'}`} value={clen.role} onChange={(e) => zmenit(e.target.value)}>
+            {Object.entries(ROLE).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
+          </select>
+        )}
+        {(jePecovatel || jsem) && (
+          <button className="odkaz maly" disabled={bezi} onClick={odebrat}>{jsem ? 'Odejít' : 'Odebrat'}</button>
+        )}
+      </div>
+    </li>
+  )
+}
+
+export default function Clenove({ rodina, uid }) {
   const clenove = useSeznam((ok, ko) => sledovatClenyRodiny(rodina.id, ok, ko), [rodina.id])
+  const [chyba, setChyba] = useState(null)
   return (
     <section>
       <h2>Rodina {rodina.nazev}</h2>
+      <Chyba chyba={chyba} />
       {clenove.chyba && <Chyba chyba={clenove.chyba} />}
       {!clenove.data && !clenove.chyba && <Nacitani />}
       <ul className="seznam">
-        {clenove.data?.map((c) => (
-          <li key={c.uid} className="polozka radek">
-            <strong>{c.jmeno || 'Člen rodiny'}</strong>
-            <span className="jemne">{ROLE[c.role] ?? c.role}</span>
-          </li>
-        ))}
+        {clenove.data?.map((c) => <Clen key={c.uid} rodina={rodina} clen={c} jsem={c.uid === uid} onChyba={setChyba} />)}
       </ul>
       {rodina.role === 'pecovatel' && <Pozvanka rodina={rodina} />}
     </section>

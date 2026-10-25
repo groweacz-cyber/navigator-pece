@@ -38,3 +38,6 @@ export function sledovatClenyRodiny(rodinaId, zmena, chyba) {
     chyba,
   )
 }
+
+export const zmenitRoli = (rodinaId, cilUid, role) => volat('zmenitRoli', { rodinaId, cilUid, role })
+export const odebratClena = (rodinaId, cilUid) => volat('odebratClena', { rodinaId, cilUid })

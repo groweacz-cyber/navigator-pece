@@ -27,3 +27,12 @@ Formát: datum, rozhodnutí, důvod. Otevřené body jsou označené `OTEVŘENO`
 - **Porty emulátorů**: auth 9199, functions 5101, firestore 8180, storage 9499, eventarc 9399, UI 4010.
 - Mazání deníku: autor smí smazat vlastní zápis, pečovatel libovolný. Úprava textu zápisu po klasifikaci zatím nespouští nové třídění (Issue B3).
 - 2026-10-25: Radek schválil nasazení pravidel, indexu a funkcí do produkce (včetně Storage pravidel pro exporty). Staré Cloud Run služby se nemažou. Funkce `acceptInvite` přejmenována na `prijmoutPozvanku`, aby nekolidovala se starou službou `acceptinvite`.
+
+## Dávka 2 (2026-10-25)
+- Radek delegoval práci na mě („všechno udělej ty“). Metodika odhadu stupně zůstává dočasná (viz výše) a doladí se na skutečných datech z provozu. Právně závazné texty a mazání cloudových služeb se tím neschvalují, ty čekají na výslovný souhlas.
+- **Ruční oprava třídění** jde do pole `rucniHodnoceni` (celá mapa potřeba → úroveň), ne do AI polí. Smí ji zapsat každý s plným přístupem. Přebíjí AI při zobrazení, v odhadu i v PDF.
+- **Poslední pečovatel** nesmí změnit roli ani odejít, rodina by zůstala bez správce. Kontrola je v transakci.
+- **Rozložení péče** ukazuje jen počty zápisů a úkolů bez hodnocení. Jen pro plný přístup (zápisy v deníku host nevidí).
+- V ostré databázi nevytvářím testovací účty. Ověření skutečného volání Anthropic proběhne jedním přihlášením Radka.
+- Emulátory: `FUNCTIONS_DISCOVERY_TIMEOUT=60`, protože na vytíženém stroji načtení funkcí překročilo výchozích 10 s.
+- 2026-10-25: Radek schválil nasazení dávky 2 (pravidla, funkce) a merge PR 13.

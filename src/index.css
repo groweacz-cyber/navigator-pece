@@ -208,3 +208,22 @@ input[type='checkbox'] { width: 28px; height: 28px; min-height: 0; accent-color:
   .polozka.radek { flex-direction: column; align-items: stretch; }
   .tlacitko.druhe { width: 100%; }
 }
+
+/* Oprava třídění, rychlá karta, správa členů */
+.stitek.opraveno { background: #e6f0e0; border-color: #6b8f5e; }
+.oprava { margin-top: 10px; padding: 12px; background: var(--pisek); border-radius: 10px; }
+.oprava-radek { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 8px; }
+.oprava-radek span { flex: 1; }
+.oprava-radek select { width: 11rem; }
+.rychla-karta .karta-jmeno { font-size: 1.6rem; margin-top: 0; }
+.karta-blok { margin: 14px 0; padding-top: 10px; border-top: 1px solid var(--pisek-tmavsi); }
+.karta-blok h3 { margin: 0 0 4px; font-size: 1.05rem; }
+.karta-blok p { font-size: 1.15rem; margin: 4px 0; }
+.akce-clena { display: flex; align-items: center; gap: 8px; }
+.akce-clena select { width: 12rem; }
+
+@media (max-width: 480px) {
+  .oprava-radek { flex-direction: column; align-items: stretch; gap: 4px; }
+  .oprava-radek select, .akce-clena select { width: 100%; }
+  .akce-clena { flex-direction: column; align-items: stretch; }
+}
