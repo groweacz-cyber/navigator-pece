@@ -1,6 +1,6 @@
 {
   "appId": "cz.growea.navigatorpece",
-  "appName": "Navigátor péče",
+  "appName": "Opatruj",
   "webDir": "dist",
   "server": {
     "androidScheme": "https"
