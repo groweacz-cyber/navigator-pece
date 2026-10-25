@@ -1,0 +1,13 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "notes",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "osobaId", "order": "ASCENDING" },
+        { "fieldPath": "vytvoreno", "order": "ASCENDING" }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

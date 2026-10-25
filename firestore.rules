@@ -44,14 +44,25 @@ service cloud.firestore {
     // Vlastní profil. Nic o rodině tu není — to je záměr, viz datový model.
 
     match /users/{uid} {
-      allow read, write: if jePrihlasen() && request.auth.uid == uid;
+      allow read: if jePrihlasen() && request.auth.uid == uid;
+      // Proč jen jmeno a email: pole mojeRodiny určuje, do jakých rodin
+      // appka uživatele pustí, takže ho píše výhradně server (zalozitRodinu,
+      // acceptInvite). Klient si ho nesmí upravit.
+      allow create: if jePrihlasen() && request.auth.uid == uid &&
+        request.resource.data.keys().hasOnly(['jmeno', 'email']);
+      allow update: if jePrihlasen() && request.auth.uid == uid &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['jmeno', 'email']);
+      allow delete: if false;
     }
 
     // --- families/{rodinaId} ---------------------------------------------
 
     match /families/{rodinaId} {
       allow read: if jeClenemRodiny(rodinaId);
-      allow create: if jePrihlasen();
+      // Proč create false: rodinu a prvního člena (pecovatel) zakládá
+      // callable funkce zalozitRodinu. Klientský zápis rodiny by šel
+      // dokončit jen zápisem do members, který je zakázaný.
+      allow create: if false;
       allow update: if jePecovatel(rodinaId);
       // Proč se rodina nemaže: historie péče má hodnotu i po jejím konci
       // (třeba pro budoucí přiznání dávky). Archivace, ne mazání.
@@ -94,12 +105,23 @@ service cloud.firestore {
       }
 
       match /notes/{noteId} {
-        // Proč jedno pravidlo pro celý dokument, i když appka zapisuje jen
-        // text a čas: pole aiKategorie doplňuje Cloud Function s admin právy,
-        // která pravidla obchází podle návrhu — klient ho nikdy nezapisuje,
-        // ale pravidlo to nemusí řešit zvlášť, protože klient se o pole
-        // aiKategorie v appce vůbec nepokusí.
-        allow read, write: if maPlnyPristup(rodinaId);
+        allow read: if maPlnyPristup(rodinaId);
+        // Proč výčet polí: aiKategorie doplňuje Cloud Function s admin
+        // právy. Kdyby ho směl zapsat klient, šlo by falšovat podklady pro
+        // sociální šetření. Autor se bere z přihlášení, ne z toho, co klient
+        // pošle, a čas určuje server.
+        allow create: if maPlnyPristup(rodinaId) &&
+          request.resource.data.keys().hasOnly(['osobaId', 'text', 'autorUid', 'vytvoreno']) &&
+          request.resource.data.keys().hasAll(['osobaId', 'text', 'autorUid', 'vytvoreno']) &&
+          request.resource.data.autorUid == request.auth.uid &&
+          request.resource.data.vytvoreno == request.time;
+        // Proč jen text a jen autor: zpětná změna autora nebo kategorií
+        // by zkreslila historii, ze které se dělá PDF pro úřad.
+        allow update: if maPlnyPristup(rodinaId) &&
+          resource.data.autorUid == request.auth.uid &&
+          request.resource.data.diff(resource.data).affectedKeys().hasOnly(['text']);
+        allow delete: if jePecovatel(rodinaId) ||
+          (maPlnyPristup(rodinaId) && resource.data.autorUid == request.auth.uid);
       }
 
       match /documents/{documentId} {
@@ -112,7 +134,13 @@ service cloud.firestore {
 
       match /invites/{inviteId} {
         allow read: if jePecovatel(rodinaId);
-        allow create: if jePecovatel(rodinaId);
+        // Proč role clen/host a pouzita == false: pozvánka nesmí zrodit
+        // dalšího pečovatele (správce členů) ani vzniknout už "použitá".
+        allow create: if jePecovatel(rodinaId) &&
+          request.resource.data.role in ['clen', 'host'] &&
+          request.resource.data.pouzita == false &&
+          request.resource.data.keys().hasOnly(['role', 'pouzita', 'vytvoril', 'vytvoreno']) &&
+          request.resource.data.vytvoril == request.auth.uid;
         // Proč update/delete false: přijetí pozvánky (tj. změna jejího
         // stavu) dělá výhradně Cloud Function, nikdy klient přímo.
         allow update, delete: if false;
