@@ -35,3 +35,4 @@ Formát: datum, rozhodnutí, důvod. Otevřené body jsou označené `OTEVŘENO`
 - **Rozložení péče** ukazuje jen počty zápisů a úkolů bez hodnocení. Jen pro plný přístup (zápisy v deníku host nevidí).
 - V ostré databázi nevytvářím testovací účty. Ověření skutečného volání Anthropic proběhne jedním přihlášením Radka.
 - Emulátory: `FUNCTIONS_DISCOVERY_TIMEOUT=60`, protože na vytíženém stroji načtení funkcí překročilo výchozích 10 s.
+- 2026-10-25: Radek schválil nasazení dávky 2 (pravidla, funkce) a merge PR 13.

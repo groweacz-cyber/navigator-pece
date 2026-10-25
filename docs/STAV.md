@@ -8,12 +8,12 @@ Aktualizováno 2026-10-25 (větev `stabilizace`, nezmergováno do `main`).
 - Nasazením se zapnulo API Firebase Extensions a v Artifact Registry se nastavilo mazání starých obrazů po 1 dni (obojí zdarma / šetří náklady).
 - **Funkce `acceptInvite` se jmenuje `prijmoutPozvanku`**, protože služba `acceptinvite` ve Cloud Run už existuje a smazat ji bez souhlasu nešlo.
 
-## Dávka 2 (větev `davka-2`, v emulátorech hotová, v produkci zatím není)
+## Dávka 2 (nasazená v produkci, klient zatím běží jen lokálně)
 - Ruční oprava třídění deníku (`rucniHodnoceni` přebíjí AI v zobrazení, odhadu i PDF), pravidla a testy.
 - Správa členů: funkce `zmenitRoli` a `odebratClena` (pečovatel mění role a odebírá, kdokoli smí odejít, poslední pečovatel odejít nesmí).
 - Rychlá karta pro nového pečovatele (čte i host), zdravotní poznámky v záložce Osoby, Rozložení péče (jen počty za 30 dní).
 - `npm run seed` naplní emulátory ukázkovými daty (pecovatel@demo.cz, host@demo.cz, heslo demo1234).
-- K nasazení: pravidla (nové pole `rucniHodnoceni`) a funkce `zmenitRoli`, `odebratClena`, `generovatPripravuNaSetreni`.
+- Nasazeno v produkci 2026-10-25: pravidla a funkce `zmenitRoli`, `odebratClena` (nové) a aktualizace ostatních.
 
 ## Hotové a ověřené v emulátorech (dávka 1, nasazeno)
 - **Pravidla Firestore** opravená a pokrytá 26 testy (role × kolekce, negativní případy). `npm run test:rules`
