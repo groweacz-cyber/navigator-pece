@@ -10,7 +10,7 @@ Postupně a s odškrtáváním. U všeho, co ukáže konzole, pošli screenshot,
 ## 2. Domény (opatruj.cz = web, app.opatruj.cz = appka)
 Architektura je v `docs/DOMENY.md`. Postup:
 1. Kup opatruj.cz u registrátora (s přístupem do správy DNS).
-2. Firebase konzole → **Hosting** → **Add another site** → ID `opatruj-web` (marketingový web). Appka už má site `navigator-pece`.
+2. Site `opatruj-web` (marketingový web) už je založená, appka má site `navigator-pece`.
 3. U site `navigator-pece`: **Add custom domain** → `app.opatruj.cz`. U site `opatruj-web`: **Add custom domain** → `opatruj.cz` (a `www.opatruj.cz` jako přesměrování na `opatruj.cz`). U každé domény ti konzole ukáže DNS záznamy: pošli mi screenshot, přepíšu je do tvaru pro tvého registrátora.
 4. Záznamy zadej u registrátora v DNS. DNSSEC nech vypnutý, dokud nebude web ověřený.
 5. Po vystavení certifikátu (až hodiny) napiš, ověřím všechny tři adresy.

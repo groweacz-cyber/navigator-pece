@@ -13,4 +13,4 @@
 - **Nativní appka** balí stejný build (`dist/`) do Capacitoru, volá stejné funkce a Firestore. Nezávisí na doméně, jen na Firebase konfiguraci.
 - **Web odkazuje na obojí:** „Otevřít v prohlížeči“ (app.opatruj.cz) a „Stáhnout appku“ (Google Play, až bude).
 - **SEO:** indexuje se jen opatruj.cz. Appka má `X-Robots-Tag: noindex` trvale, web do spuštění (hlavičku odstranit při spuštění).
-- **Založení site `opatruj-web`** je krok v cloudu (zdarma). Čeká na souhlas, v konzoli ho může udělat i Radek (viz NAVOD-PRO-RADKA.md).
+- **Site `opatruj-web` je založená** (2026-10-25, zdarma, schváleno Radkem), zatím bez nasazeného obsahu: https://opatruj-web.web.app. Vlastní domény se připojují až po koupi.
