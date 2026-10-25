@@ -2,6 +2,7 @@
   "name": "navigator-pece",
   "private": true,
   "version": "0.1.0",
+  "description": "Opatruj: péče o blízké s demencí (deník, podklady pro úřady, vývoj stavu)",
   "type": "module",
   "scripts": {
     "dev": "vite",
