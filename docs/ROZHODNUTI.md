@@ -42,3 +42,4 @@ Formát: datum, rozhodnutí, důvod. Otevřené body jsou označené `OTEVŘENO`
 - **TEXTY KE SCHVÁLENÍ RADKEM** (právní dopad, doporučena kontrola právníkem): věta v `src/screens/Vyvoj.jsx`: "Pokud se zdravotní stav opravdu zhoršil, můžete na úřadu práce požádat o nové posouzení a zvýšení příspěvku na péči." a "Jde jen o odhad z vašich poznámek. O stupni rozhoduje úřad na základě šetření a posudku." Postup žádosti a lhůty se ověřují v Issue C4 (právní navigátor), do té doby text jen obecně odkazuje na úřad práce.
 - Vývoj se počítá při otevření záložky a neukládá se (žádná nová kolekce, vždy odpovídá aktuálnímu deníku).
 - 2026-10-25: Radek schválil nasazení funkce vyhodnotitVyvoj a merge PR 14. Texty s právním dopadem v záložce Vývoj zůstávají ke schválení/kontrole právníkem.
+- 2026-10-25: Radek schválil nasazení klienta na Firebase Hosting (navigator-pece.web.app), doména zatím ne. CSP hlavička zatím není (riziko rozbití Firebase SDK), přidat později.
