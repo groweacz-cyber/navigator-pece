@@ -1,0 +1,3 @@
+# Webová appka (app.opatruj.cz) se nemá indexovat nikdy. Indexuje se marketingový web opatruj.cz.
+User-agent: *
+Disallow: /

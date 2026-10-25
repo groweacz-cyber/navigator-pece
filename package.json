@@ -2,6 +2,7 @@
   "name": "navigator-pece",
   "private": true,
   "version": "0.1.0",
+  "description": "Opatruj: péče o blízké s demencí (deník, podklady pro úřady, vývoj stavu)",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -13,7 +14,10 @@
     "test:retezec": "cross-env KLASIFIKACE_MOCK=1 FUNCTIONS_DISCOVERY_TIMEOUT=60 firebase emulators:exec --only auth,functions,firestore,storage \"vitest run tests/integration\"",
     "test": "npm run test:functions && npm run test:rules && npm run test:retezec",
     "dev:emul": "cross-env VITE_USE_EMULATORS=true vite --port 5180",
-    "seed": "node scripts/seed-emulator.mjs"
+    "seed": "node scripts/seed-emulator.mjs",
+    "deploy:preview": "npm run build && firebase hosting:channel:deploy preview --only app --expires 7d --project navigator-pece",
+    "deploy:prod": "node scripts/deploy-prod.mjs",
+    "web": "node scripts/serve-web.mjs"
   },
   "dependencies": {
     "@fontsource/work-sans": "^5.3.0",
@@ -29,4 +33,3 @@
     "vitest": "^2.1.9"
   }
 }
-

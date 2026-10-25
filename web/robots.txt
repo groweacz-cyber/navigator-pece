@@ -1,0 +1,5 @@
+# Do ostrého spuštění je web neindexovatelný (viz firebase.json, hlavička X-Robots-Tag u cíle "web").
+# Při spuštění: smazat "Disallow: /" a odkomentovat Sitemap, odstranit X-Robots-Tag z firebase.json.
+User-agent: *
+Disallow: /
+# Sitemap: https://opatruj.cz/sitemap.xml
