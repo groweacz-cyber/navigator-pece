@@ -14,3 +14,9 @@
 - **Web odkazuje na obojí:** „Otevřít v prohlížeči“ (app.opatruj.cz) a „Stáhnout appku“ (Google Play, až bude).
 - **SEO:** indexuje se jen opatruj.cz. Appka má `X-Robots-Tag: noindex` trvale, web do spuštění (hlavičku odstranit při spuštění).
 - **Site `opatruj-web` je založená** (2026-10-25, zdarma, schváleno Radkem), zatím bez nasazeného obsahu: https://opatruj-web.web.app. Vlastní domény se připojují až po koupi.
+
+## Stav připojení (2026-10-25, Radek koupil opatruj.cz u Forpsi)
+- **Nasazeno** (schváleno): `hosting:app` → navigator-pece.web.app (přejmenovaná appka Opatruj, noindex), `hosting:web` → opatruj-web.web.app (zástupná stránka, noindex).
+- **DNS u Forpsi** (nastaveno přes jejich správu DNS): `A opatruj.cz → 199.36.158.100` (původně 81.2.196.19), `TXT opatruj.cz = hosting-site=opatruj-web`, `CNAME app.opatruj.cz → navigator-pece.web.app`. Wildcard `*.opatruj.cz CNAME opatruj.cz` zůstal (www tak míří na opatruj.cz, ale pro HTTPS je potřeba přidat `www.opatruj.cz` jako doménu ve Firebase). Poštovní server Forpsi nezměněn. **DNSSEC u domény je zapnutý** (nechal jsem beze změny).
+- **Firebase:** domény přidané v obou site, v Authentication → Authorized domains přidáno `app.opatruj.cz`.
+- **HTTP** na obou adresách vrací 200. **HTTPS certifikát** se vystavuje automaticky (po nasměrování DNS až hodiny); při psaní ještě nebyl hotový, konzole ukazovala „Vyžaduje nastavení“. Pokud po 24 h stále visí, zkontrolovat DNSSEC a tlačítko Ověřit v konzoli.
