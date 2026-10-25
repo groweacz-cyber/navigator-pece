@@ -4,14 +4,14 @@ import { spawnSync } from 'node:child_process'
 import { createInterface } from 'node:readline/promises'
 
 const rl = createInterface({ input: process.stdin, output: process.stdout })
-const odpoved = await rl.question('Opravdu nasadit web do PRODUKCE (navigator-pece)? Napiš "ano": ')
+const odpoved = await rl.question('Opravdu nasadit APPKU (app.opatruj.cz) do PRODUKCE? Napiš "ano": ')
 rl.close()
 if (odpoved.trim().toLowerCase() !== 'ano') {
   console.log('Zrušeno, nic se nenasadilo.')
   process.exit(1)
 }
 const shell = process.platform === 'win32'
-for (const [prikaz, args] of [['npm', ['run', 'build']], ['firebase', ['deploy', '--only', 'hosting', '--project', 'navigator-pece']]]) {
+for (const [prikaz, args] of [['npm', ['run', 'build']], ['firebase', ['deploy', '--only', 'hosting:app', '--project', 'navigator-pece']]]) {
   const vysledek = spawnSync(prikaz, args, { stdio: 'inherit', shell })
   if (vysledek.status !== 0) process.exit(vysledek.status ?? 1)
 }

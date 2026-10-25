@@ -7,14 +7,16 @@ Postupně a s odškrtáváním. U všeho, co ukáže konzole, pošli screenshot,
 2. Políčko **Public-facing name** přepiš na **Opatruj**. Ulož.
 3. **Authentication → Templates**: u „Email address verification“ a „Password reset“ klikni na tužku, nastav jazyk na **Čeština** a jako název odesílatele **Opatruj**. Text šablony nech výchozí český, případně ho pošli ke kontrole.
 
-## 2. Doména opatruj.cz
-1. Kup opatruj.cz u registrátora (u té domény nech zapnutou správu DNS).
-2. Firebase konzole → **Hosting** → **Add custom domain** → `opatruj.cz`. Pošli mi screenshot s DNS záznamy, které konzole ukáže (typicky TXT a A). Přepíšu ti je do tvaru pro tvého registrátora.
-3. Záznamy zadej u registrátora v DNS. DNSSEC nech vypnutý, dokud nebude web ověřený.
-4. Po vystavení certifikátu (až hodiny) napiš, ověřím `https://opatruj.cz` i `https://www.opatruj.cz`.
-5. **Authentication → Settings → Authorized domains → Add domain**: `opatruj.cz` a `www.opatruj.cz` (jinak nepůjde přihlášení).
-6. U registrátora zřiď přesměrování e-mailu `podpora@opatruj.cz` na svůj e-mail.
-7. Chceš koupit do zásoby i opatruj.sk? Dej vědět, domény `vklidu.*` a `pecujvklidu.cz` se nekupují.
+## 2. Domény (opatruj.cz = web, app.opatruj.cz = appka)
+Architektura je v `docs/DOMENY.md`. Postup:
+1. Kup opatruj.cz u registrátora (s přístupem do správy DNS).
+2. Firebase konzole → **Hosting** → **Add another site** → ID `opatruj-web` (marketingový web). Appka už má site `navigator-pece`.
+3. U site `navigator-pece`: **Add custom domain** → `app.opatruj.cz`. U site `opatruj-web`: **Add custom domain** → `opatruj.cz` (a `www.opatruj.cz` jako přesměrování na `opatruj.cz`). U každé domény ti konzole ukáže DNS záznamy: pošli mi screenshot, přepíšu je do tvaru pro tvého registrátora.
+4. Záznamy zadej u registrátora v DNS. DNSSEC nech vypnutý, dokud nebude web ověřený.
+5. Po vystavení certifikátu (až hodiny) napiš, ověřím všechny tři adresy.
+6. **Authentication → Settings → Authorized domains → Add domain**: `app.opatruj.cz` (jinak nepůjde přihlášení). `opatruj.cz` sem přidávat nemusíš, přihlašuje se jen v appce.
+7. U registrátora zřiď přesměrování e-mailu `podpora@opatruj.cz` na svůj e-mail.
+8. Chceš koupit do zásoby i opatruj.sk? Dej vědět, domény `vklidu.*` a `pecujvklidu.cz` se nekupují.
 
 ## 3. Automatické testy a náhledy (GitHub)
 1. Google Cloud Console → projekt navigator-pece → **IAM a správa → Servisní účty → Vytvořit**: název `github-hosting`, role **Firebase Hosting Admin**.
