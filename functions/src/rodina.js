@@ -8,6 +8,7 @@
 import { HttpsError } from 'firebase-functions/v2/https'
 import { FieldValue, Timestamp } from 'firebase-admin/firestore'
 import { vytvoritPripravuPdf } from './pdf.js'
+import { DNI_OKNA, vyhodnotitVyvoj } from './vyvoj.js'
 
 const ROLE_POZVANKY = ['clen', 'host']
 const VSECHNY_ROLE = ['pecovatel', 'clen', 'host']
@@ -207,4 +208,32 @@ export async function odebratClena(db, uid, data) {
     zapsatAudit(tx, db, rodinaId, uid, cilUid === uid ? 'clen_odesel' : 'clen_odebran', { cilUid })
     return { ok: true }
   })
+}
+
+// Vývoj stavu: srovnání posledního měsíce s předchozím. Počítá se při otevření
+// záložky, nic se neukládá, takže vždy odpovídá aktuálnímu deníku. Čtou jen
+// pečovatel a člen (z deníku se dá poznat zdravotní stav).
+export async function vyhodnotitVyvojOsoby(db, uid, data) {
+  vyzadovatPrihlaseni(uid)
+  const { rodinaId, osobaId } = data ?? {}
+  if (typeof rodinaId !== 'string' || typeof osobaId !== 'string' || !rodinaId || !osobaId) {
+    throw new HttpsError('invalid-argument', 'Chybí rodina nebo osoba.')
+  }
+  if (!['pecovatel', 'clen'].includes(await nacistRoli(db, rodinaId, uid))) {
+    throw new HttpsError('permission-denied', 'K tomuhle přehledu nemáš přístup.')
+  }
+  const ted = new Date()
+  const od = Timestamp.fromMillis(ted.getTime() - 2 * DNI_OKNA * 24 * 3600 * 1000)
+  const snimek = await db
+    .collection(`families/${rodinaId}/notes`)
+    .where('osobaId', '==', osobaId)
+    .where('vytvoreno', '>', od)
+    .orderBy('vytvoreno', 'asc')
+    .limit(MAX_ZAZNAMU_V_EXPORTU)
+    .get()
+  const zaznamy = snimek.docs.map((d) => {
+    const z = d.data()
+    return { vytvoreno: z.vytvoreno.toDate(), aiHodnoceni: z.rucniHodnoceni ?? z.aiHodnoceni ?? null }
+  })
+  return vyhodnotitVyvoj(zaznamy, ted)
 }

@@ -77,6 +77,9 @@ describe('řetěz od registrace po PDF', () => {
       return vse.docs.every((d) => d.data().aiStav)
     })
 
+    // Vývoj: tři zápisy zatím nestačí na srovnání, host přehled nesmí.
+    expect((await volat('vyhodnotitVyvoj', { rodinaId, osobaId: osoba.id })).doporuceni).toBe('malo_dat')
+
     // Pozvánka pro hosta.
     await expect(volat('vytvoritPozvanku', { rodinaId, role: 'pecovatel' })).rejects.toMatchObject({ code: 'functions/invalid-argument' })
     const pozvanka = await volat('vytvoritPozvanku', { rodinaId, role: 'host' })
@@ -93,6 +96,7 @@ describe('řetěz od registrace po PDF', () => {
     // Host nevidí deník, nesmí zvát ani generovat podklady, PDF nestáhne.
     await expect(getDocs(collection(db, `families/${rodinaId}/notes`))).rejects.toThrow()
     await expect(volat('vytvoritPozvanku', { rodinaId, role: 'clen' })).rejects.toMatchObject({ code: 'functions/permission-denied' })
+    await expect(volat('vyhodnotitVyvoj', { rodinaId, osobaId: osoba.id })).rejects.toMatchObject({ code: 'functions/permission-denied' })
     await expect(volat('generovatPripravuNaSetreni', { rodinaId, osobaId: osoba.id })).rejects.toMatchObject({ code: 'functions/permission-denied' })
     // Pozvánka je jednorázová.
     await expect(volat('prijmoutPozvanku', { kod: pozvanka.kod })).rejects.toMatchObject({ code: 'functions/failed-precondition' })

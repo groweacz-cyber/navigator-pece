@@ -8,6 +8,10 @@ Aktualizováno 2026-10-25 (větev `stabilizace`, nezmergováno do `main`).
 - Nasazením se zapnulo API Firebase Extensions a v Artifact Registry se nastavilo mazání starých obrazů po 1 dni (obojí zdarma / šetří náklady).
 - **Funkce `acceptInvite` se jmenuje `prijmoutPozvanku`**, protože služba `acceptinvite` ve Cloud Run už existuje a smazat ji bez souhlasu nešlo.
 
+## Dávka 3 (větev `davka-3`, PR čeká; v produkci zatím není)
+- **Detekce zhoršení** (C3): záložka Vývoj porovná posledních 30 dní s předchozími 30 podle třídění deníku (včetně ruční opravy). Ukáže nové oblasti s potížemi, oblasti, kde potíží přibývá nebo jsou těžší ("s pomocí" → "nezvládá"), zlepšení, a když orientační stupeň vyjde vyšší, upozorní, že lze požádat úřad práce o nové posouzení. Server: funkce `vyhodnotitVyvoj` (jen pečovatel a člen), čistá logika `functions/src/vyvoj.js`, 9 unit testů. Pod 6 hodnocených zápisů za dva měsíce hlásí "málo dat".
+- K nasazení: nová funkce `vyhodnotitVyvoj` (pravidla beze změny).
+
 ## Dávka 2 (nasazená v produkci, klient zatím běží jen lokálně)
 - Ruční oprava třídění deníku (`rucniHodnoceni` přebíjí AI v zobrazení, odhadu i PDF), pravidla a testy.
 - Správa členů: funkce `zmenitRoli` a `odebratClena` (pečovatel mění role a odebírá, kdokoli smí odejít, poslední pečovatel odejít nesmí).
