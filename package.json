@@ -16,7 +16,8 @@
     "dev:emul": "cross-env VITE_USE_EMULATORS=true vite --port 5180",
     "seed": "node scripts/seed-emulator.mjs",
     "deploy:preview": "npm run build && firebase hosting:channel:deploy preview --only app --expires 7d --project navigator-pece",
-    "deploy:prod": "node scripts/deploy-prod.mjs"
+    "deploy:prod": "node scripts/deploy-prod.mjs",
+    "web": "node scripts/serve-web.mjs"
   },
   "dependencies": {
     "@fontsource/work-sans": "^5.3.0",

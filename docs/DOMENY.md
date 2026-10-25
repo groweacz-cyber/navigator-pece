@@ -20,3 +20,10 @@
 - **DNS u Forpsi** (nastaveno přes jejich správu DNS): `A opatruj.cz → 199.36.158.100` (původně 81.2.196.19), `TXT opatruj.cz = hosting-site=opatruj-web`, `CNAME app.opatruj.cz → navigator-pece.web.app`. Wildcard `*.opatruj.cz CNAME opatruj.cz` zůstal (www tak míří na opatruj.cz, ale pro HTTPS je potřeba přidat `www.opatruj.cz` jako doménu ve Firebase). Poštovní server Forpsi nezměněn. **DNSSEC u domény je zapnutý** (nechal jsem beze změny).
 - **Firebase:** domény přidané v obou site, v Authentication → Authorized domains přidáno `app.opatruj.cz`.
 - **HTTPS funguje na obou adresách** (ověřeno 2026-10-25, certifikáty platné, 200 OK): https://app.opatruj.cz (Opatruj, noindex) a https://opatruj.cz (zástupná stránka, noindex). `www.opatruj.cz` ve Firebase zatím není přidané.
+
+## Marketingový web (větev `web-opatruj`, nenasazeno)
+- Statický web bez JavaScriptu ve složce `web/`: úvodní stránka (problém, jak to funguje, co umí, pro koho, bezpečnost dat, časté otázky, výzva k akci), `/kontakt`, `/zasady-ochrany-osobnich-udaju`, `/obchodni-podminky`. Písmo Work Sans lokálně, dočasná značka `favicon.svg` (do příchodu loga). Náhled: `npm run web` (http://localhost:5190).
+- Nasazení: `firebase deploy --only hosting:web`. **Čeká na schválení textů a právních stránek**, do té doby je na opatruj.cz zástupná stránka.
+- Ceník na webu zatím není (cena není rozhodnutá), místo toho je v časté otázce „Kolik Opatruj stojí?“ věta, že cenu oznámíme před zpoplatněním.
+- Chybí: `og:image` 1200×630 (čeká na logo), formulář pro e-mailové oznámení spuštění (vyžaduje rozhodnutí, kam se e-maily ukládají, a souhlas se zpracováním), appka pro Android (odkaz „stáhnout“ přibude po vydání).
+- Při ostrém spuštění: odstranit `<meta name="robots" content="noindex">` ve všech stránkách, hlavičku `X-Robots-Tag` u cíle `web` v `firebase.json`, `Disallow: /` v `web/robots.txt` a odkomentovat Sitemap.

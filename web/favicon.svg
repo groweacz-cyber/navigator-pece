@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Opatruj">
+  <!-- Dočasná značka (než dorazí logo): zamotaná linka vede k jasnému bodu světla. -->
+  <rect width="64" height="64" rx="14" fill="#2C4A4E"/>
+  <path d="M8 38c0-12 14-12 14 0s-14 12-12-4 18-14 16-4 8 8 14 4 6-2 12-2" fill="none" stroke="#F3EFE6" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="53" cy="32" r="5.5" fill="#D9A441"/>
+</svg>

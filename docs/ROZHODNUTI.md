@@ -51,3 +51,8 @@ Formát: datum, rozhodnutí, důvod. Otevřené body jsou označené `OTEVŘENO`
 - Změněno: UI (hlavička, přihlášení, registrace), `<title>`, meta a Open Graph, PWA `manifest.webmanifest` (bez ikon, čekají na logo), PDF (značka v hlavičce a zápatí; název souboru `opatruj-priprava-na-setreni-YYYY-MM-DD.pdf`), klíče localStorage (`opatruj.*`), dokumentace.
 - Pozicování se nemění (koordinace péče a podklady pro úřady, ne zdravotnický prostředek).
 - Nasazený web na navigator-pece.web.app zatím ukazuje starý název. Nasazení přejmenovaného klienta čeká na souhlas.
+
+## Marketingový web opatruj.cz (2026-10-25)
+- **TEXTY KE SCHVÁLENÍ RADKEM:** celý obsah `web/index.html` (nadpisy, popisy funkcí, sekce Bezpečnost dat, časté otázky), tagline „Opatruj své blízké. A sebe taky.“ v úvodu, a hlavně tvrzení o zpracování dat (Google Cloud v Evropě, šifrovaný přenos, předávání textu zápisu poskytovateli AI Anthropic bez jména osoby a autora, žádné cookies na webu).
+- **PRÁVNÍ STRÁNKY JSOU JEN NÁVRHY** (`zasady-ochrany-osobnich-udaju`, `obchodni-podminky`), s hranatými závorkami na místech, která musí doplnit provozovatel (správce údajů, IČO, adresa, právní základ pro zdravotní údaje, souhlas pečované osoby, smlouvy se zpracovateli, předání mimo EU, lhůty výmazu). Doporučena kontrola právníkem před zveřejněním.
+- Web se do ostrého spuštění drží `noindex` (viz docs/DOMENY.md).
