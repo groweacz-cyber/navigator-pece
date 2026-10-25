@@ -36,3 +36,9 @@ Formát: datum, rozhodnutí, důvod. Otevřené body jsou označené `OTEVŘENO`
 - V ostré databázi nevytvářím testovací účty. Ověření skutečného volání Anthropic proběhne jedním přihlášením Radka.
 - Emulátory: `FUNCTIONS_DISCOVERY_TIMEOUT=60`, protože na vytíženém stroji načtení funkcí překročilo výchozích 10 s.
 - 2026-10-25: Radek schválil nasazení dávky 2 (pravidla, funkce) a merge PR 13.
+
+## Dávka 3 (2026-10-25): detekce zhoršení
+- **Metodika** (dočasná, doladit na skutečných datech): okno 30 dní vs. předchozích 30 dní; potřeba je nezvládaná při aspoň 2 záznamech s pomocí/nezvládáním v okně; "nová" = nezvládaná teď a ne dřív; "přibývá" = aspoň o 2 a o polovinu víc záznamů; "těžší" = aspoň o 2 víc záznamů "nezvládá"; "zvážit žádost" jen když odhadovaný stupeň vyjde vyšší než v předchozím okně. Pod 6 hodnocených zápisů nebo při prázdném okně: "málo dat".
+- **TEXTY KE SCHVÁLENÍ RADKEM** (právní dopad, doporučena kontrola právníkem): věta v `src/screens/Vyvoj.jsx`: "Pokud se zdravotní stav opravdu zhoršil, můžete na úřadu práce požádat o nové posouzení a zvýšení příspěvku na péči." a "Jde jen o odhad z vašich poznámek. O stupni rozhoduje úřad na základě šetření a posudku." Postup žádosti a lhůty se ověřují v Issue C4 (právní navigátor), do té doby text jen obecně odkazuje na úřad práce.
+- Vývoj se počítá při otevření záložky a neukládá se (žádná nová kolekce, vždy odpovídá aktuálnímu deníku).
+- 2026-10-25: Radek schválil nasazení funkce vyhodnotitVyvoj a merge PR 14. Texty s právním dopadem v záložce Vývoj zůstávají ke schválení/kontrole právníkem.

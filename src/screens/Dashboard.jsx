@@ -14,6 +14,7 @@ import Podklady from './Podklady.jsx'
 import RychlaKarta from './RychlaKarta.jsx'
 import RozlozeniPece from './RozlozeniPece.jsx'
 import Ukoly from './Ukoly.jsx'
+import Vyvoj from './Vyvoj.jsx'
 import { Chyba, Nacitani, useSeznam } from './komponenty.jsx'
 
 const ZALOZKY = [
@@ -22,6 +23,7 @@ const ZALOZKY = [
   { id: 'karta', nazev: 'Rychlá karta' },
   { id: 'osoby', nazev: 'Osoby' },
   { id: 'kontakty', nazev: 'Kontakty' },
+  { id: 'vyvoj', nazev: 'Vývoj', jenPlny: true },
   { id: 'podklady', nazev: 'Podklady', jenPlny: true },
   { id: 'dokumenty', nazev: 'Dokumenty', jenPlny: true },
   { id: 'pece', nazev: 'Rozložení péče', jenPlny: true },
@@ -44,6 +46,7 @@ export default function Dashboard({ rodina, uid, pocetRodin, onZmenitRodinu, onO
       case 'pece': return <RozlozeniPece rodina={rodina} />
       case 'osoby': return <Osoby rodina={rodina} osoby={osoby.data} plnyPristup={plnyPristup} />
       case 'kontakty': return <Kontakty rodina={rodina} />
+      case 'vyvoj': return <Vyvoj rodina={rodina} osoby={osoby.data} />
       case 'podklady': return <Podklady rodina={rodina} osoby={osoby.data} />
       case 'dokumenty': return <Dokumenty rodina={rodina} />
       default: return <Clenove rodina={rodina} uid={uid} />

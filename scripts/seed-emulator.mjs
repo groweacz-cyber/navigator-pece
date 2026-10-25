@@ -57,4 +57,23 @@ await signOut(auth)
 await registrovat('Honza Novák', 'host@demo.cz')
 await volat('prijmoutPozvanku', { kod: pozvanka.kod })
 console.log('Hotovo. Přihlášení: pecovatel@demo.cz nebo host@demo.cz, heslo demo1234.')
+
+// Zpětně datované zápisy s hotovým hodnocením, aby záložka Vývoj měla co ukázat.
+// Klient čas zápisu zapsat nesmí, proto admin SDK (jen emulátor).
+import { createRequire } from 'node:module'
+process.env.FIRESTORE_EMULATOR_HOST = '127.0.0.1:8180'
+const admin = createRequire(new URL('../functions/package.json', import.meta.url))('firebase-admin')
+admin.initializeApp({ projectId: 'navigator-pece' })
+const DEN = 24 * 3600 * 1000
+const zpet = (dni) => admin.firestore.Timestamp.fromMillis(Date.now() - dni * DEN)
+const pridat = (dni, hodnoceni, text) =>
+  admin.firestore().collection(`families/${rodinaId}/notes`).add({
+    osobaId: osoba.id, text, autorUid: pecovatelUid, vytvoreno: zpet(dni), aiHodnoceni: hodnoceni, aiKategorie: Object.keys(hodnoceni), aiStav: 'hotovo',
+  })
+for (const dni of [40, 45, 50]) await pridat(dni, { hygiena: 's_pomoci' }, 'Před časem: myla se s dohledem.')
+for (const dni of [42, 55]) await pridat(dni, { orientace: 's_pomoci' }, 'Před časem: občas nevěděla, jaký je den.')
+for (const dni of [6, 12, 18]) await pridat(dni, { hygiena: 'nezvlada' }, 'Nově: koupel jí musím dělat celou.')
+for (const dni of [5, 15]) await pridat(dni, { orientace: 'nezvlada' }, 'Nově: nepozná cestu domů.')
+for (const dni of [8, 20]) await pridat(dni, { mobilita: 's_pomoci' }, 'Nově: potřebuje oporu při chůzi po schodech.')
+await admin.app().delete()
 await deleteApp(app)

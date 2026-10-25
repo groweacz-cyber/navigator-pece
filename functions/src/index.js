@@ -31,6 +31,8 @@ export const zmenitRoli = onCall((request) => rodina.zmenitRoli(db, request.auth
 
 export const odebratClena = onCall((request) => rodina.odebratClena(db, request.auth?.uid, request.data))
 
+export const vyhodnotitVyvoj = onCall((request) => rodina.vyhodnotitVyvojOsoby(db, request.auth?.uid, request.data))
+
 export const prijmoutPozvanku = onCall((request) => rodina.prijmoutPozvanku(db, request.auth?.uid, request.data))
 
 export const generovatPripravuNaSetreni = onCall({ timeoutSeconds: 120, memory: '512MiB' }, (request) =>
