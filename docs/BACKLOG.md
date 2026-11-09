@@ -17,3 +17,10 @@ C1 klasifikace zvládá/nezvládá (metodika) · C2 PDF s diakritikou · C3 dete
 
 ## Fáze D: vydání
 D1 Capacitor/Android · D2 zásady, Data safety, Google Play · D3 web · D4 cena a platby
+
+## Přejmenování a web (Opatruj)
+- Marketingový web opatruj.cz: hotový návrh ve větvi `web-opatruj` (landing, kontakt, zásady a podmínky jako návrhy), čeká na schválení textů a nasazení. Chybí og:image, formulář pro oznámení spuštění, odkaz na Android appku.
+- Logo: ověřit, zda PNG obsahuje text „V klidu“; případně nové s „Opatruj“. Adaptivní ikona Android, favicon, `og:image` 1200×630, ikony do manifestu.
+- Ochranné známky: kontrola ÚPV a EUIPO (TMview) třídy 9, 42, 44 před výdaji na reklamu.
+- Doména: koupě opatruj.cz (Radek), `opatruj.sk` do zásoby (otázka), přidání do Authentication → Authorized domains, připojení k Hosting, `podpora@opatruj.cz`.
+- Hosting: CSP ostře po zkušebním režimu Report-Only, GitHub Actions (build, testy, preview kanál, ruční produkční deploy se schválením), Lighthouse.

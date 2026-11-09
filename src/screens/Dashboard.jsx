@@ -57,7 +57,7 @@ export default function Dashboard({ rodina, uid, pocetRodin, onZmenitRodinu, onO
     <div className="ramec">
       <header className="zahlavi">
         <div>
-          <strong className="logo">V klidu</strong>
+          <strong className="logo">Opatruj</strong>
           <span className="rodina-nazev">{rodina.nazev}</span>
         </div>
         <div className="zahlavi-akce">

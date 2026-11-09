@@ -2,6 +2,13 @@ import { useEffect, useState } from 'react'
 import { sledovatExporty, stahnoutPdf, vygenerovatPripravu } from '../services/exports.js'
 import { Chyba, formatCas, Nacitani, Prazdno, useOdeslani, useSeznam } from './komponenty.jsx'
 
+// Proč lokální datum: soubor se jmenuje podle dne, kdy podklad vznikl (české datum, ne UTC).
+function nazevSouboru(cas) {
+  const d = cas?.toDate ? cas.toDate() : new Date()
+  const den = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Prague' }).format(d)
+  return `opatruj-priprava-na-setreni-${den}.pdf`
+}
+
 export default function Podklady({ rodina, osoby }) {
   const [osobaId, setOsobaId] = useState('')
   const { bezi, chyba, spustit } = useOdeslani()
@@ -54,7 +61,7 @@ export default function Podklady({ rodina, osoby }) {
                 <p className="jemne">{x.pocetBezHodnoceni} záznamů ještě nebylo roztříděných.</p>
               )}
             </div>
-            <button className="tlacitko druhe" onClick={() => stahovani.spustit(() => stahnoutPdf(x.cesta, `priprava-${x.id}.pdf`))}>
+            <button className="tlacitko druhe" onClick={() => stahovani.spustit(() => stahnoutPdf(x.cesta, nazevSouboru(x.vytvoreno)))}>
               Stáhnout
             </button>
           </li>

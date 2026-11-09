@@ -84,6 +84,7 @@ export async function vytvoritPripravuPdf({ osoba, zaznamy, vygenerovano = new D
   const mezera = (v) => { y -= v }
 
   const jmeno = cistit(osoba?.jmeno) || 'neuvedeno'
+  text('Opatruj', { font: tucny, velikost: 11, barva: BARVA_JEMNA, mezera: 4 })
   text('Příprava na sociální šetření', { font: tucny, velikost: 20, barva: BARVA_HLAVNI, mezera: 8 })
   text(`Osoba: ${jmeno}`, { velikost: 12 })
   text(`Vygenerováno: ${formatDatum(vygenerovano)}  ·  Počet záznamů v deníku: ${zaznamy.length}`, { barva: BARVA_JEMNA, velikost: 10 })
@@ -137,7 +138,7 @@ export async function vytvoritPripravuPdf({ osoba, zaznamy, vygenerovano = new D
 
   const strany = pdf.getPages()
   strany.forEach((s, i) => {
-    s.drawText(`V klidu  ·  orientační podklad  ·  strana ${i + 1} z ${strany.length}`, {
+    s.drawText(`Opatruj  ·  orientační podklad  ·  strana ${i + 1} z ${strany.length}`, {
       x: OKRAJ, y: 28, size: 8, font: normal, color: BARVA_JEMNA,
     })
   })

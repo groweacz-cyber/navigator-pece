@@ -14,7 +14,7 @@ export default function Login({ onRegistrace, upozorneni }) {
 
   return (
     <main className="stred">
-      <h1>V klidu</h1>
+      <h1>Opatruj</h1>
       <p className="podtitul">Přihlas se a pokračuj tam, kde jsi skončil/a.</p>
       {upozorneni && <p className="hlaska info">{upozorneni}</p>}
       <form onSubmit={odeslat} className="karta">

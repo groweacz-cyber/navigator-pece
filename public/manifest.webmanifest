@@ -1,0 +1,10 @@
+{
+  "name": "Opatruj",
+  "short_name": "Opatruj",
+  "description": "Péče o blízké s demencí: deník, podklady pro úřady, vývoj stavu.",
+  "lang": "cs",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#2C4A4E",
+  "background_color": "#F3EFE6"
+}

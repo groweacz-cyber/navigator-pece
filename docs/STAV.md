@@ -32,6 +32,7 @@ Aktualizováno 2026-10-25 (větev `stabilizace`, nezmergováno do `main`).
 - Staré ruční Cloud Run služby `acceptinvite` a `generovatprava` zatím existují a nic nevolá (čekají na souhlas se smazáním). Služba `klasifikovatzaznam` je nahrazená novou verzí.
 - Z produkce nebyl vyzkoušen žádný průchod (nevytvářel jsem testovací účty ani data). Ověřeno je jen, že funkce odpovídají.
 - Nahrávání dokumentů do Storage, obrazovka pro zdravotní záznamy, ruční oprava AI kategorií, výmaz účtu, App Check.
+- Klient běží na https://navigator-pece.web.app (Firebase Hosting, nasazeno 2026-10-25). Nasazení: `npm run build` a `firebase deploy --only hosting`.
 - Android (Capacitor), ikona, zásady zpracování.
 
 ## Stav známých chyb (sekce 6 předání)

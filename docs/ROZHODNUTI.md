@@ -42,3 +42,18 @@ Formát: datum, rozhodnutí, důvod. Otevřené body jsou označené `OTEVŘENO`
 - **TEXTY KE SCHVÁLENÍ RADKEM** (právní dopad, doporučena kontrola právníkem): věta v `src/screens/Vyvoj.jsx`: "Pokud se zdravotní stav opravdu zhoršil, můžete na úřadu práce požádat o nové posouzení a zvýšení příspěvku na péči." a "Jde jen o odhad z vašich poznámek. O stupni rozhoduje úřad na základě šetření a posudku." Postup žádosti a lhůty se ověřují v Issue C4 (právní navigátor), do té doby text jen obecně odkazuje na úřad práce.
 - Vývoj se počítá při otevření záložky a neukládá se (žádná nová kolekce, vždy odpovídá aktuálnímu deníku).
 - 2026-10-25: Radek schválil nasazení funkce vyhodnotitVyvoj a merge PR 14. Texty s právním dopadem v záložce Vývoj zůstávají ke schválení/kontrole právníkem.
+- 2026-10-25: Radek schválil nasazení klienta na Firebase Hosting (navigator-pece.web.app), doména zatím ne. CSP hlavička zatím není (riziko rozbití Firebase SDK), přidat později.
+
+## Přejmenování na Opatruj (2026-10-25, rozhodl Radek)
+- Název produktu **Opatruj** (dříve pracovní „V klidu“ / „Navigátor péče“). Doména **opatruj.cz** (kupuje Radek, do té doby se s ní nepočítá). Dvojí smysl názvu: postarej se o blízkého i „opatruj se“. Tagline (návrh ke schválení): „Opatruj své blízké. A sebe taky.“ Google Play: „Opatruj – péče o blízké“.
+- **Nemění se:** Firebase projekt `navigator-pece`, repo, `authDomain`, názvy kolekcí, názvy funkcí, `package.json` `name`.
+- **appId (Android) změněn z `cz.growea.navigatorpece` na `cz.growea.opatruj`**, protože appka není publikovaná a po vydání na Google Play by to nešlo. Složka `android/` zatím neexistuje, proto se mění jen `capacitor.config.json`. Při vytvoření Firebase Android aplikace použít nový appId. Změna je ve vlastním commitu. **Potvrdil Radek 2026-10-25.**
+- Změněno: UI (hlavička, přihlášení, registrace), `<title>`, meta a Open Graph, PWA `manifest.webmanifest` (bez ikon, čekají na logo), PDF (značka v hlavičce a zápatí; název souboru `opatruj-priprava-na-setreni-YYYY-MM-DD.pdf`), klíče localStorage (`opatruj.*`), dokumentace.
+- Pozicování se nemění (koordinace péče a podklady pro úřady, ne zdravotnický prostředek).
+- Nasazený web na navigator-pece.web.app zatím ukazuje starý název. Nasazení přejmenovaného klienta čeká na souhlas.
+
+## Marketingový web opatruj.cz (2026-10-25)
+- **TEXTY KE SCHVÁLENÍ RADKEM:** celý obsah `web/index.html` (nadpisy, popisy funkcí, sekce Bezpečnost dat, časté otázky), tagline „Opatruj své blízké. A sebe taky.“ v úvodu, a hlavně tvrzení o zpracování dat (Google Cloud v Evropě, šifrovaný přenos, předávání textu zápisu poskytovateli AI Anthropic bez jména osoby a autora, žádné cookies na webu).
+- **PRÁVNÍ STRÁNKY JSOU JEN NÁVRHY** (`zasady-ochrany-osobnich-udaju`, `obchodni-podminky`), s hranatými závorkami na místech, která musí doplnit provozovatel (správce údajů, IČO, adresa, právní základ pro zdravotní údaje, souhlas pečované osoby, smlouvy se zpracovateli, předání mimo EU, lhůty výmazu). Doporučena kontrola právníkem před zveřejněním.
+- Web se do ostrého spuštění drží `noindex` (viz docs/DOMENY.md).
+- 2026-10-25: Radek schválil nasazení webu na opatruj.cz s noindex a bez právních stránek. Texty webu (index, kontakt) tím nejsou schválené definitivně, čekají na Radkovu kontrolu. Návrhy zásad a podmínek přesunuty do docs/navrhy-pravnich-stranek/.
