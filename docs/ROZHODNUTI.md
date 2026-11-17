@@ -62,3 +62,4 @@ Formát: datum, rozhodnutí, důvod. Otevřené body jsou označené `OTEVŘENO`
 - Opatruj není jen pro demenci, ale pro rodiny pečující o jakéhokoli seniora s omezenou soběstačností. Důvod: příspěvek na péči a 10 základních životních potřeb (zákon 108/2006 Sb.) se posuzují stejně u všech, tržiště je mnohem větší a stávající funkce (deník, podklady, vývoj stavu, rodina) jsou obecné.
 - Demence zůstává významným případem použití (v textech i klasifikaci zmíněna výslovně). Pozicování se nemění: koordinace péče a podklady pro úřady, ne zdravotnický prostředek, odhady orientační.
 - Nápad na zdravotní poradenství k bolestem zad (diagnóza → ergonomie → „záchranná brzda“) do hlavního produktu nepatří: je to zdravotní poradenství mimo naše pozicování. Možný užší modul „Opatruj se: bezpečné zvedání pro pečující“ je rozhodnutí k projednání (Issue).
+- 2026-11-17: Radek schválil nasazení Léky a design webu podle vzoru stridave.cz (ilustrace, pruh s čísly, bubliny funkcí).
