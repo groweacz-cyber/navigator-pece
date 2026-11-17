@@ -220,6 +220,42 @@ describe('tasks a contacts', () => {
   })
 })
 
+describe('léky a podání', () => {
+  const lek = (extra = {}) => ({ nazev: 'Donepezil', davka: '5 mg', casy: ['08:00', '20:00'], aktivni: true, vytvoreno: serverTimestamp(), ...extra })
+  const podani = (uid, extra = {}) => ({ lekId: 'l1', datum: '2026-11-17', cas: '08:00', podalUid: uid, vytvoreno: serverTimestamp(), ...extra })
+  const cesta = (c) => p(`carePersons/${OSOBA}/${c}`)
+
+  test('host léky ani podání nevidí a nezapíše', async () => {
+    await assertFails(setDoc(doc(jako('host1'), cesta('leky/l1')), lek()))
+    await assertFails(setDoc(doc(jako('host1'), cesta('podani/p1')), podani('host1')))
+    await assertFails(getDocs(collection(jako('host1'), cesta('leky'))))
+  })
+
+  test('člen a pečovatel léky založí, čtou a deaktivují, ale nesmažou', async () => {
+    const db = jako('clen1')
+    await assertSucceeds(setDoc(doc(db, cesta('leky/l1')), lek()))
+    await assertSucceeds(getDocs(collection(jako('pecovatel1'), cesta('leky'))))
+    await assertSucceeds(updateDoc(doc(db, cesta('leky/l1')), { aktivni: false }))
+    await assertFails(updateDoc(doc(db, cesta('leky/l1')), { nazev: 'Jiný' }))
+    await assertFails(deleteDoc(doc(db, cesta('leky/l1'))))
+  })
+
+  test('lék s cizím polem nebo bez názvu neprojde', async () => {
+    const db = jako('clen1')
+    await assertFails(setDoc(doc(db, cesta('leky/l2')), lek({ cokoli: 1 })))
+    await assertFails(setDoc(doc(db, cesta('leky/l2')), lek({ nazev: '' })))
+    await assertFails(setDoc(doc(db, cesta('leky/l2')), lek({ vytvoreno: new Date('2020-01-01') })))
+  })
+
+  test('podání: jen jako sám sebe, jde vzít zpět', async () => {
+    const db = jako('clen1')
+    await assertSucceeds(setDoc(doc(db, cesta('podani/p1')), podani('clen1')))
+    await assertFails(setDoc(doc(db, cesta('podani/p2')), podani('pecovatel1')))
+    await assertFails(updateDoc(doc(db, cesta('podani/p1')), { cas: '09:00' }))
+    await assertSucceeds(deleteDoc(doc(db, cesta('podani/p1'))))
+  })
+})
+
 describe('documents', () => {
   test('host nesmí, člen smí', async () => {
     await assertFails(getDoc(doc(jako('host1'), p('documents/d1'))))

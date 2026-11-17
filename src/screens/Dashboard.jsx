@@ -9,8 +9,10 @@ import Clenove from './Clenove.jsx'
 import Denik from './Denik.jsx'
 import Dokumenty from './Dokumenty.jsx'
 import Kontakty from './Kontakty.jsx'
+import Leky from './Leky.jsx'
 import Osoby from './Osoby.jsx'
 import Podklady from './Podklady.jsx'
+import Rady from './Rady.jsx'
 import RychlaKarta from './RychlaKarta.jsx'
 import RozlozeniPece from './RozlozeniPece.jsx'
 import Ukoly from './Ukoly.jsx'
@@ -21,12 +23,14 @@ const ZALOZKY = [
   { id: 'denik', nazev: 'Deník', jenPlny: true },
   { id: 'ukoly', nazev: 'Úkoly' },
   { id: 'karta', nazev: 'Rychlá karta' },
+  { id: 'leky', nazev: 'Léky', jenPlny: true },
   { id: 'osoby', nazev: 'Osoby' },
   { id: 'kontakty', nazev: 'Kontakty' },
   { id: 'vyvoj', nazev: 'Vývoj', jenPlny: true },
   { id: 'podklady', nazev: 'Podklady', jenPlny: true },
   { id: 'dokumenty', nazev: 'Dokumenty', jenPlny: true },
   { id: 'pece', nazev: 'Rozložení péče', jenPlny: true },
+  { id: 'rady', nazev: 'Rady' },
   { id: 'rodina', nazev: 'Rodina' },
 ]
 
@@ -44,6 +48,8 @@ export default function Dashboard({ rodina, uid, pocetRodin, onZmenitRodinu, onO
       case 'ukoly': return <Ukoly rodina={rodina} uid={uid} />
       case 'karta': return <RychlaKarta rodina={rodina} osoby={osoby.data} />
       case 'pece': return <RozlozeniPece rodina={rodina} />
+      case 'leky': return <Leky rodina={rodina} uid={uid} osoby={osoby.data} />
+      case 'rady': return <Rady />
       case 'osoby': return <Osoby rodina={rodina} osoby={osoby.data} plnyPristup={plnyPristup} />
       case 'kontakty': return <Kontakty rodina={rodina} />
       case 'vyvoj': return <Vyvoj rodina={rodina} osoby={osoby.data} />
@@ -57,7 +63,7 @@ export default function Dashboard({ rodina, uid, pocetRodin, onZmenitRodinu, onO
     <div className="ramec">
       <header className="zahlavi">
         <div>
-          <strong className="logo">V klidu</strong>
+          <strong className="logo">Opatruj</strong>
           <span className="rodina-nazev">{rodina.nazev}</span>
         </div>
         <div className="zahlavi-akce">
