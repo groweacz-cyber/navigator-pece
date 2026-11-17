@@ -1,5 +1,5 @@
 # Opatruj
-Péče o blízké s demencí: sdílený deník, podklady pro úřady a hlídání vývoje. Web a Android (Capacitor), backend Firebase.
+Péče o blízké seniory (včetně demence): sdílený deník, podklady pro úřady a hlídání vývoje. Web a Android (Capacitor), backend Firebase.
 
 > Dříve pracovní název „V klidu“ / „Navigátor péče“. Technické identifikátory (repo, Firebase projekt `navigator-pece`) se nepřejmenovávají.
 

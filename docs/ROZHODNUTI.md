@@ -57,3 +57,8 @@ Formát: datum, rozhodnutí, důvod. Otevřené body jsou označené `OTEVŘENO`
 - **PRÁVNÍ STRÁNKY JSOU JEN NÁVRHY** (`zasady-ochrany-osobnich-udaju`, `obchodni-podminky`), s hranatými závorkami na místech, která musí doplnit provozovatel (správce údajů, IČO, adresa, právní základ pro zdravotní údaje, souhlas pečované osoby, smlouvy se zpracovateli, předání mimo EU, lhůty výmazu). Doporučena kontrola právníkem před zveřejněním.
 - Web se do ostrého spuštění drží `noindex` (viz docs/DOMENY.md).
 - 2026-10-25: Radek schválil nasazení webu na opatruj.cz s noindex a bez právních stránek. Texty webu (index, kontakt) tím nejsou schválené definitivně, čekají na Radkovu kontrolu. Návrhy zásad a podmínek přesunuty do docs/navrhy-pravnich-stranek/.
+
+## Rozšíření cílovky na seniory (2026-11-17, rozhodl Radek)
+- Opatruj není jen pro demenci, ale pro rodiny pečující o jakéhokoli seniora s omezenou soběstačností. Důvod: příspěvek na péči a 10 základních životních potřeb (zákon 108/2006 Sb.) se posuzují stejně u všech, tržiště je mnohem větší a stávající funkce (deník, podklady, vývoj stavu, rodina) jsou obecné.
+- Demence zůstává významným případem použití (v textech i klasifikaci zmíněna výslovně). Pozicování se nemění: koordinace péče a podklady pro úřady, ne zdravotnický prostředek, odhady orientační.
+- Nápad na zdravotní poradenství k bolestem zad (diagnóza → ergonomie → „záchranná brzda“) do hlavního produktu nepatří: je to zdravotní poradenství mimo naše pozicování. Možný užší modul „Opatruj se: bezpečné zvedání pro pečující“ je rozhodnutí k projednání (Issue).

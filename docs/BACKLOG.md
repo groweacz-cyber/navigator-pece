@@ -24,3 +24,13 @@ D1 Capacitor/Android · D2 zásady, Data safety, Google Play · D3 web · D4 cen
 - Ochranné známky: kontrola ÚPV a EUIPO (TMview) třídy 9, 42, 44 před výdaji na reklamu.
 - Doména: koupě opatruj.cz (Radek), `opatruj.sk` do zásoby (otázka), přidání do Authentication → Authorized domains, připojení k Hosting, `podpora@opatruj.cz`.
 - Hosting: CSP ostře po zkušebním režimu Report-Only, GitHub Actions (build, testy, preview kanál, ruční produkční deploy se schválením), Lighthouse.
+
+## Rozšíření na seniory (návrh pořadí, 2026-11-17)
+1. **Léky**: seznam léků u osoby (název, dávka, časy) a denní odškrtávání „podáno“. Připomínky přes notifikace později (PWA/Android).
+2. **Termíny a návštěvy lékaře**: úkoly s datem a kalendářní přehled, kdo doprovodí.
+3. **Riziko pádů a bloudění** (C5): vzorce v kategoriích mobilita/orientace, konkrétní upozornění.
+4. **Časová osa pro lékaře** (PDF): fakticky uspořádaná pozorování z deníku a zdravotních poznámek.
+5. **Respitní plánovač**: upozorní, že jeden člověk táhne dlouho bez pauzy.
+6. **Opatruj se: bezpečné zvedání a přesuny pro pečující** (obecné zásady bez diagnóz, viz decision-required Issue).
+7. Obecný „stav osoby“ (volný text: demence, po mrtvici, křehkost), využitý v klasifikaci a PDF.
+8. Android appka, nahrávání dokumentů, zásady ochrany údajů.
