@@ -63,3 +63,8 @@ Formát: datum, rozhodnutí, důvod. Otevřené body jsou označené `OTEVŘENO`
 - Demence zůstává významným případem použití (v textech i klasifikaci zmíněna výslovně). Pozicování se nemění: koordinace péče a podklady pro úřady, ne zdravotnický prostředek, odhady orientační.
 - Nápad na zdravotní poradenství k bolestem zad (diagnóza → ergonomie → „záchranná brzda“) do hlavního produktu nepatří: je to zdravotní poradenství mimo naše pozicování. Možný užší modul „Opatruj se: bezpečné zvedání pro pečující“ je rozhodnutí k projednání (Issue).
 - 2026-11-17: Radek schválil nasazení Léky a design webu podle vzoru stridave.cz (ilustrace, pruh s čísly, bubliny funkcí).
+
+## Rady pro pohyb doma (2026-11-17)
+- Záložka **Rady** v appce (všechny role) a stránka **opatruj.cz/rady** (SEO: „rady pro seniory, vaření, úklid, mobilita“). Jeden zdroj textu `src/data/rady.js`, web se generuje `npm run web:rady`.
+- Jen **obecné zásady** bez diagnóz a individuálních rad, vždy s upozorněním a rámečkem „Kdy přestat a zavolat pomoc“ (155/112). Součástí je kapitola pro pečující (zvedání a přesuny).
+- **TEXTY ke kontrole odborníkem:** obsah napsal Claude z běžně uznávaných ergonomických zásad. Před aktivním propagováním ho nechat zkontrolovat fyzioterapeutem nebo ergoterapeutem a doplnit.

@@ -301,3 +301,8 @@ footer ul { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 22px; pad
 }
 .uvod .tlacitko.druhe { background: transparent; border-color: var(--petrol); box-shadow: none; }
 .uvod h1 em.zl { color: var(--terakota); }
+
+.bublina-mrizka a.bublina-odkaz { background: var(--zlata-svetla); border: 1.5px solid var(--zlata); border-radius: 999px; padding: 12px 22px; font-weight: 700; color: var(--petrol); text-decoration: none; }
+.rada-blok { margin-top: 36px; }
+.rada-blok h2 { font-size: 1.6rem; }
+.stranka .upozorneni { margin: 18px 0; }
