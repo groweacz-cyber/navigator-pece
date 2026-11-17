@@ -1,4 +1,4 @@
-// V klidu: řízení stavu aplikace.
+// Opatruj: řízení stavu aplikace.
 // Tok: přihlášení → (pozvánka?) → výběr nebo založení rodiny → Dashboard.
 
 import { useCallback, useEffect, useState } from 'react'
@@ -12,8 +12,8 @@ import Login from './screens/Login.jsx'
 import Register from './screens/Register.jsx'
 import { Chyba, Nacitani } from './screens/komponenty.jsx'
 
-const KLIC_POZVANKY = 'vklidu.pozvanka'
-const KLIC_RODINY = 'vklidu.rodina'
+const KLIC_POZVANKY = 'opatruj.pozvanka'
+const KLIC_RODINY = 'opatruj.rodina'
 
 // Proč sessionStorage: kód z odkazu musí přežít registraci nebo přihlášení,
 // ale nemá zůstat uložený navždy.

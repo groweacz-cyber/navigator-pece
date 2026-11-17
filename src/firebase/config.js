@@ -1,4 +1,4 @@
-// Navigátor péče — připojení k Firebase
+// Opatruj — připojení k Firebase
 //
 // Hodnoty níže jsou veřejné podle návrhu (bezpečnost zajišťují Firestore a
 // Storage pravidla, ne skrytí tohoto souboru). Skutečné najdeš ve Firebase

@@ -1,6 +1,6 @@
 rules_version = '2';
 
-// Navigátor péče — bezpečnostní pravidla
+// Opatruj — bezpečnostní pravidla
 //
 // Psaná od prvního commitu, ne dodatečně. Vychází z stejné logiky jako
 // appka Střídavě: appka nikdy nevěří sama sobě, věří jen tomu, co si
