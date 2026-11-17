@@ -158,6 +158,15 @@
               "value": "noindex, nofollow"
             }
           ]
+        },
+        {
+          "source": "**/*.@(html|css|svg)",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-cache"
+            }
+          ]
         }
       ]
     }
