@@ -50,6 +50,9 @@ Aktualizováno 2026-10-25 (větev `stabilizace`, nezmergováno do `main`).
 | 10 | Dashboard jako obří obrazovka | **Rozděleno** na obrazovky, `documents` a další služby doplněny |
 | 11 | Ochrana dat při volání Anthropic | Částečně: posílá se jen text záznamu. Smluvní rámec a souhlas čeká na Radka. |
 
+## Rady (nasazeno 2026-11-17 v appce i na webu, PR 27)
+- Záložka Rady a opatruj.cz/rady, texty ke kontrole fyzioterapeutem.
+
 ## Léky (nasazeno v produkci 2026-11-17: pravidla + app.opatruj.cz, větev `leky`, PR 26)
 - Záložka Léky (jen pečovatel a člen): seznam léků u osoby (název, dávka, časy, poznámka), denní odškrtávání „podáno“ s údajem, kdo a kdy, možnost vzít zpět, přestat podávat. Data v `carePersons/{id}/leky` a `podani` (jako zdravotní údaje, host je nevidí). 4 nové testy pravidel. K nasazení: Firestore pravidla + klient (Hosting appky). Funkce beze změny.
 - Zatím bez připomínek (notifikace přijdou s Androidem/PWA).
