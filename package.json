@@ -29,6 +29,7 @@
     "@firebase/rules-unit-testing": "^3.0.4",
     "@vitejs/plugin-react": "^4.3.1",
     "cross-env": "^10.1.0",
+    "qrcode": "^1.5.4",
     "vite": "^5.4.8",
     "vitest": "^2.1.9"
   }

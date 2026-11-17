@@ -65,7 +65,7 @@ nav a:hover { text-decoration: underline; }
 .hlavicka .tlacitko { min-height: 48px; padding: 10px 20px; }
 
 /* Úvod */
-.uvod { position: relative; overflow: hidden; background: radial-gradient(1200px 600px at 85% 20%, #3a6167 0%, transparent 60%), linear-gradient(165deg, #2c4a4e 0%, #1b3336 100%); color: var(--bila); padding: 130px 0 110px; }
+.uvod { position: relative; overflow: hidden; background: radial-gradient(1200px 600px at 85% 20%, #3a6167 0%, transparent 60%), linear-gradient(165deg, #2c4a4e 0%, #1b3336 100%); color: var(--bila); padding: 96px 0 110px; }
 .uvod .mrizka-uvod { display: grid; gap: 48px; grid-template-columns: 1.05fr 1fr; align-items: center; }
 .uvod h1 { color: var(--bila); }
 .uvod .stitek { display: inline-block; color: var(--zlata-svetla); font-weight: 600; letter-spacing: 0.04em; margin-bottom: 18px; padding: 6px 14px; border: 1px solid rgba(242, 217, 163, 0.5); border-radius: 999px; font-size: 0.95rem; }
@@ -252,4 +252,21 @@ footer ul { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 22px; pad
 @media (max-width: 600px) {
   .scena.s-ilu .plovouci.trend { left: 4px; width: 150px; }
   .scena.s-ilu .telefon { width: 170px; }
+}
+
+/* Banner nahoře (jako u Střídavě.cz) */
+.banner { display: flex; flex-wrap: wrap; align-items: center; gap: 22px 28px; background: linear-gradient(135deg, rgba(255,255,255,0.14), rgba(255,255,255,0.06)); border: 1.5px solid rgba(242,217,163,0.55); border-radius: 26px; padding: 22px 28px; margin-bottom: 52px; box-shadow: 0 18px 40px -22px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.2); backdrop-filter: blur(4px); }
+.banner .qr { width: 104px; height: 104px; border-radius: 16px; background: #fff; padding: 6px; flex: none; }
+.banner-text { flex: 1 1 280px; }
+.banner-text h2 { color: #fff; font-size: clamp(1.4rem, 2.6vw, 1.9rem); margin: 6px 0 6px; }
+.banner-text p { margin: 0; color: #d8e4e4; font-size: 1rem; }
+.odznak { display: inline-block; background: var(--zlata); color: var(--text); font-weight: 700; font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 12px; border-radius: 999px; }
+.banner-akce { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.banner-akce .tlacitko { white-space: nowrap; }
+.banner .play { font-size: 0.85rem; color: #bccfcf; }
+@media (max-width: 600px) {
+  .banner { padding: 18px; gap: 16px; }
+  .banner .qr { display: none; }
+  .banner-akce { width: 100%; }
+  .uvod { padding-top: 84px; }
 }
