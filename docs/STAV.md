@@ -49,3 +49,7 @@ Aktualizováno 2026-10-25 (větev `stabilizace`, nezmergováno do `main`).
 | 9 | UI pozvánky | **Hotovo** (odkaz platný 7 dní, jednorázový) |
 | 10 | Dashboard jako obří obrazovka | **Rozděleno** na obrazovky, `documents` a další služby doplněny |
 | 11 | Ochrana dat při volání Anthropic | Částečně: posílá se jen text záznamu. Smluvní rámec a souhlas čeká na Radka. |
+
+## Léky (větev `leky`, nenasazeno)
+- Záložka Léky (jen pečovatel a člen): seznam léků u osoby (název, dávka, časy, poznámka), denní odškrtávání „podáno“ s údajem, kdo a kdy, možnost vzít zpět, přestat podávat. Data v `carePersons/{id}/leky` a `podani` (jako zdravotní údaje, host je nevidí). 4 nové testy pravidel. K nasazení: Firestore pravidla + klient (Hosting appky). Funkce beze změny.
+- Zatím bez připomínek (notifikace přijdou s Androidem/PWA).
