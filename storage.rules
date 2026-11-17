@@ -1,6 +1,6 @@
 rules_version = '2';
 
-// Navigátor péče — Cloud Storage pravidla
+// Opatruj — Cloud Storage pravidla
 //
 // Zatím jediná povolená cesta: hotové PDF exporty (jen čtení). Nahrávání
 // dokumentů přijde ve vlastním bloku, pravidla se doplní přesně pro jeho
