@@ -8,8 +8,10 @@ import { sledovatOsoby } from '../services/carePersons.js'
 import Clenove from './Clenove.jsx'
 import Denik from './Denik.jsx'
 import Dokumenty from './Dokumenty.jsx'
+import Jidelnicek from './Jidelnicek.jsx'
 import Kontakty from './Kontakty.jsx'
 import Leky from './Leky.jsx'
+import NouzovaKarta from './NouzovaKarta.jsx'
 import Osoby from './Osoby.jsx'
 import Podklady from './Podklady.jsx'
 import Prehled from './Prehled.jsx'
@@ -26,6 +28,8 @@ const ZALOZKY = [
   { id: 'ukoly', nazev: 'Úkoly' },
   { id: 'karta', nazev: 'Rychlá karta' },
   { id: 'leky', nazev: 'Léky', jenPlny: true },
+  { id: 'jidelnicek', nazev: 'Jídelníček', jenPlny: true },
+  { id: 'nouzova', nazev: 'Nouzová karta', jenPlny: true },
   { id: 'osoby', nazev: 'Osoby' },
   { id: 'kontakty', nazev: 'Kontakty' },
   { id: 'vyvoj', nazev: 'Vývoj', jenPlny: true },
@@ -53,6 +57,8 @@ export default function Dashboard({ rodina, uid, pocetRodin, onZmenitRodinu, onO
       case 'pece': return <RozlozeniPece rodina={rodina} />
       case 'leky': return <Leky rodina={rodina} uid={uid} osoby={osoby.data} />
       case 'rady': return <Rady />
+      case 'nouzova': return <NouzovaKarta rodina={rodina} osoby={osoby.data} />
+      case 'jidelnicek': return <Jidelnicek rodina={rodina} osoby={osoby.data} />
       case 'osoby': return <Osoby rodina={rodina} osoby={osoby.data} plnyPristup={plnyPristup} />
       case 'kontakty': return <Kontakty rodina={rodina} />
       case 'vyvoj': return <Vyvoj rodina={rodina} osoby={osoby.data} />

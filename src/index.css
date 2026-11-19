@@ -248,3 +248,22 @@ details.rada li { margin-bottom: 8px; }
 .dlazdice-cislo { font-family: Georgia, serif; font-size: 2.6rem; line-height: 1.1; color: var(--petrol); margin: 6px 0; }
 .dlazdice.pozor .dlazdice-cislo { color: var(--terakota); }
 .dlazdice-popis { color: var(--text-jemny); margin: 0 0 8px; font-size: 0.95rem; }
+
+/* Nouzová karta */
+.tisk-karta { background: #fff; border: 3px solid var(--terakota); border-radius: 16px; padding: 22px 26px; margin-top: 24px; max-width: 720px; }
+.tisk-karta header { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px; background: var(--terakota); color: #fff; margin: -22px -26px 16px; padding: 12px 26px; border-radius: 12px 12px 0 0; }
+.tisk-karta h3 { margin-top: 0; font-size: 1.6rem; }
+.tisk-karta dt { font-weight: 700; color: var(--petrol); margin-top: 12px; }
+.tisk-karta dd { margin: 2px 0 0; white-space: pre-wrap; }
+.tisk-karta dd.vyrazne { color: var(--terakota); font-weight: 700; font-size: 1.15rem; }
+.tisk-karta footer { margin-top: 18px; font-size: 0.8rem; color: var(--text-jemny); }
+@media print {
+  body { background: #fff; font-size: 14pt; }
+  .zahlavi, .zalozky, .bez-tisku { display: none !important; }
+  .obsah { padding: 0; max-width: none; }
+  .tisk-karta { margin: 0; border-width: 4px; max-width: none; break-inside: avoid; }
+}
+
+.tyden-nav { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; margin: 14px 0; }
+details.dnesni { border-left: 6px solid var(--zlata); }
+.den-formular { padding: 0 20px 16px; }

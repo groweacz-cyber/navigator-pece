@@ -54,3 +54,9 @@ D1 Capacitor/Android · D2 zásady, Data safety, Google Play · D3 web · D4 cen
 | 12 | **Push notifikace** (léky, termíny) přes PWA/Android | Bez toho jsou připomínky jen na papíře | vyšší (Android) |
 | 13 | **Adresář služeb v okolí** (pečovatelská, odlehčovací, denní stacionář) | Kam se obrátit | vyšší (data) |
 | 14 | **Nahrávání dokumentů** (zprávy, posudky) do Storage | Vše na jednom místě | střední |
+
+## Jídelníček: další kroky (nápad Radka 2026-11-19)
+- Nákupní seznam generovaný z týdenního jídelníčku.
+- Dietní omezení jako strukturovaná pole (bez lepku, diabetická, kašovitá strava) a kontrola jídel proti alergiím.
+- Šablony oblíbených jídel a kopírování minulého týdne.
+- Hlídání pitného režimu a váhy s jednoduchým grafem.

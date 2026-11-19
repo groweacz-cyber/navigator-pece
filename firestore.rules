@@ -109,6 +109,28 @@ service cloud.firestore {
           allow delete: if false;
         }
 
+        match /nouzova/{kartaId} {
+          // Proč zvlášť a ne na dokumentu osoby: karta obsahuje alergie a diagnózy
+          // (čl. 9 GDPR), osobu čte i host. Dokument je jen jeden ("karta").
+          allow read: if maPlnyPristup(rodinaId);
+          allow create, update: if maPlnyPristup(rodinaId) && kartaId == 'karta' &&
+            request.resource.data.keys().hasOnly(['narozeni', 'alergie', 'diagnozy', 'pojistovna', 'praktik', 'kontakt1', 'kontakt2', 'poznamka', 'upraveno']) &&
+            request.resource.data.keys().hasAll(['upraveno']) &&
+            request.resource.data.upraveno == request.time;
+          allow delete: if false;
+        }
+
+        match /jidelnicek/{datum} {
+          // Proč jen plný přístup: jídelníček prozrazuje dietní omezení. ID dokumentu
+          // je den (YYYY-MM-DD), takže na den existuje jediný plán.
+          allow read, delete: if maPlnyPristup(rodinaId);
+          allow create, update: if maPlnyPristup(rodinaId) &&
+            datum.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$') &&
+            request.resource.data.keys().hasOnly(['snidane', 'svacina', 'obed', 'vecere', 'poznamka', 'upraveno']) &&
+            request.resource.data.keys().hasAll(['upraveno']) &&
+            request.resource.data.upraveno == request.time;
+        }
+
         match /podani/{podaniId} {
           // Proč odškrtnutí jako dokument: vidí se, kdo a kdy lék podal, a jde
           // vzít zpět smazáním. Podal je vždy přihlášený uživatel.
