@@ -56,3 +56,6 @@ Aktualizováno 2026-10-25 (větev `stabilizace`, nezmergováno do `main`).
 ## Léky (nasazeno v produkci 2026-11-17: pravidla + app.opatruj.cz, větev `leky`, PR 26)
 - Záložka Léky (jen pečovatel a člen): seznam léků u osoby (název, dávka, časy, poznámka), denní odškrtávání „podáno“ s údajem, kdo a kdy, možnost vzít zpět, přestat podávat. Data v `carePersons/{id}/leky` a `podani` (jako zdravotní údaje, host je nevidí). 4 nové testy pravidel. K nasazení: Firestore pravidla + klient (Hosting appky). Funkce beze změny.
 - Zatím bez připomínek (notifikace přijdou s Androidem/PWA).
+
+## Přehled (větev `prehled`, nenasazeno)
+- Úvodní záložka **Přehled**: dlaždice Dnešní léky (x z y, další dávka, zpožděné červeně), Deník za 7 dní s posledním zápisem, Úkoly, Rychlá karta, Vývoj stavu, Rodina, Rady. Host vidí jen úkoly, kartu, rodinu a rady. Bez nových dat a pravidel, jen klient.

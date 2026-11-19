@@ -34,3 +34,23 @@ D1 Capacitor/Android · D2 zásady, Data safety, Google Play · D3 web · D4 cen
 6. **Opatruj se: bezpečné zvedání a přesuny pro pečující** (obecné zásady bez diagnóz, viz decision-required Issue).
 7. Obecný „stav osoby“ (volný text: demence, po mrtvici, křehkost), využitý v klasifikaci a PDF.
 8. Android appka, nahrávání dokumentů, zásady ochrany údajů.
+
+## Brainstorming: další funkce (2026-11-19), seřazeno podle hodnoty a náročnosti
+**Hotovo v této dávce:** Přehled (dashboard) jako úvodní obrazovka.
+
+| # | Nápad | Proč | Náročnost |
+|---|---|---|---|
+| 1 | **Nouzová karta (QR na lednici / do peněženky)**: léky, alergie, kontakty, praktik, co říct záchranářům, PDF k vytištění | Zachraňuje čas při 155, využívá data, která už máme | střední |
+| 2 | **Termíny a návštěvy lékaře + připomínky** (kdo doprovodí, co vzít s sebou) | Každá rodina to řeší | střední |
+| 3 | **Rychlý zápis jedním klepnutím** („Jedl dobře“, „Špatně spal“, „Pád“, „Byl zmatený“) a **diktování hlasem** | Unavený pečující nebude psát romány; víc zápisů = lepší podklady | nízká až střední |
+| 4 | **Pády a události**: strukturovaný záznam (kdy, kde, následky) + vzorce | Podklad pro lékaře i šetření, riziko pádů (C5) | střední |
+| 5 | **Týdenní souhrn pro rodinu** („co se dělo tenhle týden“, PDF nebo e-mail) | Rodina, která není na místě, je v obraze | střední |
+| 6 | **Časová osa pro lékaře (PDF)**: spánek, jídlo, nálada, léky, události za 3 měsíce | Do ordinace s fakty, ne s dojmy | střední |
+| 7 | **Rozvrh hlídání** (kdo kdy je u blízkého) + upozornění na přetížení jednoho člověka (respit) | Rozloží zátěž, navazuje na Rozložení péče | střední |
+| 8 | **Jak se máš ty? (týdenní check pečujícího)** a doporučení odlehčovací služby | Dvojí smysl značky „opatruj se“ | nízká |
+| 9 | **Právní navigátor s lhůtami** (žádost, šetření, posudek, odvolání) a hlídání termínů | Peníze a nervy rodin | vyšší (ověřit zdroje) |
+| 10 | **Náklady na péči** (haléře), příspěvek na péči, export pro rodinu | Rodiny to řeší tabulkou | střední |
+| 11 | **Trendy: spánek, nálada, váha, hydratace** (jednoduché grafy) | Změny se vidí dřív | střední |
+| 12 | **Push notifikace** (léky, termíny) přes PWA/Android | Bez toho jsou připomínky jen na papíře | vyšší (Android) |
+| 13 | **Adresář služeb v okolí** (pečovatelská, odlehčovací, denní stacionář) | Kam se obrátit | vyšší (data) |
+| 14 | **Nahrávání dokumentů** (zprávy, posudky) do Storage | Vše na jednom místě | střední |

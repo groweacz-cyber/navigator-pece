@@ -238,3 +238,13 @@ details.rada[open] summary { color: var(--terakota); }
 details.rada p, details.rada ul { padding-left: 20px; padding-right: 20px; }
 details.rada ul { padding-left: 40px; margin-bottom: 16px; }
 details.rada li { margin-bottom: 8px; }
+
+/* Přehled */
+.dlazdice-mrizka { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 12px; }
+.dlazdice { background: var(--bila); border-radius: 18px; padding: 18px 20px; box-shadow: 0 1px 4px rgba(44, 74, 78, 0.18); border-left: 6px solid var(--petrol); }
+.dlazdice.ok { border-left-color: #6b8f5e; }
+.dlazdice.pozor { border-left-color: var(--terakota); background: #fdf1ec; }
+.dlazdice-hlava { font-weight: 600; color: var(--petrol); }
+.dlazdice-cislo { font-family: Georgia, serif; font-size: 2.6rem; line-height: 1.1; color: var(--petrol); margin: 6px 0; }
+.dlazdice.pozor .dlazdice-cislo { color: var(--terakota); }
+.dlazdice-popis { color: var(--text-jemny); margin: 0 0 8px; font-size: 0.95rem; }
