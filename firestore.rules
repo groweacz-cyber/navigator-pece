@@ -1,6 +1,6 @@
 rules_version = '2';
 
-// Navigátor péče — bezpečnostní pravidla
+// Opatruj — bezpečnostní pravidla
 //
 // Psaná od prvního commitu, ne dodatečně. Vychází z stejné logiky jako
 // appka Střídavě: appka nikdy nevěří sama sobě, věří jen tomu, co si
@@ -90,6 +90,58 @@ service cloud.firestore {
           // údaje jsou zvláštní kategorie osobních údajů (GDPR čl. 9).
           // I host, co jinak vidí většinu rodinných dat, sem nesmí.
           allow read, write: if maPlnyPristup(rodinaId);
+        }
+
+        match /leky/{lekId} {
+          // Proč jako health: seznam léků prozrazuje zdravotní stav (čl. 9 GDPR),
+          // host ho nevidí. Pole jsou pevná, ať se tam nedá schovat cokoli.
+          allow read: if maPlnyPristup(rodinaId);
+          allow create: if maPlnyPristup(rodinaId) &&
+            request.resource.data.keys().hasOnly(['nazev', 'davka', 'casy', 'poznamka', 'aktivni', 'vytvoreno']) &&
+            request.resource.data.keys().hasAll(['nazev', 'casy', 'aktivni', 'vytvoreno']) &&
+            request.resource.data.nazev is string && request.resource.data.nazev.size() > 0 && request.resource.data.nazev.size() <= 100 &&
+            request.resource.data.casy is list && request.resource.data.casy.size() <= 12 &&
+            request.resource.data.aktivni is bool &&
+            request.resource.data.vytvoreno == request.time;
+          allow update: if maPlnyPristup(rodinaId) &&
+            request.resource.data.diff(resource.data).affectedKeys().hasOnly(['aktivni']) &&
+            request.resource.data.aktivni is bool;
+          allow delete: if false;
+        }
+
+        match /nouzova/{kartaId} {
+          // Proč zvlášť a ne na dokumentu osoby: karta obsahuje alergie a diagnózy
+          // (čl. 9 GDPR), osobu čte i host. Dokument je jen jeden ("karta").
+          allow read: if maPlnyPristup(rodinaId);
+          allow create, update: if maPlnyPristup(rodinaId) && kartaId == 'karta' &&
+            request.resource.data.keys().hasOnly(['narozeni', 'alergie', 'diagnozy', 'pojistovna', 'praktik', 'kontakt1', 'kontakt2', 'poznamka', 'upraveno']) &&
+            request.resource.data.keys().hasAll(['upraveno']) &&
+            request.resource.data.upraveno == request.time;
+          allow delete: if false;
+        }
+
+        match /jidelnicek/{datum} {
+          // Proč jen plný přístup: jídelníček prozrazuje dietní omezení. ID dokumentu
+          // je den (YYYY-MM-DD), takže na den existuje jediný plán.
+          allow read, delete: if maPlnyPristup(rodinaId);
+          allow create, update: if maPlnyPristup(rodinaId) &&
+            datum.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$') &&
+            request.resource.data.keys().hasOnly(['snidane', 'svacina', 'obed', 'vecere', 'poznamka', 'upraveno']) &&
+            request.resource.data.keys().hasAll(['upraveno']) &&
+            request.resource.data.upraveno == request.time;
+        }
+
+        match /podani/{podaniId} {
+          // Proč odškrtnutí jako dokument: vidí se, kdo a kdy lék podal, a jde
+          // vzít zpět smazáním. Podal je vždy přihlášený uživatel.
+          allow read: if maPlnyPristup(rodinaId);
+          allow create: if maPlnyPristup(rodinaId) &&
+            request.resource.data.keys().hasOnly(['lekId', 'datum', 'cas', 'podalUid', 'vytvoreno']) &&
+            request.resource.data.keys().hasAll(['lekId', 'datum', 'cas', 'podalUid', 'vytvoreno']) &&
+            request.resource.data.podalUid == request.auth.uid &&
+            request.resource.data.vytvoreno == request.time;
+          allow update: if false;
+          allow delete: if maPlnyPristup(rodinaId);
         }
 
         match /krizovyPlan/{planId} {

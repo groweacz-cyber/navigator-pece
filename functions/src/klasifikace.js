@@ -6,7 +6,7 @@ import { KLICE, UROVNE } from './kategorie.js'
 export const MODEL = 'claude-sonnet-5-5'
 const MAX_ZNAKU = 4000
 
-const SYSTEM = `Třídíš krátké zápisy z deníku péče o člověka s demencí do 10 základních životních potřeb podle zákona 108/2006 Sb.
+const SYSTEM = `Třídíš krátké zápisy z deníku péče o seniora (často s demencí, po mrtvici nebo s křehkostí) do 10 základních životních potřeb podle zákona 108/2006 Sb.
 
 Potřeby (klíč: význam):
 - mobilita: chůze, vstávání, přesuny, pády
