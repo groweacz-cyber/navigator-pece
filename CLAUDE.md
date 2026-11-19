@@ -1,8 +1,10 @@
-# V klidu (technicky `navigator-pece`)
+# Opatruj (technicky `navigator-pece`)
 
-Aplikace pro rodiny pečující o blízkého s demencí. Společný deník péče, který AI třídí do 10 potřeb dle vyhlášky 505/2006 Sb., a z něj podklady pro úřady (sociální šetření, příspěvek na péči). Web/PWA (React + Vite), Android přes Capacitor, backend Firebase.
+> Dříve pracovní název „V klidu“ / „Navigátor péče“. Přejmenováno 2026-10-25, viz `docs/ROZHODNUTI.md`.
 
-Technické identifikátory (Firebase projekt `navigator-pece`, repo `navigator-pece`) se nepřejmenovávají. Navenek je název „V klidu".
+Aplikace pro rodiny pečující o blízkého seniora (demence, stav po mrtvici, křehkost, jen stáří). Původně jen demence, rozšířeno 2026-11-17. Společný deník péče, který AI třídí do 10 potřeb dle vyhlášky 505/2006 Sb., a z něj podklady pro úřady (sociální šetření, příspěvek na péči). Web/PWA (React + Vite), Android přes Capacitor, backend Firebase.
+
+Technické identifikátory (Firebase projekt `navigator-pece`, repo `navigator-pece`) se nepřejmenovávají. Navenek je název „Opatruj“ (doména opatruj.cz, kupuje Radek). Název má dvojí smysl: postarej se o blízkého, ale i „opatruj se“ (péče o pečujícího). Tagline (návrh, schvaluje Radek): „Opatruj své blízké. A sebe taky.“
 
 ## Pevná pravidla
 - **Pozicování**: koordinace péče a příprava podkladů pro úřady. Není zdravotnický prostředek, nediagnostikuje, nenahrazuje posudek. Každý odhad (stupeň závislosti, riziko pádů) je v UI i PDF označen jako orientační. Změnu pozicování schvaluje Radek.

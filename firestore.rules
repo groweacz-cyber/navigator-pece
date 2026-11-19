@@ -1,6 +1,6 @@
 rules_version = '2';
 
-// Navigátor péče — bezpečnostní pravidla
+// Opatruj — bezpečnostní pravidla
 //
 // Psaná od prvního commitu, ne dodatečně. Vychází z stejné logiky jako
 // appka Střídavě: appka nikdy nevěří sama sobě, věří jen tomu, co si
@@ -90,6 +90,36 @@ service cloud.firestore {
           // údaje jsou zvláštní kategorie osobních údajů (GDPR čl. 9).
           // I host, co jinak vidí většinu rodinných dat, sem nesmí.
           allow read, write: if maPlnyPristup(rodinaId);
+        }
+
+        match /leky/{lekId} {
+          // Proč jako health: seznam léků prozrazuje zdravotní stav (čl. 9 GDPR),
+          // host ho nevidí. Pole jsou pevná, ať se tam nedá schovat cokoli.
+          allow read: if maPlnyPristup(rodinaId);
+          allow create: if maPlnyPristup(rodinaId) &&
+            request.resource.data.keys().hasOnly(['nazev', 'davka', 'casy', 'poznamka', 'aktivni', 'vytvoreno']) &&
+            request.resource.data.keys().hasAll(['nazev', 'casy', 'aktivni', 'vytvoreno']) &&
+            request.resource.data.nazev is string && request.resource.data.nazev.size() > 0 && request.resource.data.nazev.size() <= 100 &&
+            request.resource.data.casy is list && request.resource.data.casy.size() <= 12 &&
+            request.resource.data.aktivni is bool &&
+            request.resource.data.vytvoreno == request.time;
+          allow update: if maPlnyPristup(rodinaId) &&
+            request.resource.data.diff(resource.data).affectedKeys().hasOnly(['aktivni']) &&
+            request.resource.data.aktivni is bool;
+          allow delete: if false;
+        }
+
+        match /podani/{podaniId} {
+          // Proč odškrtnutí jako dokument: vidí se, kdo a kdy lék podal, a jde
+          // vzít zpět smazáním. Podal je vždy přihlášený uživatel.
+          allow read: if maPlnyPristup(rodinaId);
+          allow create: if maPlnyPristup(rodinaId) &&
+            request.resource.data.keys().hasOnly(['lekId', 'datum', 'cas', 'podalUid', 'vytvoreno']) &&
+            request.resource.data.keys().hasAll(['lekId', 'datum', 'cas', 'podalUid', 'vytvoreno']) &&
+            request.resource.data.podalUid == request.auth.uid &&
+            request.resource.data.vytvoreno == request.time;
+          allow update: if false;
+          allow delete: if maPlnyPristup(rodinaId);
         }
 
         match /krizovyPlan/{planId} {
