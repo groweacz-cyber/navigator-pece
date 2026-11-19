@@ -60,7 +60,7 @@ Aktualizováno 2026-10-25 (větev `stabilizace`, nezmergováno do `main`).
 ## Přehled (nasazeno 2026-11-19, PR 28)
 - Úvodní záložka **Přehled**: dlaždice Dnešní léky (x z y, další dávka, zpožděné červeně), Deník za 7 dní s posledním zápisem, Úkoly, Rychlá karta, Vývoj stavu, Rodina, Rady. Host vidí jen úkoly, kartu, rodinu a rady. Bez nových dat a pravidel, jen klient.
 
-## Nouzová karta a Jídelníček (větev `nouzova`, nenasazeno)
+## Nouzová karta a Jídelníček (nasazeno 2026-11-19, PR 29)
 - **Nouzová karta** (jen plný přístup): datum narození, alergie, diagnózy, pojišťovna, praktik, 2 kontakty na rodinu, co říct záchranářům. Léky (aktivní) a kontakty na lékaře se berou z appky. Tlačítko pro tisk nebo uložení jako PDF (tisková šablona). Data v `carePersons/{id}/nouzova/karta`, host je nevidí.
 - **Jídelníček** (jen plný přístup): týdenní plán (snídaně, svačina, oběd, večeře, poznámka), listování týdny, nahoře upozornění na alergie z nouzové karty. Data v `carePersons/{id}/jidelnicek/{YYYY-MM-DD}`.
 - 4 nové testy pravidel (celkem 36). K nasazení: Firestore pravidla + klient.
