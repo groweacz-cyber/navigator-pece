@@ -69,6 +69,6 @@ Aktualizováno 2026-10-25 (větev `stabilizace`, nezmergováno do `main`).
 - V Deníku je 10 tlačítek s hotovými větami (snědl/a dobře, špatně spal/a, odmítl/a léky, upadl/a, bolest…). Klepnutí větu vloží do textu, jde je skládat a upravit. Jen klient, bez nových pravidel.
 - **Diktování hlasem** zatím není: prohlížeč by posílal zvuk třetí straně (Google), takže jde o rozhodnutí o předávání dat mimo Firebase a Anthropic (Issue).
 
-## Týdenní souhrn (větev `souhrn`, nenasazeno)
+## Týdenní souhrn (nasazeno 2026-11-23, PR 34)
 - Záložka **Souhrn týdne** (jen plný přístup): zápisy za 7 dní proti minulému týdnu, dodržení léků (podáno z plánu), nejčastější potíže, kdo zapisoval, tlačítko „Zkopírovat souhrn pro rodinu“ (text do chatu). Logika v `src/services/souhrnLogika.js` s 5 unit testy (`npm run test:unit`). Dlaždice na Přehledu. Jen klient, bez nových pravidel.
 - **Připomínky léků a termínů (push) zatím nejsou**: vyžadují notifikace (PWA/Android) a nový servis, další krok.
