@@ -23,7 +23,7 @@ function Shrnuti({ v }) {
     case 'zvazit_zadost':
       return (
         <div className="hlaska varovani">
-          <p><strong>Za poslední měsíc vychází orientačně vyšší stupeň než dřív</strong> (dříve {STUPEN[v.odhad.predtim.stupen]}, nyní {STUPEN[v.odhad.nedavno.stupen]}).</p>
+          <p><strong>Za poslední měsíc vychází orientačně vyšší stupeň než dřív</strong> Dříve: {STUPEN[v.odhad.predtim.stupen]}. Nyní: {STUPEN[v.odhad.nedavno.stupen]}.</p>
           <p>Pokud se zdravotní stav opravdu zhoršil, můžete na úřadu práce požádat o nové posouzení a zvýšení příspěvku na péči. Podklad z deníku připravíš v záložce Podklady.</p>
           <p className="jemne">Jde jen o odhad z vašich poznámek. O stupni rozhoduje úřad na základě šetření a posudku.</p>
         </div>

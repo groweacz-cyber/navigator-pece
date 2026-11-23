@@ -72,3 +72,8 @@ Aktualizováno 2026-10-25 (větev `stabilizace`, nezmergováno do `main`).
 ## Týdenní souhrn (nasazeno 2026-11-23, PR 34)
 - Záložka **Souhrn týdne** (jen plný přístup): zápisy za 7 dní proti minulému týdnu, dodržení léků (podáno z plánu), nejčastější potíže, kdo zapisoval, tlačítko „Zkopírovat souhrn pro rodinu“ (text do chatu). Logika v `src/services/souhrnLogika.js` s 5 unit testy (`npm run test:unit`). Dlaždice na Přehledu. Jen klient, bez nových pravidel.
 - **Připomínky léků a termínů (push) zatím nejsou**: vyžadují notifikace (PWA/Android) a nový servis, další krok.
+
+## Web podle vzoru Střídavě.cz (nasazeno 2026-11-23, větev `web-prvky`)
+- Prvky převzaté tematicky z stridave.cz: sticky záhlaví, banner s QR kódem, lišta funkcí, odznak „35 funkcí“, pruh ikon, pruh s čísly, **ukázky obrazovek** (skutečné screenshoty appky v rámečku telefonu, posuvná řada), klikací bubliny funkcí s okny (bez JavaScriptu přes `:target`), „Poznáváš to?“ s řešeními, **Jeden týden s Opatruj**, **Úplný přehled 35 funkcí** po kategoriích, Jak to funguje, Bezpečnost, **Co Opatruj je a co není**, **Pro koho**, **Připravujeme**, Cena, FAQ, závěrečná výzva, patička s odkazy.
+- **Nepřevzato (a proč):** formulář pro e-mail s ukázkovým přehledem zdarma (vyžaduje rozhodnutí, kde se e-maily ukládají, a souhlas), zvuk/video v úvodu (nemáme), tvrzení „do 14 dnů vrátíme peníze“ a „smazat jde všechno“ (platby a výmaz účtu ještě nejsou).
+- Screenshoty: `web/img/appka-*.png` z ukázkových dat (`npm run seed`), při změně vzhledu appky je potřeba je obnovit.

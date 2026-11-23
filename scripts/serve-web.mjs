@@ -9,6 +9,7 @@ const typy = {
   '.html': 'text/html; charset=utf-8',
   '.css': 'text/css',
   '.svg': 'image/svg+xml',
+  '.png': 'image/png',
   '.woff2': 'font/woff2',
   '.txt': 'text/plain',
   '.xml': 'application/xml',

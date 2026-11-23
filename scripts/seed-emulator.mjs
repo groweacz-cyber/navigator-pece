@@ -52,6 +52,15 @@ for (const text of [
 await addDoc(collection(db, `families/${rodinaId}/tasks`), { nazev: 'Objednat se k neurologovi', hotovo: false, vytvoril: pecovatelUid, vytvoreno: serverTimestamp() })
 await addDoc(collection(db, `families/${rodinaId}/contacts`), { jmeno: 'MUDr. Novotná', role: 'neurolog', telefon: '+420 123 456 789', vytvoreno: serverTimestamp() })
 
+
+// Léky, nouzová karta a jídelníček pro hezčí ukázku (a screenshoty na webu).
+const dnesDatum = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Prague' }).format(new Date())
+const lekRef = await addDoc(collection(db, `families/${rodinaId}/carePersons/${osoba.id}/leky`), { nazev: 'Donepezil', davka: '5 mg', casy: ['08:00', '20:00'], poznamka: 'po jídle', aktivni: true, vytvoreno: serverTimestamp() })
+await addDoc(collection(db, `families/${rodinaId}/carePersons/${osoba.id}/leky`), { nazev: 'Metformin', davka: '500 mg', casy: ['08:00', '18:00'], poznamka: '', aktivni: true, vytvoreno: serverTimestamp() })
+await setDoc(doc(db, `families/${rodinaId}/carePersons/${osoba.id}/podani/${lekRef.id}_${dnesDatum}_0800`), { lekId: lekRef.id, datum: dnesDatum, cas: '08:00', podalUid: pecovatelUid, vytvoreno: serverTimestamp() })
+await setDoc(doc(db, `families/${rodinaId}/carePersons/${osoba.id}/nouzova/karta`), { narozeni: '3. 5. 1941', alergie: 'penicilin, ořechy', diagnozy: 'Alzheimerova demence, vysoký tlak', pojistovna: 'VZP', praktik: 'MUDr. Svobodová, 123 456 789', kontakt1: 'Radka (dcera), 777 111 222', kontakt2: 'Honza (syn), 777 333 444', poznamka: 'Špatně slyší na pravé ucho. Uklidní ji klidný hlas.', upraveno: serverTimestamp() })
+await setDoc(doc(db, `families/${rodinaId}/carePersons/${osoba.id}/jidelnicek/${dnesDatum}`), { snidane: 'Ovesná kaše s jablkem', svacina: 'Jogurt', obed: 'Kuřecí vývar s nudlemi', vecere: 'Chléb s tvarohem a zeleninou', poznamka: 'Bez ořechů', upraveno: serverTimestamp() })
+
 const pozvanka = await volat('vytvoritPozvanku', { rodinaId, role: 'host' })
 await signOut(auth)
 await registrovat('Honza Novák', 'host@demo.cz')

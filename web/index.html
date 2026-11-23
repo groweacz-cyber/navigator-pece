@@ -15,7 +15,7 @@
     <meta property="og:url" content="https://opatruj.cz/" />
     <link rel="canonical" href="https://opatruj.cz/" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="/styles.css?v=20261123c" />
+    <link rel="stylesheet" href="/styles.css?v=20261123d" />
   </head>
   <body>
     <a class="preskocit" href="#obsah">Přeskočit na obsah</a>
@@ -79,7 +79,7 @@
         </div>
         <div class="obal mrizka-uvod">
           <div>
-            <span class="stitek">Opatruj své blízké. A sebe taky.</span>
+            <span class="odznak-fn">35 funkcí v jedné appce</span> <span class="stitek">Opatruj své blízké. A sebe taky.</span>
             <h1>Péče o blízkého seniora <em class="zl">bez chaosu</em> v hlavě</h1>
             <p class="perex">Společný deník péče pro rodiny, které pečují o seniora: s demencí, po mrtvici, nebo prostě s přibývajícím věkem. Zapíšeš pár vět, Opatruj je roztřídí a ve chvíli, kdy potřebuješ doložit úřadu, jak na tom blízký doopravdy je, máš všechno připravené.</p>
             <div class="tlacitka">
@@ -111,7 +111,18 @@
       </div>
 
 
-      <!-- PRUH S ČÍSLY -->
+      <!-- PRUH IKON -->
+      <section class="pruh-ikon" aria-label="Hlavní přínosy">
+        <div class="obal pruh-ikon-mrizka">
+          <div><span aria-hidden="true">📓</span> Deník a třídění</div>
+          <div><span aria-hidden="true">💊</span> Léky a jídelníček</div>
+          <div><span aria-hidden="true">📄</span> Podklady pro úřady</div>
+          <div><span aria-hidden="true">👨‍👩‍👧</span> Klid pro celou rodinu</div>
+        </div>
+      </section>
+
+
+            <!-- PRUH S ČÍSLY -->
       <div class="pruh">
         <div class="obal pruh-mrizka">
           <div><b>10</b><span>základních potřeb podle zákona, do kterých se zápisy třídí</span></div>
@@ -121,20 +132,69 @@
         </div>
       </div>
 
-      <!-- FUNKCE NA JEDNOM MÍSTĚ -->
+      <!-- UKÁZKY OBRAZOVEK -->
+      <section id="ukazka" class="ukazky">
+        <div class="obal">
+          <div class="hlavicka-sekce stred">
+            <span class="stitek-sekce">Ukázka</span>
+            <h2>Takhle vypadá <em class="tk">Opatruj</em></h2>
+            <p class="podtitul" style="margin:0 auto">Skutečná appka s ukázkovými daty. Všechno důležité o péči na jednom místě.</p>
+          </div>
+          <div class="shot-rada" tabindex="0" aria-label="Ukázky obrazovek appky">
+            <figure class="shot"><img src="/img/appka-prehled.png" alt="Obrazovka appky: Přehled" width="420" height="760" loading="lazy" /><figcaption><strong>Přehled</strong>Co je dnes důležité, na jedné obrazovce</figcaption></figure>
+            <figure class="shot"><img src="/img/appka-denik.png" alt="Obrazovka appky: Deník péče" width="420" height="760" loading="lazy" /><figcaption><strong>Deník péče</strong>Zápis jedním klepnutím</figcaption></figure>
+            <figure class="shot"><img src="/img/appka-leky.png" alt="Obrazovka appky: Léky" width="420" height="760" loading="lazy" /><figcaption><strong>Léky</strong>Kdo a kdy lék podal</figcaption></figure>
+            <figure class="shot"><img src="/img/appka-jidelnicek.png" alt="Obrazovka appky: Jídelníček" width="420" height="760" loading="lazy" /><figcaption><strong>Jídelníček</strong>S upozorněním na alergie</figcaption></figure>
+            <figure class="shot"><img src="/img/appka-nouzova.png" alt="Obrazovka appky: Nouzová karta" width="420" height="760" loading="lazy" /><figcaption><strong>Nouzová karta</strong>K vytištění na lednici</figcaption></figure>
+            <figure class="shot"><img src="/img/appka-vyvoj.png" alt="Obrazovka appky: Vývoj stavu" width="420" height="760" loading="lazy" /><figcaption><strong>Vývoj stavu</strong>Upozorní, když se něco mění</figcaption></figure>
+          </div>
+        </div>
+      </section>
+
+
+            <!-- FUNKCE NA JEDNOM MÍSTĚ -->
       <section class="bubliny" id="vsechno">
         <div class="obal">
           <div class="hlavicka-sekce stred">
             <span class="stitek-sekce">Všechno na jednom místě</span>
             <h2>Péče o seniora, <em class="tk">bez hledání</em> po lístečcích</h2>
           </div>
+          <p class="podtitul" style="margin:0 auto 20px;text-align:center">Klepni na bublinu a uvidíš, co umí.</p>
           <div class="bublina-mrizka">
-            <span class="horka">🔥 Jeden platí, rodina zdarma</span>
-            <span>📓 Společný deník</span><span>🧩 Třídění do 10 potřeb</span><span>📄 PDF na šetření</span><span>📈 Vývoj stavu</span>
-            <span>💊 Léky a podání</span><span>🪪 Rychlá karta</span><span>🆘 Krizový plán</span><span>👨‍👩‍👧 Role pro rodinu</span>
-            <span>✅ Úkoly</span><span>📞 Kontakty na lékaře</span><span>⚖️ Rozložení péče</span><span>📝 Zdravotní poznámky</span><a class="bublina-odkaz" href="/rady">🏠 Rady pro pohodlí doma</a>
+            <a class="bublina horka" href="#fn-role">🔥 Jeden platí, rodina zdarma</a>
+            <a class="bublina" href="#fn-denik">📓 Společný deník</a>
+            <a class="bublina" href="#fn-trideni">🧩 Třídění do 10 potřeb</a>
+            <a class="bublina" href="#fn-pdf">📄 PDF na šetření</a>
+            <a class="bublina" href="#fn-vyvoj">📈 Vývoj stavu</a>
+            <a class="bublina" href="#fn-leky">💊 Léky a podání</a>
+            <a class="bublina" href="#fn-karta">🪪 Rychlá karta</a>
+            <a class="bublina" href="#fn-krize">🆘 Krizový plán</a>
+            <a class="bublina" href="#fn-role">👨‍👩‍👧 Role pro rodinu</a>
+            <a class="bublina" href="#fn-ukoly">✅ Úkoly</a>
+            <a class="bublina" href="#fn-kontakty">📞 Kontakty na lékaře</a>
+            <a class="bublina" href="#fn-rozlozeni">⚖️ Rozložení péče</a>
+            <a class="bublina" href="#fn-zdravi">📝 Zdravotní poznámky</a>
+            <a class="bublina" href="#fn-jidelnicek">🍽️ Jídelníček</a>
+            <a class="bublina" href="#fn-nouzova">🚨 Nouzová karta</a>
+            <a class="bublina" href="#fn-souhrn">🗓️ Souhrn týdne</a>
+            <a class="bublina bublina-odkaz" href="/rady">🏠 Rady pro pohodlí doma</a>
           </div>
         </div>
+        <div class="okno-fn" id="fn-denik" role="dialog" aria-label="Společný deník péče"><div class="okno-fn-karta"><h3>Společný deník péče</h3><p>Zápisy z celé rodiny na jednom místě, u každého čas a autor. Stačí pár vět nebo klepnutí na hotovou větu.</p><a class="tlacitko tmave" href="#vsechno">Zavřít</a></div><a class="okno-fn-pozadi" href="#vsechno" aria-label="Zavřít"></a></div>
+        <div class="okno-fn" id="fn-trideni" role="dialog" aria-label="Třídění do 10 potřeb"><div class="okno-fn-karta"><h3>Třídění do 10 potřeb</h3><p>Každý zápis se sám přiřadí k desíti základním životním potřebám, které posuzuje úřad. Třídění můžeš kdykoli opravit.</p><a class="tlacitko tmave" href="#vsechno">Zavřít</a></div><a class="okno-fn-pozadi" href="#vsechno" aria-label="Zavřít"></a></div>
+        <div class="okno-fn" id="fn-pdf" role="dialog" aria-label="Podklad na sociální šetření"><div class="okno-fn-karta"><h3>Podklad na sociální šetření</h3><p>Z deníku vznikne přehledné PDF s datovanými citacemi. Je to orientační podklad, o příspěvku rozhoduje úřad.</p><a class="tlacitko tmave" href="#vsechno">Zavřít</a></div><a class="okno-fn-pozadi" href="#vsechno" aria-label="Zavřít"></a></div>
+        <div class="okno-fn" id="fn-vyvoj" role="dialog" aria-label="Vývoj stavu"><div class="okno-fn-karta"><h3>Vývoj stavu</h3><p>Srovnání posledního měsíce s předchozím. Ukáže nové potíže, zlepšení a kdy zvážit žádost o nové posouzení.</p><a class="tlacitko tmave" href="#vsechno">Zavřít</a></div><a class="okno-fn-pozadi" href="#vsechno" aria-label="Zavřít"></a></div>
+        <div class="okno-fn" id="fn-leky" role="dialog" aria-label="Léky a podání"><div class="okno-fn-karta"><h3>Léky a podání</h3><p>Seznam léků, denní odškrtávání a údaj, kdo a kdy lék podal. Pomůcka, nenahrazuje pokyny lékaře.</p><a class="tlacitko tmave" href="#vsechno">Zavřít</a></div><a class="okno-fn-pozadi" href="#vsechno" aria-label="Zavřít"></a></div>
+        <div class="okno-fn" id="fn-karta" role="dialog" aria-label="Rychlá karta"><div class="okno-fn-karta"><h3>Rychlá karta</h3><p>Co uklidní, čeho se vyvarovat, jaké má zvyky. Nový pečovatel nebo návštěva vše najde na jedné obrazovce.</p><a class="tlacitko tmave" href="#vsechno">Zavřít</a></div><a class="okno-fn-pozadi" href="#vsechno" aria-label="Zavřít"></a></div>
+        <div class="okno-fn" id="fn-krize" role="dialog" aria-label="Krizový plán „co dělat, když“"><div class="okno-fn-karta"><h3>Krizový plán „co dělat, když“</h3><p>Postup napsaný předem, třeba když se člověk ztratí nebo odmítá jíst. V krizi stačí otevřít.</p><a class="tlacitko tmave" href="#vsechno">Zavřít</a></div><a class="okno-fn-pozadi" href="#vsechno" aria-label="Zavřít"></a></div>
+        <div class="okno-fn" id="fn-role" role="dialog" aria-label="Role pro celou rodinu"><div class="okno-fn-karta"><h3>Role pro celou rodinu</h3><p>Pečovatel spravuje rodinu, člen vidí vše, host jen úkoly, kontakty a rychlou kartu. Zdravotní údaje host nevidí. Předplatné platí jeden, ostatní používají zdarma.</p><a class="tlacitko tmave" href="#vsechno">Zavřít</a></div><a class="okno-fn-pozadi" href="#vsechno" aria-label="Zavřít"></a></div>
+        <div class="okno-fn" id="fn-ukoly" role="dialog" aria-label="Úkoly"><div class="okno-fn-karta"><h3>Úkoly</h3><p>Kdo objedná neurologa, kdo koupí léky. Úkoly vidí celá rodina včetně hostů.</p><a class="tlacitko tmave" href="#vsechno">Zavřít</a></div><a class="okno-fn-pozadi" href="#vsechno" aria-label="Zavřít"></a></div>
+        <div class="okno-fn" id="fn-kontakty" role="dialog" aria-label="Kontakty"><div class="okno-fn-karta"><h3>Kontakty</h3><p>Lékaři, úřady a sociální pracovnice na jednom místě, s telefonem na jedno klepnutí.</p><a class="tlacitko tmave" href="#vsechno">Zavřít</a></div><a class="okno-fn-pozadi" href="#vsechno" aria-label="Zavřít"></a></div>
+        <div class="okno-fn" id="fn-rozlozeni" role="dialog" aria-label="Rozložení péče"><div class="okno-fn-karta"><h3>Rozložení péče</h3><p>Jen počty: kdo kolik zapsal a naplánoval za posledních 30 dní. Bez hodnocení, ať se dá v rodině o zátěži mluvit.</p><a class="tlacitko tmave" href="#vsechno">Zavřít</a></div><a class="okno-fn-pozadi" href="#vsechno" aria-label="Zavřít"></a></div>
+        <div class="okno-fn" id="fn-zdravi" role="dialog" aria-label="Zdravotní poznámky"><div class="okno-fn-karta"><h3>Zdravotní poznámky</h3><p>Léky, vyšetření, změny stavu. Vidí je jen pečovatel a člen, host ne.</p><a class="tlacitko tmave" href="#vsechno">Zavřít</a></div><a class="okno-fn-pozadi" href="#vsechno" aria-label="Zavřít"></a></div>
+        <div class="okno-fn" id="fn-jidelnicek" role="dialog" aria-label="Jídelníček na týden"><div class="okno-fn-karta"><h3>Jídelníček na týden</h3><p>Týdenní plán jídel s upozorněním na alergie z nouzové karty.</p><a class="tlacitko tmave" href="#vsechno">Zavřít</a></div><a class="okno-fn-pozadi" href="#vsechno" aria-label="Zavřít"></a></div>
+        <div class="okno-fn" id="fn-nouzova" role="dialog" aria-label="Nouzová karta"><div class="okno-fn-karta"><h3>Nouzová karta</h3><p>Alergie, léky a kontakty na jedné stránce k vytištění. Pro záchranáře i nového pečovatele.</p><a class="tlacitko tmave" href="#vsechno">Zavřít</a></div><a class="okno-fn-pozadi" href="#vsechno" aria-label="Zavřít"></a></div>
+        <div class="okno-fn" id="fn-souhrn" role="dialog" aria-label="Týdenní souhrn pro rodinu"><div class="okno-fn-karta"><h3>Týdenní souhrn pro rodinu</h3><p>Co se za týden dělo, dodržení léků a nejčastější potíže. Jedním klepnutím zkopíruješ do rodinného chatu.</p><a class="tlacitko tmave" href="#vsechno">Zavřít</a></div><a class="okno-fn-pozadi" href="#vsechno" aria-label="Zavřít"></a></div>
       </section>
 
       <!-- BOLEST -->
@@ -146,9 +206,9 @@
             <p class="podtitul">Stav seniora se zhoršuje pomalu, ať jde o demenci, následky nemoci nebo stáří, takže si změn skoro nevšimneš. Když je potřeba doložit je úřadu, nemáš o co se opřít.</p>
           </div>
           <div class="scenare">
-            <div class="scenar"><p class="otazka">Jak často se v posledním půlroce ztrácela?</p><p class="dusledek">Sociální pracovnice se ptá na měsíce zpátky. Ty to nevíš přesně, protože těžké dny se v hlavě slévají.</p></div>
-            <div class="scenar"><p class="otazka">Proč jsi mi to neřekla?</p><p class="dusledek">Péči nese většinou jeden člověk. Ostatní nevědí, co se dělo, a informace jsou v esemeskách a na lístečcích.</p></div>
-            <div class="scenar"><p class="otazka">Není to teď horší než loni?</p><p class="dusledek">Zhoršení přichází po malých krocích. Bez záznamů ho nejde ani poznat, ani doložit.</p></div>
+            <div class="scenar"><p class="otazka">Jak často se v posledním půlroce ztrácela?</p><p class="dusledek">Sociální pracovnice se ptá na měsíce zpátky. Ty to nevíš přesně, protože těžké dny se v hlavě slévají.</p><p class="reseni"><b>S Opatruj:</b> Podklad s datovanými citacemi z deníku máš za minutu.</p></div>
+            <div class="scenar"><p class="otazka">Proč jsi mi to neřekla?</p><p class="dusledek">Péči nese většinou jeden člověk. Ostatní nevědí, co se dělo, a informace jsou v esemeskách a na lístečcích.</p><p class="reseni"><b>S Opatruj:</b> Celá rodina vidí totéž, každý podle své role, a souhrn týdne pošleš do chatu.</p></div>
+            <div class="scenar"><p class="otazka">Není to teď horší než loni?</p><p class="dusledek">Zhoršení přichází po malých krocích. Bez záznamů ho nejde ani poznat, ani doložit.</p><p class="reseni"><b>S Opatruj:</b> Vývoj stavu porovná měsíce a upozorní, když se něco mění.</p></div>
           </div>
         </div>
       </section>
@@ -265,7 +325,47 @@
         </div>
       </section>
 
-      <!-- JAK TO FUNGUJE -->
+      <!-- JEDEN TÝDEN -->
+      <section id="tyden" class="svetla">
+        <div class="obal">
+          <div class="hlavicka-sekce">
+            <span class="stitek-sekce">Jeden týden s Opatruj</span>
+            <h2>Takhle vypadá <em class="tk">běžný týden</em> rodiny, která si nechce všechno pamatovat</h2>
+          </div>
+          <ol class="tyden-osa">
+            <li><span class="den">Pondělí</span><h3>Ranní léky</h3><p>Dcera odškrtne ranní dávky. Bratr, který bydlí jinde, se večer podívá a ví, že je vše v pořádku. Žádné „dal jsi mamce ty tablety?“.</p></li>
+            <li><span class="den">Úterý</span><h3>Zápis po návštěvě lékaře</h3><p>Pár klepnutí na hotové věty a pár slov navíc. Opatruj zápis roztřídí a v kontaktech je telefon na ordinaci.</p></li>
+            <li><span class="den">Středa</span><h3>Poprvé hlídá někdo nový</h3><p>Sousedka nebo vnuk otevře rychlou kartu: co uklidní, čeho se vyvarovat a co dělat, když se něco stane.</p></li>
+            <li><span class="den">Čtvrtek</span><h3>Návštěva s rolí host</h3><p>Host vidí úkoly, kontakty a rychlou kartu. Zdravotní údaje, deník ani dokumenty ne.</p></li>
+            <li><span class="den">Pátek</span><h3>Jídelníček na příští týden</h3><p>Plán jídel s upozorněním „Pozor, alergie“ nahoře. Nouzová karta visí na lednici, pro jistotu.</p></li>
+            <li><span class="den">Sobota</span><h3>Souhrn pro rodinu</h3><p>Jedním klepnutím zkopíruješ souhrn týdne do rodinného chatu: zápisy, léky, potíže, kdo zapisoval.</p></li>
+            <li><span class="den">Neděle</span><h3>Opatruj se</h3><p>Rozložení péče ukáže, kdo toho nese nejvíc. A rady pro pečující připomenou, že i tvoje záda se počítají.</p></li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ÚPLNÝ PŘEHLED -->
+      <section id="prehled">
+        <div class="obal">
+          <div class="hlavicka-sekce">
+            <span class="stitek-sekce">Úplný přehled</span>
+            <h2>Úplný přehled: <em class="tk">35 funkcí</em>, které appka umí</h2>
+            <p class="podtitul">Za cenu jednoho předplatného máš všechno. Žádné příplatky za funkce a další členové rodiny platí nulu.</p>
+          </div>
+          <div class="katalog">
+            <div><h3>Deník a třídění</h3><ul><li>Společný deník péče</li><li>Třídění do 10 potřeb</li><li>Ruční oprava třídění</li><li>Rychlé věty do deníku</li><li>Biografie a zvyky</li></ul></div>
+            <div><h3>Podklady pro úřady</h3><ul><li>Podklad na sociální šetření (PDF)</li><li>Datované citace ze zápisů</li><li>Orientační odhad stupně</li><li>Vývoj stavu za 30 dní</li><li>Upozornění na zhoršení</li><li>PDF s českou diakritikou</li></ul></div>
+            <div><h3>Léky, jídlo a zdraví</h3><ul><li>Léky a denní odškrtávání</li><li>Kdo a kdy lék podal</li><li>Jídelníček na týden</li><li>Hlídání alergií</li><li>Zdravotní poznámky</li></ul></div>
+            <div><h3>Nouzové situace</h3><ul><li>Nouzová karta k vytištění</li><li>Rychlá karta pro nového pečovatele</li><li>Krizový plán „co dělat, když“</li></ul></div>
+            <div><h3>Rodina a spolupráce</h3><ul><li>Týdenní souhrn pro rodinu</li><li>Rozložení péče v rodině</li><li>Úkoly</li><li>Kontakty na lékaře a úřady</li><li>Role pečovatel, člen, host</li><li>Jednorázové pozvánky</li><li>Více osob v jedné rodině</li></ul></div>
+            <div><h3>Přehled a rady</h3><ul><li>Přehled na jednom místě</li><li>Rady pro pohyb doma</li><li>Rady pro pečující</li><li>Evidence dokumentů</li></ul></div>
+            <div><h3>Bezpečí a provoz</h3><ul><li>Ochrana zdravotních údajů</li><li>Funguje v prohlížeči i v mobilu</li><li>Data v Evropě</li><li>Jeden platí, celá rodina zdarma</li><li>Web bez cookies</li></ul></div>
+          </div>
+        </div>
+      </section>
+
+
+            <!-- JAK TO FUNGUJE -->
       <section id="jak-to-funguje" class="tmava">
         <div class="obal">
           <div class="hlavicka-sekce">
@@ -316,7 +416,58 @@
       </section>
 
 
-      <!-- PROČ SE VYPLATÍ -->
+      <!-- CO JE A NENÍ -->
+      <section class="svetla" id="co-je">
+        <div class="obal">
+          <div class="hlavicka-sekce">
+            <span class="stitek-sekce">Co Opatruj je a co není</span>
+            <h2>Opatruj je <em class="tk">pomocník</em>, ne lékař ani úřad</h2>
+          </div>
+          <div class="upozorneni" role="note">
+            <p style="margin:0 0 10px"><strong>Opatruj není zdravotnický prostředek, lékař ani právní poradce.</strong> Nestanovuje diagnózu, nenahrazuje posudek a o příspěvku na péči rozhoduje úřad práce. Zapisuje, co se dělo, a pomáhá z toho připravit podklady.</p>
+            <p style="margin:0">Všechny odhady a upozornění jsou orientační a vycházejí jen z poznámek rodiny. Konkrétní situaci vždy řeš s lékařem, sociální pracovnicí nebo úřadem.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- PRO KOHO -->
+      <section id="pro-koho">
+        <div class="obal">
+          <div class="hlavicka-sekce">
+            <span class="stitek-sekce">Pro koho</span>
+            <h2>Pro koho je <em class="tk">Opatruj</em></h2>
+          </div>
+          <div class="duvera">
+            <div><h3>Pro pečující děti a partnery</h3><p>Deník, léky, jídelníček a podklady na jednom místě. Platí jeden z vás, ostatní používají zdarma.</p></div>
+            <div><h3>Pro sourozence a rodinu na dálku</h3><p>Role člen: vidí, co se děje, a nemusejí se každý večer ptát. Týdenní souhrn dostanou do chatu.</p></div>
+            <div><h3>Pro pomocníky a návštěvy</h3><p>Role host: úkoly, kontakty a rychlá karta, aby věděli, jak s člověkem mluvit. Zdravotní údaje nevidí.</p></div>
+            <div><h3>Pro samotné seniory</h3><p>Velká písma, jednoduché věty a vysoký kontrast. Seniorovi můžeš dát přístup jako členovi a on si ho prohlédne sám.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PŘIPRAVUJEME -->
+      <section class="svetla" id="pripravujeme">
+        <div class="obal">
+          <div class="hlavicka-sekce">
+            <span class="stitek-sekce">Připravujeme</span>
+            <h2>Opatruj <em class="tk">roste</em></h2>
+            <p class="podtitul">Tohle chystáme. Zapneme to postupně, jakmile to dotestujeme.</p>
+          </div>
+          <div class="chystame">
+            <div><span class="stitek-chystame">Připravujeme</span><h3>Připomínky léků a termínů</h3><p>Upozornění přímo do telefonu, ať na dávku ani návštěvu lékaře nikdo nezapomene.</p></div>
+            <div><span class="stitek-chystame">Připravujeme</span><h3>Termíny u lékaře</h3><p>Sdílený kalendář návštěv, kdo doprovodí a co vzít s sebou.</p></div>
+            <div><span class="stitek-chystame">Připravujeme</span><h3>Pády a události</h3><p>Strukturovaný záznam, kdy a kde k pádu došlo, a vzorce, které stojí za pozornost.</p></div>
+            <div><span class="stitek-chystame">Připravujeme</span><h3>Časová osa pro lékaře</h3><p>Přehled pozorování za tři měsíce k vytištění do ordinace.</p></div>
+            <div><span class="stitek-chystame">Připravujeme</span><h3>Právní navigátor s lhůtami</h3><p>Kde ve vyřizování příspěvku právě jsi a jaké lhůty hlídat.</p></div>
+            <div><span class="stitek-chystame">Připravujeme</span><h3>Rozvrh hlídání</h3><p>Kdo kdy u blízkého je a upozornění, když jeden člověk táhne příliš dlouho.</p></div>
+            <div><span class="stitek-chystame">Připravujeme</span><h3>Appka pro Android</h3><p>Stejná appka ke stažení z Google Play s notifikacemi.</p></div>
+          </div>
+        </div>
+      </section>
+
+
+            <!-- PROČ SE VYPLATÍ -->
       <section class="svetla" id="vyplati-se">
         <div class="obal">
           <div class="hlavicka-sekce">
@@ -395,6 +546,9 @@
     <footer>
       <div class="obal">
         <ul>
+          <li><a href="/rady">Rady pro seniory</a></li>
+          <li><a href="#jak-to-funguje">Jak to funguje</a></li>
+          <li><a href="#prehled">Přehled funkcí</a></li>
           <li><a href="/rady">Rady pro seniory</a></li>
           <li><a href="/kontakt">Kontakt</a></li>
           <li><a href="mailto:podpora@opatruj.cz">podpora@opatruj.cz</a></li>
