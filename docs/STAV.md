@@ -65,6 +65,6 @@ Aktualizováno 2026-10-25 (větev `stabilizace`, nezmergováno do `main`).
 - **Jídelníček** (jen plný přístup): týdenní plán (snídaně, svačina, oběd, večeře, poznámka), listování týdny, nahoře upozornění na alergie z nouzové karty. Data v `carePersons/{id}/jidelnicek/{YYYY-MM-DD}`.
 - 4 nové testy pravidel (celkem 36). K nasazení: Firestore pravidla + klient.
 
-## Rychlý zápis (větev `rychly-zapis`, nenasazeno)
+## Rychlý zápis (nasazeno 2026-11-23, PR 30)
 - V Deníku je 10 tlačítek s hotovými větami (snědl/a dobře, špatně spal/a, odmítl/a léky, upadl/a, bolest…). Klepnutí větu vloží do textu, jde je skládat a upravit. Jen klient, bez nových pravidel.
 - **Diktování hlasem** zatím není: prohlížeč by posílal zvuk třetí straně (Google), takže jde o rozhodnutí o předávání dat mimo Firebase a Anthropic (Issue).
