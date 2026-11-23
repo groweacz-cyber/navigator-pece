@@ -32,6 +32,7 @@ Aktualizováno 2026-10-25 (větev `stabilizace`, nezmergováno do `main`).
 - Staré ruční Cloud Run služby `acceptinvite` a `generovatprava` zatím existují a nic nevolá (čekají na souhlas se smazáním). Služba `klasifikovatzaznam` je nahrazená novou verzí.
 - Z produkce nebyl vyzkoušen žádný průchod (nevytvářel jsem testovací účty ani data). Ověřeno je jen, že funkce odpovídají.
 - Nahrávání dokumentů do Storage, obrazovka pro zdravotní záznamy, ruční oprava AI kategorií, výmaz účtu, App Check.
+- Klient běží na https://navigator-pece.web.app (Firebase Hosting, nasazeno 2026-10-25). Nasazení: `npm run build` a `firebase deploy --only hosting`.
 - Android (Capacitor), ikona, zásady zpracování.
 
 ## Stav známých chyb (sekce 6 předání)
@@ -48,3 +49,26 @@ Aktualizováno 2026-10-25 (větev `stabilizace`, nezmergováno do `main`).
 | 9 | UI pozvánky | **Hotovo** (odkaz platný 7 dní, jednorázový) |
 | 10 | Dashboard jako obří obrazovka | **Rozděleno** na obrazovky, `documents` a další služby doplněny |
 | 11 | Ochrana dat při volání Anthropic | Částečně: posílá se jen text záznamu. Smluvní rámec a souhlas čeká na Radka. |
+
+## Rady (nasazeno 2026-11-17 v appce i na webu, PR 27)
+- Záložka Rady a opatruj.cz/rady, texty ke kontrole fyzioterapeutem.
+
+## Léky (nasazeno v produkci 2026-11-17: pravidla + app.opatruj.cz, větev `leky`, PR 26)
+- Záložka Léky (jen pečovatel a člen): seznam léků u osoby (název, dávka, časy, poznámka), denní odškrtávání „podáno“ s údajem, kdo a kdy, možnost vzít zpět, přestat podávat. Data v `carePersons/{id}/leky` a `podani` (jako zdravotní údaje, host je nevidí). 4 nové testy pravidel. K nasazení: Firestore pravidla + klient (Hosting appky). Funkce beze změny.
+- Zatím bez připomínek (notifikace přijdou s Androidem/PWA).
+
+## Přehled (nasazeno 2026-11-19, PR 28)
+- Úvodní záložka **Přehled**: dlaždice Dnešní léky (x z y, další dávka, zpožděné červeně), Deník za 7 dní s posledním zápisem, Úkoly, Rychlá karta, Vývoj stavu, Rodina, Rady. Host vidí jen úkoly, kartu, rodinu a rady. Bez nových dat a pravidel, jen klient.
+
+## Nouzová karta a Jídelníček (nasazeno 2026-11-19, PR 29)
+- **Nouzová karta** (jen plný přístup): datum narození, alergie, diagnózy, pojišťovna, praktik, 2 kontakty na rodinu, co říct záchranářům. Léky (aktivní) a kontakty na lékaře se berou z appky. Tlačítko pro tisk nebo uložení jako PDF (tisková šablona). Data v `carePersons/{id}/nouzova/karta`, host je nevidí.
+- **Jídelníček** (jen plný přístup): týdenní plán (snídaně, svačina, oběd, večeře, poznámka), listování týdny, nahoře upozornění na alergie z nouzové karty. Data v `carePersons/{id}/jidelnicek/{YYYY-MM-DD}`.
+- 4 nové testy pravidel (celkem 36). K nasazení: Firestore pravidla + klient.
+
+## Rychlý zápis (nasazeno 2026-11-23, PR 30)
+- V Deníku je 10 tlačítek s hotovými větami (snědl/a dobře, špatně spal/a, odmítl/a léky, upadl/a, bolest…). Klepnutí větu vloží do textu, jde je skládat a upravit. Jen klient, bez nových pravidel.
+- **Diktování hlasem** zatím není: prohlížeč by posílal zvuk třetí straně (Google), takže jde o rozhodnutí o předávání dat mimo Firebase a Anthropic (Issue).
+
+## Týdenní souhrn (nasazeno 2026-11-23, PR 34)
+- Záložka **Souhrn týdne** (jen plný přístup): zápisy za 7 dní proti minulému týdnu, dodržení léků (podáno z plánu), nejčastější potíže, kdo zapisoval, tlačítko „Zkopírovat souhrn pro rodinu“ (text do chatu). Logika v `src/services/souhrnLogika.js` s 5 unit testy (`npm run test:unit`). Dlaždice na Přehledu. Jen klient, bez nových pravidel.
+- **Připomínky léků a termínů (push) zatím nejsou**: vyžadují notifikace (PWA/Android) a nový servis, další krok.

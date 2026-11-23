@@ -1,5 +1,17 @@
 {
   "projects": {
     "default": "navigator-pece"
+  },
+  "targets": {
+    "navigator-pece": {
+      "hosting": {
+        "app": [
+          "navigator-pece"
+        ],
+        "web": [
+          "opatruj-web"
+        ]
+      }
+    }
   }
 }

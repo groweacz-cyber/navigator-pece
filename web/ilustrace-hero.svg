@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 420" role="img" aria-label="Dospělá dcera vede za ruku starší maminku po cestě k domu">
+  <defs>
+    <linearGradient id="nebe" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6dfae"/><stop offset="0.55" stop-color="#fbf0d8"/><stop offset="1" stop-color="#f3efe6"/></linearGradient>
+    <radialGradient id="slunce" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff3cf"/><stop offset="0.45" stop-color="#f2d9a3" stop-opacity="0.85"/><stop offset="1" stop-color="#d9a441" stop-opacity="0"/></radialGradient>
+    <clipPath id="ram"><rect width="560" height="420" rx="30"/></clipPath>
+  </defs>
+  <g clip-path="url(#ram)">
+    <rect width="560" height="420" fill="url(#nebe)"/>
+    <circle cx="448" cy="104" r="112" fill="url(#slunce)"/>
+    <circle cx="448" cy="104" r="30" fill="#d9a441"/>
+    <!-- mraky -->
+    <g fill="#ffffff" opacity="0.9"><ellipse cx="110" cy="80" rx="50" ry="16"/><ellipse cx="146" cy="70" rx="34" ry="14"/><ellipse cx="300" cy="46" rx="42" ry="13"/><ellipse cx="330" cy="38" rx="26" ry="11"/></g>
+    <!-- kopce -->
+    <path d="M0 270 C90 210 200 230 290 262 S470 230 560 250 V420 H0Z" fill="#cddcc6"/>
+    <path d="M0 320 C120 280 240 300 340 318 S500 296 560 306 V420 H0Z" fill="#a9c6a4"/>
+    <path d="M0 362 C140 338 300 352 420 366 S520 360 560 356 V420 H0Z" fill="#88ad8d"/>
+    <!-- cesta -->
+    <path d="M200 420 C230 370 290 340 400 300 L446 300 C380 340 340 372 340 420Z" fill="#efe3c8"/>
+    <!-- dům -->
+    <g>
+      <rect x="400" y="212" width="112" height="92" rx="6" fill="#ffffff"/>
+      <path d="M390 216 L456 160 L522 216Z" fill="#b85c38"/>
+      <rect x="434" y="252" width="30" height="52" rx="4" fill="#2c4a4e"/>
+      <rect x="410" y="232" width="20" height="20" rx="3" fill="#f2d9a3"/><rect x="472" y="232" width="20" height="20" rx="3" fill="#f2d9a3"/>
+      <circle cx="458" cy="280" r="2.4" fill="#d9a441"/>
+      <rect x="486" y="172" width="12" height="28" fill="#9a4a2c"/>
+    </g>
+    <!-- strom -->
+    <rect x="62" y="236" width="12" height="80" rx="4" fill="#7a5a3a"/>
+    <g fill="#5f8f6c"><circle cx="68" cy="214" r="42"/><circle cx="40" cy="238" r="28"/><circle cx="98" cy="240" r="28"/></g>
+    <g fill="#74a07f" opacity="0.9"><circle cx="56" cy="204" r="18"/><circle cx="86" cy="226" r="14"/></g>
+    <!-- květiny -->
+    <g fill="#d9a441"><circle cx="150" cy="352" r="4"/><circle cx="176" cy="366" r="3.5"/><circle cx="476" cy="346" r="4"/><circle cx="506" cy="360" r="3.5"/></g>
+    <g fill="#ffffff"><circle cx="118" cy="362" r="3.5"/><circle cx="440" cy="366" r="3.5"/></g>
+    <!-- dcera -->
+    <g>
+      <rect x="208" y="318" width="13" height="34" rx="5" fill="#1b3336"/><rect x="228" y="318" width="13" height="34" rx="5" fill="#1b3336"/>
+      <ellipse cx="214" cy="354" rx="11" ry="5" fill="#12282b"/><ellipse cx="236" cy="354" rx="11" ry="5" fill="#12282b"/>
+      <rect x="196" y="236" width="56" height="92" rx="22" fill="#2c4a4e"/>
+      <path d="M196 256 C196 246 204 240 214 240 H234 C244 240 252 246 252 256" fill="none" stroke="#3f6a70" stroke-width="5"/>
+      <circle cx="224" cy="212" r="19" fill="#f1c9a5"/>
+      <path d="M205 212 C203 190 220 184 232 188 C246 192 246 210 243 216 C240 206 232 202 222 202 C214 202 208 206 205 212Z" fill="#5a3a24"/>
+      <circle cx="232" cy="215" r="1.8" fill="#3d2616"/>
+      <path d="M229 224 Q234 227 238 223" fill="none" stroke="#b5654a" stroke-width="2" stroke-linecap="round"/>
+    </g>
+    <!-- maminka -->
+    <g>
+      <rect x="286" y="332" width="11" height="26" rx="4" fill="#8a8479"/><rect x="304" y="332" width="11" height="26" rx="4" fill="#8a8479"/>
+      <ellipse cx="291" cy="359" rx="10" ry="4.5" fill="#5b564d"/><ellipse cx="311" cy="359" rx="10" ry="4.5" fill="#5b564d"/>
+      <path d="M278 270 C278 252 292 246 304 246 C318 246 330 254 330 272 V336 H278Z" fill="#d9a441"/>
+      <path d="M300 250 V336" stroke="#c18f30" stroke-width="2"/>
+      <circle cx="304" cy="232" r="17" fill="#f1c9a5"/>
+      <path d="M287 234 C284 214 296 208 306 210 C318 212 322 224 320 236 C316 226 308 222 300 222 C294 222 290 226 287 234Z" fill="#eeeae2"/>
+      <circle cx="298" cy="236" r="1.6" fill="#3d2616"/>
+      <path d="M299 244 Q304 247 309 243" fill="none" stroke="#b5654a" stroke-width="2" stroke-linecap="round"/>
+      <path d="M328 282 L334 352" stroke="#7a5a3a" stroke-width="4.5" stroke-linecap="round"/>
+      <path d="M322 282 q6 -6 12 0" fill="none" stroke="#7a5a3a" stroke-width="4.5" stroke-linecap="round"/>
+    </g>
+    <!-- držení za ruku -->
+    <path d="M248 274 C258 282 268 280 282 274" fill="none" stroke="#f1c9a5" stroke-width="9" stroke-linecap="round"/>
+    <circle cx="266" cy="279" r="7" fill="#f1c9a5"/>
+    <!-- srdíčko -->
+    <path d="M268 196 c-6 -9 -18 -2 -10 8 l10 10 l10 -10 c8 -10 -4 -17 -10 -8z" fill="#b85c38" opacity="0.9"/>
+  </g>
+</svg>

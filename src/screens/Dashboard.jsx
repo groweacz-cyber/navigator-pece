@@ -8,9 +8,15 @@ import { sledovatOsoby } from '../services/carePersons.js'
 import Clenove from './Clenove.jsx'
 import Denik from './Denik.jsx'
 import Dokumenty from './Dokumenty.jsx'
+import Jidelnicek from './Jidelnicek.jsx'
 import Kontakty from './Kontakty.jsx'
+import Leky from './Leky.jsx'
+import NouzovaKarta from './NouzovaKarta.jsx'
 import Osoby from './Osoby.jsx'
 import Podklady from './Podklady.jsx'
+import Souhrn from './Souhrn.jsx'
+import Prehled from './Prehled.jsx'
+import Rady from './Rady.jsx'
 import RychlaKarta from './RychlaKarta.jsx'
 import RozlozeniPece from './RozlozeniPece.jsx'
 import Ukoly from './Ukoly.jsx'
@@ -18,15 +24,21 @@ import Vyvoj from './Vyvoj.jsx'
 import { Chyba, Nacitani, useSeznam } from './komponenty.jsx'
 
 const ZALOZKY = [
+  { id: 'prehled', nazev: 'Přehled' },
+  { id: 'souhrn', nazev: 'Souhrn týdne', jenPlny: true },
   { id: 'denik', nazev: 'Deník', jenPlny: true },
   { id: 'ukoly', nazev: 'Úkoly' },
   { id: 'karta', nazev: 'Rychlá karta' },
+  { id: 'leky', nazev: 'Léky', jenPlny: true },
+  { id: 'jidelnicek', nazev: 'Jídelníček', jenPlny: true },
+  { id: 'nouzova', nazev: 'Nouzová karta', jenPlny: true },
   { id: 'osoby', nazev: 'Osoby' },
   { id: 'kontakty', nazev: 'Kontakty' },
   { id: 'vyvoj', nazev: 'Vývoj', jenPlny: true },
   { id: 'podklady', nazev: 'Podklady', jenPlny: true },
   { id: 'dokumenty', nazev: 'Dokumenty', jenPlny: true },
   { id: 'pece', nazev: 'Rozložení péče', jenPlny: true },
+  { id: 'rady', nazev: 'Rady' },
   { id: 'rodina', nazev: 'Rodina' },
 ]
 
@@ -40,10 +52,16 @@ export default function Dashboard({ rodina, uid, pocetRodin, onZmenitRodinu, onO
     if (osoby.chyba) return <Chyba chyba={osoby.chyba} />
     if (!osoby.data) return <Nacitani />
     switch (aktivni) {
+      case 'prehled': return <Prehled rodina={rodina} osoby={osoby.data} plnyPristup={plnyPristup} onPrejit={setAktivni} />
+      case 'souhrn': return <Souhrn rodina={rodina} osoby={osoby.data} />
       case 'denik': return <Denik rodina={rodina} uid={uid} osoby={osoby.data} />
       case 'ukoly': return <Ukoly rodina={rodina} uid={uid} />
       case 'karta': return <RychlaKarta rodina={rodina} osoby={osoby.data} />
       case 'pece': return <RozlozeniPece rodina={rodina} />
+      case 'leky': return <Leky rodina={rodina} uid={uid} osoby={osoby.data} />
+      case 'rady': return <Rady />
+      case 'nouzova': return <NouzovaKarta rodina={rodina} osoby={osoby.data} />
+      case 'jidelnicek': return <Jidelnicek rodina={rodina} osoby={osoby.data} />
       case 'osoby': return <Osoby rodina={rodina} osoby={osoby.data} plnyPristup={plnyPristup} />
       case 'kontakty': return <Kontakty rodina={rodina} />
       case 'vyvoj': return <Vyvoj rodina={rodina} osoby={osoby.data} />
@@ -57,7 +75,7 @@ export default function Dashboard({ rodina, uid, pocetRodin, onZmenitRodinu, onO
     <div className="ramec">
       <header className="zahlavi">
         <div>
-          <strong className="logo">V klidu</strong>
+          <strong className="logo">Opatruj</strong>
           <span className="rodina-nazev">{rodina.nazev}</span>
         </div>
         <div className="zahlavi-akce">
