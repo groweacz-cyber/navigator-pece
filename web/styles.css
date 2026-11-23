@@ -321,3 +321,37 @@ footer ul { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 22px; pad
 .cenik li::before { content: '✓'; position: absolute; left: 4px; color: #6b8f5e; font-weight: 700; }
 .cenik .odznak { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); }
 .drobne-cena { max-width: 44em; margin: 26px auto 0; text-align: center; color: var(--text-jemny); font-size: 0.92rem; }
+
+/* Lišta s funkcemi, která jezdí (jako u Střídavě.cz) */
+.ticker-box { background: linear-gradient(135deg, #1b3336, #2c4a4e); color: #fff; border-radius: 20px; overflow: hidden; margin-bottom: 26px; box-shadow: 0 14px 30px -18px rgba(27,51,54,0.9); border: 1.5px solid rgba(242,217,163,0.45); }
+.ticker-popisek { text-align: center; font-size: 0.95rem; padding: 12px 16px 0; color: #f2d9a3; font-weight: 600; }
+.ticker-popisek strong { color: #ffe08f; }
+.ticker-okno { overflow: hidden; }
+.ticker-pas { display: flex; width: max-content; padding: 10px 0 16px; animation: ticker-jed 140s linear infinite; }
+.ticker-box:hover .ticker-pas { animation-play-state: paused; }
+.ticker-stopa { display: flex; flex: 0 0 auto; gap: 12px; margin: 0; padding: 0 6px; list-style: none; }
+.ticker-stopa li { flex: 0 0 auto; white-space: nowrap; font-size: 0.95rem; font-weight: 600; padding: 7px 16px; border-radius: 999px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); }
+.ticker-stopa li:nth-child(5n+1) { background: rgba(242,217,163,0.22); border-color: rgba(242,217,163,0.5); }
+@keyframes ticker-jed { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.jen-ctecky { position: absolute; left: -9999px; }
+
+/* Živost: plovoucí bubliny, zářící a pulzující tlačítka */
+@keyframes bublina-pluje { 0%, 100% { translate: 0 0; } 50% { translate: 0 -6px; } }
+.bublina-mrizka span, .bublina-mrizka a.bublina-odkaz { animation: bublina-pluje 5s ease-in-out infinite; }
+.bublina-mrizka span:nth-child(2n) { animation-duration: 5.8s; }
+.bublina-mrizka span:nth-child(3n) { animation-duration: 6.6s; }
+.bublina-mrizka span.horka { background: linear-gradient(135deg, #ffe08f, #f0b232); border-color: #c58f2a; color: #1c2a2c; font-weight: 700; }
+@keyframes zar { 0%, 100% { box-shadow: 0 0 0 4px rgba(242,200,100,0.3), 0 14px 34px rgba(217,164,65,0.45); } 50% { box-shadow: 0 0 0 9px rgba(242,200,100,0.16), 0 14px 40px rgba(217,164,65,0.7); } }
+.velke-play, .uvod .tlacitko:not(.druhe):not(.vyzva) { animation: zar 2.4s ease-in-out infinite; }
+@keyframes mrkni { 0%, 100% { transform: scale(1); box-shadow: 0 0 0 4px rgba(184,92,56,0.25), 0 14px 30px rgba(184,92,56,0.4); } 50% { transform: scale(1.035); box-shadow: 0 0 0 11px rgba(184,92,56,0.12), 0 18px 38px rgba(184,92,56,0.6); filter: brightness(1.08); } }
+@keyframes sipka { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
+.uvod .tlacitko.vyzva { background: linear-gradient(135deg, #cf6d45, #b85c38); border-color: #b85c38; color: #fff; animation: mrkni 1.8s ease-in-out infinite; }
+.uvod .tlacitko.vyzva span { display: inline-block; animation: sipka 1.8s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .ticker-pas, .bublina-mrizka span, .bublina-mrizka a.bublina-odkaz, .velke-play, .uvod .tlacitko, .uvod .tlacitko.vyzva, .uvod .tlacitko.vyzva span { animation: none !important; }
+  .ticker-okno { overflow-x: auto; }
+}
+.hlavicka nav ul { gap: 4px 16px; }
+.hlavicka nav a { font-size: 0.95rem; white-space: nowrap; }
+.hlavicka .tlacitko { white-space: nowrap; }
+@media (min-width: 901px) { .hlavicka .obal { flex-wrap: nowrap; } }
