@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { NAZVY_KATEGORII, NAZVY_UROVNI } from '../services/kategorie.js'
 import { opravitHodnoceni, pridatZaznam, sledovatZaznamy, smazatZaznam, ucinneHodnoceni } from '../services/notes.js'
+import { RYCHLE_VETY } from '../data/rychleVety.js'
 import { Chyba, formatCas, Nacitani, Pole, Prazdno, useOdeslani, useSeznam } from './komponenty.jsx'
 
 function Stitky({ zaznam }) {
@@ -102,6 +103,12 @@ export default function Denik({ rodina, uid, osoby }) {
       )}
       <form onSubmit={odeslat} className="karta">
         <Pole popisek="Co se dnes dělo?" rows={4} required maxLength={4000} value={text} onChange={(e) => setText(e.target.value)} />
+        <div className="rychle" aria-label="Rychlé věty">
+          <span className="jemne">Klepni a věta se vloží:</span>
+          {RYCHLE_VETY.map((v) => (
+            <button type="button" key={v} className="cip-tlacitko" onClick={() => setText((t) => (t.trim() ? `${t.trim()} ${v}` : v))}>{v}</button>
+          ))}
+        </div>
         <Chyba chyba={chyba} />
         <button className="tlacitko" disabled={bezi}>{bezi ? 'Ukládám…' : 'Zapsat do deníku'}</button>
       </form>

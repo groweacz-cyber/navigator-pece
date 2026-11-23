@@ -267,3 +267,7 @@ details.rada li { margin-bottom: 8px; }
 .tyden-nav { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; margin: 14px 0; }
 details.dnesni { border-left: 6px solid var(--zlata); }
 .den-formular { padding: 0 20px 16px; }
+
+.rychle { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 4px 0 14px; }
+.cip-tlacitko { min-height: 44px; padding: 8px 14px; font: inherit; font-size: 0.95rem; color: var(--petrol); background: var(--pisek); border: 2px solid #8da0a2; border-radius: 999px; cursor: pointer; }
+.cip-tlacitko:hover { background: #fbf1d9; border-color: var(--zlata); }

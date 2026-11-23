@@ -64,3 +64,7 @@ Aktualizováno 2026-10-25 (větev `stabilizace`, nezmergováno do `main`).
 - **Nouzová karta** (jen plný přístup): datum narození, alergie, diagnózy, pojišťovna, praktik, 2 kontakty na rodinu, co říct záchranářům. Léky (aktivní) a kontakty na lékaře se berou z appky. Tlačítko pro tisk nebo uložení jako PDF (tisková šablona). Data v `carePersons/{id}/nouzova/karta`, host je nevidí.
 - **Jídelníček** (jen plný přístup): týdenní plán (snídaně, svačina, oběd, večeře, poznámka), listování týdny, nahoře upozornění na alergie z nouzové karty. Data v `carePersons/{id}/jidelnicek/{YYYY-MM-DD}`.
 - 4 nové testy pravidel (celkem 36). K nasazení: Firestore pravidla + klient.
+
+## Rychlý zápis (větev `rychly-zapis`, nenasazeno)
+- V Deníku je 10 tlačítek s hotovými větami (snědl/a dobře, špatně spal/a, odmítl/a léky, upadl/a, bolest…). Klepnutí větu vloží do textu, jde je skládat a upravit. Jen klient, bez nových pravidel.
+- **Diktování hlasem** zatím není: prohlížeč by posílal zvuk třetí straně (Google), takže jde o rozhodnutí o předávání dat mimo Firebase a Anthropic (Issue).
