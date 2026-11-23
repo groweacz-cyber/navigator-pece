@@ -14,6 +14,7 @@ import Leky from './Leky.jsx'
 import NouzovaKarta from './NouzovaKarta.jsx'
 import Osoby from './Osoby.jsx'
 import Podklady from './Podklady.jsx'
+import Souhrn from './Souhrn.jsx'
 import Prehled from './Prehled.jsx'
 import Rady from './Rady.jsx'
 import RychlaKarta from './RychlaKarta.jsx'
@@ -24,6 +25,7 @@ import { Chyba, Nacitani, useSeznam } from './komponenty.jsx'
 
 const ZALOZKY = [
   { id: 'prehled', nazev: 'Přehled' },
+  { id: 'souhrn', nazev: 'Souhrn týdne', jenPlny: true },
   { id: 'denik', nazev: 'Deník', jenPlny: true },
   { id: 'ukoly', nazev: 'Úkoly' },
   { id: 'karta', nazev: 'Rychlá karta' },
@@ -51,6 +53,7 @@ export default function Dashboard({ rodina, uid, pocetRodin, onZmenitRodinu, onO
     if (!osoby.data) return <Nacitani />
     switch (aktivni) {
       case 'prehled': return <Prehled rodina={rodina} osoby={osoby.data} plnyPristup={plnyPristup} onPrejit={setAktivni} />
+      case 'souhrn': return <Souhrn rodina={rodina} osoby={osoby.data} />
       case 'denik': return <Denik rodina={rodina} uid={uid} osoby={osoby.data} />
       case 'ukoly': return <Ukoly rodina={rodina} uid={uid} />
       case 'karta': return <RychlaKarta rodina={rodina} osoby={osoby.data} />

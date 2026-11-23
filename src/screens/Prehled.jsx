@@ -89,6 +89,7 @@ export default function Prehled({ rodina, osoby, plnyPristup, onPrejit }) {
         {plnyPristup && osoba && <Denik rodina={rodina} osoba={osoba} onPrejit={onPrejit} />}
         <Dlazdice nadpis="Úkoly" ikona="✅" velke={ukoly.data ? String(otevrene.length) : '…'} popis={otevrene.length ? otevrene.slice(0, 3).map((u) => u.nazev).join(' · ') : 'Nic nečeká.'} akce="Otevřít úkoly" onAkce={() => onPrejit('ukoly')} />
         {osoba && <Dlazdice nadpis="Rychlá karta" ikona="🪪" popis="Co uklidní, čeho se vyvarovat a co dělat, když se něco stane." akce="Otevřít kartu" onAkce={() => onPrejit('karta')} />}
+        {plnyPristup && osoba && <Dlazdice nadpis="Souhrn týdne" ikona="🗓️" popis="Co se za 7 dní dělo, k zaslání rodině." akce="Otevřít souhrn" onAkce={() => onPrejit('souhrn')} />}
         {plnyPristup && osoba && <Dlazdice nadpis="Nouzová karta" ikona="🆘" popis="Alergie, léky a kontakty na jedné stránce k vytištění." akce="Otevřít a vytisknout" onAkce={() => onPrejit('nouzova')} />}
         {plnyPristup && osoba && <Dlazdice nadpis="Vývoj stavu" ikona="📈" popis="Srovnání posledního měsíce s předchozím." akce="Zobrazit vývoj" onAkce={() => onPrejit('vyvoj')} />}
         <Dlazdice nadpis="Rodina" ikona="👨‍👩‍👧" velke={clenove.data ? String(clenove.data.length) : '…'} popis={clenove.data ? clenove.data.map((c) => c.jmeno || 'člen').join(', ') : ''} akce="Členové a pozvánky" onAkce={() => onPrejit('rodina')} />
