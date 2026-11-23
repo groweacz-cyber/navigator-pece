@@ -1,4 +1,4 @@
-/* V klidu: klidný, kontrastní vzhled pro unavené oči.
+/* Opatruj: klidný, kontrastní vzhled pro unavené oči.
    Barvy podle brandu: petrolejová, písková, zlatá (střídmě), terakota. */
 
 :root {
@@ -230,3 +230,44 @@ input[type='checkbox'] { width: 28px; height: 28px; min-height: 0; accent-color:
 
 .hlaska.varovani { background: #fbf1d9; color: #4a3608; border: 2px solid var(--zlata); }
 .hlaska p { margin: 6px 0; }
+
+/* Rady */
+details.rada { background: var(--bila); border-radius: 14px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(44, 74, 78, 0.15); }
+details.rada summary { cursor: pointer; padding: 16px 20px; font-weight: 600; font-size: 1.1rem; min-height: 56px; }
+details.rada[open] summary { color: var(--terakota); }
+details.rada p, details.rada ul { padding-left: 20px; padding-right: 20px; }
+details.rada ul { padding-left: 40px; margin-bottom: 16px; }
+details.rada li { margin-bottom: 8px; }
+
+/* Přehled */
+.dlazdice-mrizka { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 12px; }
+.dlazdice { background: var(--bila); border-radius: 18px; padding: 18px 20px; box-shadow: 0 1px 4px rgba(44, 74, 78, 0.18); border-left: 6px solid var(--petrol); }
+.dlazdice.ok { border-left-color: #6b8f5e; }
+.dlazdice.pozor { border-left-color: var(--terakota); background: #fdf1ec; }
+.dlazdice-hlava { font-weight: 600; color: var(--petrol); }
+.dlazdice-cislo { font-family: Georgia, serif; font-size: 2.6rem; line-height: 1.1; color: var(--petrol); margin: 6px 0; }
+.dlazdice.pozor .dlazdice-cislo { color: var(--terakota); }
+.dlazdice-popis { color: var(--text-jemny); margin: 0 0 8px; font-size: 0.95rem; }
+
+/* Nouzová karta */
+.tisk-karta { background: #fff; border: 3px solid var(--terakota); border-radius: 16px; padding: 22px 26px; margin-top: 24px; max-width: 720px; }
+.tisk-karta header { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px; background: var(--terakota); color: #fff; margin: -22px -26px 16px; padding: 12px 26px; border-radius: 12px 12px 0 0; }
+.tisk-karta h3 { margin-top: 0; font-size: 1.6rem; }
+.tisk-karta dt { font-weight: 700; color: var(--petrol); margin-top: 12px; }
+.tisk-karta dd { margin: 2px 0 0; white-space: pre-wrap; }
+.tisk-karta dd.vyrazne { color: var(--terakota); font-weight: 700; font-size: 1.15rem; }
+.tisk-karta footer { margin-top: 18px; font-size: 0.8rem; color: var(--text-jemny); }
+@media print {
+  body { background: #fff; font-size: 14pt; }
+  .zahlavi, .zalozky, .bez-tisku { display: none !important; }
+  .obsah { padding: 0; max-width: none; }
+  .tisk-karta { margin: 0; border-width: 4px; max-width: none; break-inside: avoid; }
+}
+
+.tyden-nav { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; margin: 14px 0; }
+details.dnesni { border-left: 6px solid var(--zlata); }
+.den-formular { padding: 0 20px 16px; }
+
+.rychle { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 4px 0 14px; }
+.cip-tlacitko { min-height: 44px; padding: 8px 14px; font: inherit; font-size: 0.95rem; color: var(--petrol); background: var(--pisek); border: 2px solid #8da0a2; border-radius: 999px; cursor: pointer; }
+.cip-tlacitko:hover { background: #fbf1d9; border-color: var(--zlata); }

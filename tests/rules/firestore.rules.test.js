@@ -220,6 +220,83 @@ describe('tasks a contacts', () => {
   })
 })
 
+describe('léky a podání', () => {
+  const lek = (extra = {}) => ({ nazev: 'Donepezil', davka: '5 mg', casy: ['08:00', '20:00'], aktivni: true, vytvoreno: serverTimestamp(), ...extra })
+  const podani = (uid, extra = {}) => ({ lekId: 'l1', datum: '2026-11-17', cas: '08:00', podalUid: uid, vytvoreno: serverTimestamp(), ...extra })
+  const cesta = (c) => p(`carePersons/${OSOBA}/${c}`)
+
+  test('host léky ani podání nevidí a nezapíše', async () => {
+    await assertFails(setDoc(doc(jako('host1'), cesta('leky/l1')), lek()))
+    await assertFails(setDoc(doc(jako('host1'), cesta('podani/p1')), podani('host1')))
+    await assertFails(getDocs(collection(jako('host1'), cesta('leky'))))
+  })
+
+  test('člen a pečovatel léky založí, čtou a deaktivují, ale nesmažou', async () => {
+    const db = jako('clen1')
+    await assertSucceeds(setDoc(doc(db, cesta('leky/l1')), lek()))
+    await assertSucceeds(getDocs(collection(jako('pecovatel1'), cesta('leky'))))
+    await assertSucceeds(updateDoc(doc(db, cesta('leky/l1')), { aktivni: false }))
+    await assertFails(updateDoc(doc(db, cesta('leky/l1')), { nazev: 'Jiný' }))
+    await assertFails(deleteDoc(doc(db, cesta('leky/l1'))))
+  })
+
+  test('lék s cizím polem nebo bez názvu neprojde', async () => {
+    const db = jako('clen1')
+    await assertFails(setDoc(doc(db, cesta('leky/l2')), lek({ cokoli: 1 })))
+    await assertFails(setDoc(doc(db, cesta('leky/l2')), lek({ nazev: '' })))
+    await assertFails(setDoc(doc(db, cesta('leky/l2')), lek({ vytvoreno: new Date('2020-01-01') })))
+  })
+
+  test('podání: jen jako sám sebe, jde vzít zpět', async () => {
+    const db = jako('clen1')
+    await assertSucceeds(setDoc(doc(db, cesta('podani/p1')), podani('clen1')))
+    await assertFails(setDoc(doc(db, cesta('podani/p2')), podani('pecovatel1')))
+    await assertFails(updateDoc(doc(db, cesta('podani/p1')), { cas: '09:00' }))
+    await assertSucceeds(deleteDoc(doc(db, cesta('podani/p1'))))
+  })
+})
+
+describe('nouzová karta', () => {
+  const karta = (extra = {}) => ({ alergie: 'penicilin', diagnozy: 'demence', upraveno: serverTimestamp(), ...extra })
+  const cesta = p(`carePersons/${OSOBA}/nouzova/karta`)
+
+  test('host kartu nečte ani nepíše, člen ano', async () => {
+    await assertFails(setDoc(doc(jako('host1'), cesta), karta()))
+    await assertSucceeds(setDoc(doc(jako('clen1'), cesta), karta()))
+    await assertSucceeds(getDoc(doc(jako('pecovatel1'), cesta)))
+    await assertFails(getDoc(doc(jako('host1'), cesta)))
+  })
+
+  test('jen dokument "karta", jen známá pole, čas určuje server, nelze smazat', async () => {
+    const db = jako('clen1')
+    await assertFails(setDoc(doc(db, p(`carePersons/${OSOBA}/nouzova/jina`)), karta()))
+    await assertFails(setDoc(doc(db, cesta), karta({ cokoli: 1 })))
+    await assertFails(setDoc(doc(db, cesta), karta({ upraveno: new Date('2020-01-01') })))
+    await assertSucceeds(setDoc(doc(db, cesta), karta()))
+    await assertFails(deleteDoc(doc(db, cesta)))
+  })
+})
+
+describe('jídelníček', () => {
+  const den = (extra = {}) => ({ obed: 'Kuřecí vývar', upraveno: serverTimestamp(), ...extra })
+  const cesta = (id) => p(`carePersons/${OSOBA}/jidelnicek/${id}`)
+
+  test('host jídelníček nevidí ani nepíše, člen ano', async () => {
+    await assertFails(setDoc(doc(jako('host1'), cesta('2026-11-19')), den()))
+    await assertSucceeds(setDoc(doc(jako('clen1'), cesta('2026-11-19')), den()))
+    await assertSucceeds(getDoc(doc(jako('pecovatel1'), cesta('2026-11-19'))))
+    await assertFails(getDoc(doc(jako('host1'), cesta('2026-11-19'))))
+  })
+
+  test('ID musí být datum, jen známá pole, čas určuje server', async () => {
+    const db = jako('clen1')
+    await assertFails(setDoc(doc(db, cesta('zitra')), den()))
+    await assertFails(setDoc(doc(db, cesta('2026-11-20')), den({ cokoli: 1 })))
+    await assertFails(setDoc(doc(db, cesta('2026-11-20')), den({ upraveno: new Date('2020-01-01') })))
+    await assertSucceeds(deleteDoc(doc(db, cesta('2026-11-19'))))
+  })
+})
+
 describe('documents', () => {
   test('host nesmí, člen smí', async () => {
     await assertFails(getDoc(doc(jako('host1'), p('documents/d1'))))
