@@ -68,3 +68,8 @@ Formát: datum, rozhodnutí, důvod. Otevřené body jsou označené `OTEVŘENO`
 - Záložka **Rady** v appce (všechny role) a stránka **opatruj.cz/rady** (SEO: „rady pro seniory, vaření, úklid, mobilita“). Jeden zdroj textu `src/data/rady.js`, web se generuje `npm run web:rady`.
 - Jen **obecné zásady** bez diagnóz a individuálních rad, vždy s upozorněním a rámečkem „Kdy přestat a zavolat pomoc“ (155/112). Součástí je kapitola pro pečující (zvedání a přesuny).
 - **TEXTY ke kontrole odborníkem:** obsah napsal Claude z běžně uznávaných ergonomických zásad. Před aktivním propagováním ho nechat zkontrolovat fyzioterapeutem nebo ergoterapeutem a doplnit.
+
+## Obchodní model (2026-11-23, schválil Radek)
+- Model jako Střídavě.cz: **jeden člověk platí za celou rodinu, ostatní členové zdarma**. **149 Kč měsíčně, 1 490 Kč ročně** (úspora 298 Kč, dva měsíce). Ceny včetně DPH.
+- **Platby zatím nejsou postavené.** Web to říká otevřeně: do spuštění plateb je Opatruj zdarma k vyzkoušení. Implementace předplatného (Stripe Checkout, webhook, stav předplatného u rodiny, omezení funkcí) je Issue; musí být hotová před veřejným spuštěním.
+- Co je zdarma a co za peníze po spuštění plateb (návrh): rodina vždy zdarma ke čtení vlastních dat; za předplatné podklady PDF, vývoj stavu, léky a připomínky, souhrny, nouzová karta, jídelníček. Přesné rozdělení doladit s Radkem.

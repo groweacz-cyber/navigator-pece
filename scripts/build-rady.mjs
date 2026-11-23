@@ -24,7 +24,7 @@ const html = `<!doctype html>
     <meta name="robots" content="noindex" />
     <link rel="canonical" href="https://opatruj.cz/rady" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="/styles.css?v=20261117b" />
+    <link rel="stylesheet" href="/styles.css?v=20261123a" />
   </head>
   <body>
     <a class="preskocit" href="#obsah">Přeskočit na obsah</a>

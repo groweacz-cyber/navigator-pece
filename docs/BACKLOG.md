@@ -60,3 +60,15 @@ D1 Capacitor/Android · D2 zásady, Data safety, Google Play · D3 web · D4 cen
 - Dietní omezení jako strukturovaná pole (bez lepku, diabetická, kašovitá strava) a kontrola jídel proti alergiím.
 - Šablony oblíbených jídel a kopírování minulého týdne.
 - Hlídání pitného režimu a váhy s jednoduchým grafem.
+
+## Funkce, které drží předplatitele (měsíční hodnota, 2026-11-23)
+Princip: lidé platí měsíčně za to, co jim **každý den šetří starost** a co **roste s časem**.
+1. **Připomínky léků a termínů** (push notifikace přes PWA/Android): denní užitek, bez nich lidé odejdou.
+2. **Týdenní souhrn pro rodinu** (e-mail nebo v appce): co se dělo, dodržení léků, události, změny stavu. Rodina mimo místo je v obraze, platící vidí hodnotu každý týden.
+3. **Upozornění na zhoršení** push/e-mailem (už máme výpočet Vývoje, chybí doručení).
+4. **Termíny a návštěvy lékaře** se sdíleným kalendářem a „co vzít s sebou“.
+5. **Pády a události** se vzorci a časovou osou pro lékaře (PDF).
+6. **Archiv dokumentů** (zprávy, posudky) s nahráváním, roste s časem a drží data v appce.
+7. **Právní navigátor s lhůtami** (žádost, šetření, odvolání) s hlídáním termínů, přímá hodnota v penězích (příspěvek).
+8. **Rozvrh hlídání a respit**: kdo kdy hlídá, upozornění na přetížení.
+9. **Ceník, předplatné a správa platby** (Stripe), bez toho se nic neprodá.
